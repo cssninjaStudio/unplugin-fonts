@@ -6,7 +6,7 @@
     "build": "vite build"
   },
   "dependencies": {
-    "vite-fonts": "workspace: *"
+    "vite-plugin-fonts": "workspace: *"
   },
   "devDependencies": {
     "vite": "^2.0.0-beta.5"
