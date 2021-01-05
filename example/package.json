@@ -1,0 +1,14 @@
+{
+  "name": "vite-test",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "vite-fonts": "workspace: *"
+  },
+  "devDependencies": {
+    "vite": "^2.0.0-beta.5"
+  }
+}

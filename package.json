@@ -1,0 +1,32 @@
+{
+  "name": "vite-plugin-fonts",
+  "version": "0.0.1",
+  "description": "Webfont loader for vite",
+  "author": "stafyniaksacha",
+  "repository": "stafyniaksacha/vite-plugin-fonts",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "npm run build -- --watch",
+    "example:dev": "npm -C example run dev",
+    "example:build": "npm -C example run build",
+    "build": "tsup src/index.ts --dts --format cjs,esm",
+    "lint": "eslint --ext .ts ./src",
+    "lint:fix": "eslint --fix --ext .ts ./src"
+  },
+  "dependencies": {
+    "vite": "^2.0.0-beta.5"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^0.4.3",
+    "@typescript-eslint/eslint-plugin": "^4.12.0",
+    "eslint": "^7.17.0",
+    "tsup": "^3.11.0",
+    "typescript": "^4.1.3"
+  }
+}
