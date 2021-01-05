@@ -22,6 +22,12 @@ function injectFonts({
   const deferedSpecs: string[] = []
   let links = ''
 
+  if (!Array.isArray(families)) {
+    console.warn('Google font families is required')
+    
+    return html
+  }
+
   if (families.length >= 0) {
     for (const family of families) {
       if (typeof family === 'string') {

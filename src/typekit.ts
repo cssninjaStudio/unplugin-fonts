@@ -11,6 +11,12 @@ function injectFonts({
 }: TypeKitFonts, html: string): string {
   let links = ''
 
+  if (typeof id !== 'string') {
+    console.warn('A Typekit id is required')
+    
+    return html
+  }
+
   if (defer)
     links += `<link rel="preload" href="${TypekitFontBase}${id}.css" as="style" onload="this.rel='stylesheet'">`
   else
