@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-fonts",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Webfont loader for vite",
   "author": "stafyniaksacha",
   "repository": "stafyniaksacha/vite-plugin-fonts",
