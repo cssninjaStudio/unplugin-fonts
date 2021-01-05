@@ -1,3 +1,5 @@
+import type { HtmlTagDescriptor } from 'vite'
+
 export type GoogleFontFamily = {
   name: string
   styles?: string
@@ -17,15 +19,15 @@ function injectFonts({
   text,
   preconnect = true,
   display = 'swap',
-}: GoogleFonts, html: string): string {
+}: GoogleFonts): HtmlTagDescriptor[] {
   const specs: string[] = []
   const deferedSpecs: string[] = []
-  let links = ''
+  const tags: HtmlTagDescriptor[] = []
 
   if (!Array.isArray(families)) {
     console.warn('Google font families is required')
-    
-    return html
+
+    return tags
   }
 
   if (families.length >= 0) {
@@ -63,38 +65,56 @@ function injectFonts({
 
   // warm up the fonts’ origin
   if (preconnect && specs.length + deferedSpecs.length > 0)
-    links += '<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />'
+    tags.push({
+      tag: 'link',
+      attrs: {
+        rel: 'preconnect',
+        href: 'https://fonts.gstatic.com/',
+        crossorigin: '',
+      }
+    })
 
-  // defer loading font-faces definitions 
+  // defer loading font-faces definitions
   // @see https://web.dev/optimize-lcp/#defer-non-critical-css
   if (deferedSpecs.length > 0) {
-    let deferedFonts = `${GoogleFontsBase}?family=${deferedSpecs.join('&family=')}`
+    let href = `${GoogleFontsBase}?family=${deferedSpecs.join('&family=')}`
 
     if (typeof display === 'string' && display !== 'auto')
-      deferedFonts += `&display=${display}`
-    
-    if (typeof text === 'string' && text.length > 0)
-      deferedFonts += `&text=${text}`
+      href += `&display=${display}`
 
-    links += `<link rel="preload" href="${deferedFonts}" as="style" onload="this.rel='stylesheet'">`
+    if (typeof text === 'string' && text.length > 0)
+      href += `&text=${text}`
+
+    tags.push({
+      tag: 'link',
+      attrs: {
+        rel: 'preload',
+        as: 'style',
+        onload: "this.rel='stylesheet'",
+        href,
+      }
+    })
   }
 
   // load critical fonts
   if (specs.length > 0) {
-    let criticalFonts = `${GoogleFontsBase}?family=${specs.join('&family=')}`
+    let href = `${GoogleFontsBase}?family=${specs.join('&family=')}`
 
     if (typeof display === 'string' && display !== 'auto')
-      criticalFonts += `&display=${display}`
-    
-    if (typeof text === 'string' && text.length > 0)
-      criticalFonts += `&text=${text}`
+      href += `&display=${display}`
 
-    links += `<link rel="stylesheet" href="${criticalFonts}" />`
+    if (typeof text === 'string' && text.length > 0)
+      href += `&text=${text}`
+
+    tags.push({
+      tag: 'link',
+      attrs: {
+        rel: 'stylesheet',
+        href,
+      }
+    })
   }
 
-  return html.replace(
-    /<head>/,
-    `<head>${links}`,
-  )
+  return tags
 }
 export default injectFonts

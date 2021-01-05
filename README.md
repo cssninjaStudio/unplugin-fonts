@@ -54,6 +54,7 @@ export default {
       google: {
         /**
          * enable preconnect link injection 
+         *   <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
          * default: true
          */
         preconnect: false,

@@ -1,3 +1,5 @@
+import type { HtmlTagDescriptor } from 'vite'
+
 export type TypeKitFonts = {
   id: string
   defer?: boolean
@@ -8,24 +10,35 @@ const TypekitFontBase = 'https://use.typekit.net/'
 function injectFonts({
   id,
   defer = true,
-}: TypeKitFonts, html: string): string {
-  let links = ''
+}: TypeKitFonts): HtmlTagDescriptor[] {
+  const tags: HtmlTagDescriptor[] = []
 
   if (typeof id !== 'string') {
     console.warn('A Typekit id is required')
-    
-    return html
+
+    return tags
   }
 
   if (defer)
-    links += `<link rel="preload" href="${TypekitFontBase}${id}.css" as="style" onload="this.rel='stylesheet'">`
+    tags.push({
+      tag: 'link',
+      attrs: {
+        rel: 'preload',
+        as: 'style',
+        onload: "this.rel='stylesheet'",
+        href: `${TypekitFontBase}${id}.css`,
+      }
+    })
   else
-    links += `<link rel="stylesheet" href="${TypekitFontBase}${id}.css" />`
+    tags.push({
+      tag: 'link',
+      attrs: {
+        rel: 'stylesheet',
+        href: `${TypekitFontBase}${id}.css`,
+      }
+    })
 
-  return html.replace(
-    /<head>/,
-    `<head>${links}`,
-  )
+  return tags
 }
 
 export default injectFonts

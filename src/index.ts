@@ -1,5 +1,5 @@
 
-import type { Plugin } from 'vite'
+import type { Plugin, HtmlTagDescriptor } from 'vite'
 import injectGoogleFonts, { GoogleFonts } from './google-fonts'
 import injectTypekitFonts, { TypeKitFonts } from './typekit'
 
@@ -12,16 +12,16 @@ function VitePluginFonts(options: VitePluginFontsOptions = {}) {
   return {
     name: 'vite-plugin-fonts',
 
-    transformIndexHtml(html: string) {
-      let transformedHtml = html
-
+    transformIndexHtml(): HtmlTagDescriptor[] {
+      const tags: HtmlTagDescriptor[] = []
+        
       if (options.typekit)
-        transformedHtml = injectTypekitFonts(options.typekit, transformedHtml)
+        tags.push(...injectTypekitFonts(options.typekit))
 
       if (options.google)
-        transformedHtml = injectGoogleFonts(options.google, transformedHtml)
+        tags.push(...injectGoogleFonts(options.google))
 
-      return transformedHtml
+      return tags;
     },
   }
 }
