@@ -8,7 +8,7 @@ type VitePluginFontsOptions = {
   typekit?: TypeKitFonts
 }
 
-function VitePluginFonts(options: VitePluginFontsOptions = {}): Plugin {
+function VitePluginFonts(options: VitePluginFontsOptions = {}) {
   return {
     name: 'vite-plugin-fonts',
 
