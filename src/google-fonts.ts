@@ -54,7 +54,7 @@ function injectFonts({
       let spec = encodeURIComponent(name)
 
       if (typeof styles === 'string')
-        spec += `:${encodeURIComponent(styles)}`
+        spec += `:${styles}`
 
       if (defer)
         deferedSpecs.push(spec)
@@ -64,15 +64,16 @@ function injectFonts({
   }
 
   // warm up the fonts’ origin
-  if (preconnect && specs.length + deferedSpecs.length > 0)
+  if (preconnect && specs.length + deferedSpecs.length > 0) {
     tags.push({
       tag: 'link',
       attrs: {
         rel: 'preconnect',
         href: 'https://fonts.gstatic.com/',
-        crossorigin: '',
-      }
+        crossorigin: true,
+      },
     })
+  }
 
   // defer loading font-faces definitions
   // @see https://web.dev/optimize-lcp/#defer-non-critical-css
@@ -90,9 +91,9 @@ function injectFonts({
       attrs: {
         rel: 'preload',
         as: 'style',
-        onload: "this.rel='stylesheet'",
+        onload: 'this.rel=\'stylesheet\'',
         href,
-      }
+      },
     })
   }
 
@@ -111,7 +112,7 @@ function injectFonts({
       attrs: {
         rel: 'stylesheet',
         href,
-      }
+      },
     })
   }
 

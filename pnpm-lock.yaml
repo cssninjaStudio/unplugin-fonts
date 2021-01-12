@@ -1,45 +1,25 @@
 importers:
   .:
-    dependencies:
-      vite: 2.0.0-beta.5
     devDependencies:
       '@antfu/eslint-config': 0.4.3_eslint@7.17.0+typescript@4.1.3
       '@typescript-eslint/eslint-plugin': 4.12.0_eslint@7.17.0+typescript@4.1.3
       eslint: 7.17.0
       tsup: 3.11.0_typescript@4.1.3
       typescript: 4.1.3
+      vite: 2.0.0-beta.22
     specifiers:
       '@antfu/eslint-config': ^0.4.3
       '@typescript-eslint/eslint-plugin': ^4.12.0
       eslint: ^7.17.0
       tsup: ^3.11.0
       typescript: ^4.1.3
-      vite: ^2.0.0-beta.5
-  ../../../../../../../projects/github/vite-test:
-    dependencies:
-      vite: 2.0.0-beta.5
-    devDependencies:
-      '@antfu/eslint-config': 0.4.3_eslint@7.17.0+typescript@4.1.3
-      '@typescript-eslint/eslint-plugin': 4.12.0_eslint@7.17.0+typescript@4.1.3
-      eslint: 7.17.0
-      tsup: 3.11.0_typescript@4.1.3
-      typescript: 4.1.3
-    specifiers:
-      '@antfu/eslint-config': ^0.4.3
-      '@typescript-eslint/eslint-plugin': ^4.12.0
-      eslint: ^7.17.0
-      tsup: ^3.11.0
-      typescript: ^4.1.3
-      vite: ^2.0.0-beta.5
-  ../../../.nvm/versions/node/v14.15.0/pnpm-global:
-    specifiers: {}
+      vite: ^2.0.0-beta.22
   example:
-    dependencies:
-      vite-plugin-fonts: 'link:..'
     devDependencies:
-      vite: 2.0.0-beta.5
+      vite: 2.0.0-beta.22
+      vite-plugin-fonts: link:..
     specifiers:
-      vite: ^2.0.0-beta.5
+      vite: ^2.0.0-beta.22
       vite-plugin-fonts: 'workspace: *'
 lockfileVersion: 5.2
 packages:
@@ -627,6 +607,7 @@ packages:
     resolution:
       integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==
   /colorette/1.2.1:
+    dev: true
     resolution:
       integrity: sha512-puCDz0CzydiSYOrnXpz/PKd69zRrribezjtE9yd4zvytoRc8+RY/KJPvtPFKZS3E3wP6neGyMe0vOTlHO5L3Pw==
   /commander/4.1.1:
@@ -837,6 +818,7 @@ packages:
     resolution:
       integrity: sha512-QCOllgZJtaUo9miYBcLChTUaHNjJF3PYs1VidD7AwiEj1kYxKeQTctLAezAOH5ZKRH0g2IgPn6KwB4IT8iRpvA==
   /esbuild/0.8.29:
+    dev: true
     hasBin: true
     requiresBuild: true
     resolution:
@@ -1247,6 +1229,7 @@ packages:
       integrity: sha1-FQStJSMVjKpA20onh8sBQRmU6k8=
   /fsevents/2.1.3:
     deprecated: '"Please update to latest v2.3 or v2.2"'
+    dev: true
     engines:
       node: ^8.16.0 || ^10.6.0 || >=11.0.0
     optional: true
@@ -1255,6 +1238,7 @@ packages:
     resolution:
       integrity: sha512-Auw9a4AxqWpa9GUfj370BMPzzyncfBABW8Mab7BGWBYDj4Isgq+cDKtx0i6u9jcX9pQDnswsaaOTgTmA5pEjuQ==
   /function-bind/1.1.1:
+    dev: true
     resolution:
       integrity: sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==
   /functional-red-black-tree/1.0.1:
@@ -1340,6 +1324,7 @@ packages:
   /has/1.0.3:
     dependencies:
       function-bind: 1.1.1
+    dev: true
     engines:
       node: '>= 0.4.0'
     resolution:
@@ -1448,6 +1433,7 @@ packages:
   /is-core-module/2.2.0:
     dependencies:
       has: 1.0.3
+    dev: true
     resolution:
       integrity: sha512-XRAfAdyyY5F5cOXn7hYQDqh2Xmii+DEfIcQGxK/uNwMHhIkPWO0g8msXcbzLe+MpGoR951MlqM/2iIlU4vKDdQ==
   /is-date-object/1.0.2:
@@ -1689,6 +1675,7 @@ packages:
     resolution:
       integrity: sha512-z81GNO7nnYMEhrGh9LeymoE4+Yr0Wn5McHIZMK5cfQCl+NDX08sCZgUc9/6MHni9IWuFLm1Z3HTCXu2z9fN62Q==
   /nanoid/3.1.20:
+    dev: true
     engines:
       node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1
     hasBin: true
@@ -1894,6 +1881,7 @@ packages:
     resolution:
       integrity: sha512-ojmeN0qd+y0jszEtoY48r0Peq5dwMEkIlCOu6Q5f41lfkswXuKtYrhgoTpLnyIcHm24Uhqx+5Tqm2InSwLhE6Q==
   /path-parse/1.0.6:
+    dev: true
     resolution:
       integrity: sha512-GSmOT2EbHrINBf9SR7CDELwlJ8AENk3Qn7OikK4nFYAu3Ote2+JYNVvkpAEQm3/TLNEJFD/xZJjzyxg3KBWOzw==
   /path-type/2.0.0:
@@ -1958,6 +1946,7 @@ packages:
       colorette: 1.2.1
       nanoid: 3.1.20
       source-map: 0.6.1
+    dev: true
     engines:
       node: ^10 || ^12 || >=14
     resolution:
@@ -2086,6 +2075,7 @@ packages:
     dependencies:
       is-core-module: 2.2.0
       path-parse: 1.0.6
+    dev: true
     resolution:
       integrity: sha512-rArEXAgsBG4UgRGcynxWIWKFvh/XZCcS8UJdHhwy91zwAvCZIbcs+vAbflgBnNjYMs/i/i+/Ux6IZhML1yPvxg==
   /reusify/1.0.4:
@@ -2115,6 +2105,7 @@ packages:
     resolution:
       integrity: sha512-H33aGCUbp/Lm+tbkG5gZePnuWvvaafkwh7Uh4RYJs0/ChOfWlENCby1wOn+xBVsCzpV/g/+OVYqgzVjT80dNJg==
   /rollup/2.36.0:
+    dev: true
     engines:
       node: '>=10.0.0'
     hasBin: true
@@ -2196,6 +2187,7 @@ packages:
     resolution:
       integrity: sha1-igOdLRAh0i0eoUyA2OpGi6LvP8w=
   /source-map/0.6.1:
+    dev: true
     engines:
       node: '>=0.10.0'
     resolution:
@@ -2446,19 +2438,20 @@ packages:
     dev: true
     resolution:
       integrity: sha512-DpKm2Ui/xN7/HQKCtpZxoRWBhZ9Z0kqtygG8XCgNQ8ZlDnxuQmWhj566j8fN4Cu3/JmbhsDo7fcAJq4s9h27Ew==
-  /vite/2.0.0-beta.5:
+  /vite/2.0.0-beta.22:
     dependencies:
       esbuild: 0.8.29
       postcss: 8.2.2
       resolve: 1.19.0
       rollup: 2.36.0
+    dev: true
     engines:
       node: '>=12.0.0'
     hasBin: true
     optionalDependencies:
       fsevents: 2.1.3
     resolution:
-      integrity: sha512-pKl1GPmHP+Sjp5tAahhZFwS92aIXhMBAvsPCtFqqlSVhldgKLGF13u2gWuJZbdiSh/sjY3c9RJg4RFyXoFw+0w==
+      integrity: sha512-Mj9qTSYx0625htRTClQV4OLQhjhujgHCV/FStGNu8G9NcHp3MP56gc6+UoRgQzrAsK8HI9MKfcW+NFgljoJKyA==
   /vue-eslint-parser/7.3.0_eslint@7.17.0:
     dependencies:
       debug: 4.3.1

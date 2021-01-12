@@ -14,14 +14,14 @@ function VitePluginFonts(options: VitePluginFontsOptions = {}) {
 
     transformIndexHtml(): HtmlTagDescriptor[] {
       const tags: HtmlTagDescriptor[] = []
-        
+
       if (options.typekit)
         tags.push(...injectTypekitFonts(options.typekit))
 
       if (options.google)
         tags.push(...injectGoogleFonts(options.google))
 
-      return tags;
+      return tags
     },
   }
 }

@@ -19,24 +19,26 @@ function injectFonts({
     return tags
   }
 
-  if (defer)
+  if (defer) {
     tags.push({
       tag: 'link',
       attrs: {
         rel: 'preload',
         as: 'style',
-        onload: "this.rel='stylesheet'",
+        onload: 'this.rel=\'stylesheet\'',
         href: `${TypekitFontBase}${id}.css`,
-      }
+      },
     })
-  else
+  }
+  else {
     tags.push({
       tag: 'link',
       attrs: {
         rel: 'stylesheet',
         href: `${TypekitFontBase}${id}.css`,
-      }
+      },
     })
+  }
 
   return tags
 }

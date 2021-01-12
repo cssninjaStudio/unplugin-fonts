@@ -1,5 +1,5 @@
 body {
-  font-family: 'Crimson Pro', Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Crimson Pro", Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -8,5 +8,5 @@ body {
 }
 
 a {
-  font-family: 'Open Sans', Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", Avenir, Helvetica, Arial, sans-serif;
 }
