@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [
     ViteFonts({
       google: {
-        families: ['Crimson Pro', 'Open Sans'],
+        families: ['Crimson Pro', 'Open Sans', 'Material+Icons'],
       },
     }),
   ],

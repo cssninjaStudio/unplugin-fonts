@@ -33,7 +33,7 @@ function injectFonts({
   if (families.length >= 0) {
     for (const family of families) {
       if (typeof family === 'string') {
-        deferedSpecs.push(encodeURIComponent(family))
+        deferedSpecs.push(family)
         continue
       }
 
@@ -51,7 +51,7 @@ function injectFonts({
         continue
       }
 
-      let spec = encodeURIComponent(name)
+      let spec = name
 
       if (typeof styles === 'string')
         spec += `:${styles}`
