@@ -126,17 +126,16 @@ export default {
          * Defines the default `font-display` value used for the generated
          * `@font-rule` classes.
          */
-        display: 'auto'
+        display: 'auto',
 
         /**
          * Using `<link rel="preload">` will trigger a request for the WebFont
          * early in the critical rendering path, without having to wait for the
          * CSSOM to be created.
          */
-          preload: true
-        }
+        preload: true
       }
-    )
+    })
   ],
 }
 ```
