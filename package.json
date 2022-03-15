@@ -15,6 +15,7 @@
     "dev": "npm run build -- --watch",
     "example:dev": "npm -C example run dev",
     "example:build": "npm -C example run build",
+    "example:preview": "npm -C example run preview",
     "build": "tsup src/index.ts --dts --format cjs,esm",
     "lint": "eslint --ext .ts ./src",
     "lint:fix": "eslint --fix --ext .ts ./src"
