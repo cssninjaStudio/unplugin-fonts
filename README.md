@@ -100,6 +100,41 @@ export default {
           }
         ]
       },
+
+      // Custom fonts.
+      custom: {
+        /**
+         * Fonts families lists
+         */
+        families: [{
+          /**
+           * Name of the font family.
+           */
+          name: 'Roboto',
+          /**
+           * Local name of the font. Used to add `src: local()` to `@font-rule`.
+           */
+          local: 'Roboto',
+          /**
+           * Regex(es) of font files to import. The names of the files will
+           * predicate the `font-style` and `font-weight` values of the `@font-rule`'s.
+           */
+          src: './src/assets/fonts/*.ttf',
+        }],
+
+        /**
+         * Defines the default `font-display` value used for the generated
+         * `@font-rule` classes.
+         */
+        display: 'auto'
+
+      /**
+       * Using `<link rel="preload">` will trigger a request for the WebFont
+       * early in the critical rendering path, without having to wait for the
+       * CSSOM to be created.
+       */
+        preload: true
+      }
     })
   ],
 }
