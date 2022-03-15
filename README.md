@@ -128,14 +128,15 @@ export default {
          */
         display: 'auto'
 
-      /**
-       * Using `<link rel="preload">` will trigger a request for the WebFont
-       * early in the critical rendering path, without having to wait for the
-       * CSSOM to be created.
-       */
-        preload: true
+        /**
+         * Using `<link rel="preload">` will trigger a request for the WebFont
+         * early in the critical rendering path, without having to wait for the
+         * CSSOM to be created.
+         */
+          preload: true
+        }
       }
-    })
+    )
   ],
 }
 ```
