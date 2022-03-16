@@ -1,11 +1,11 @@
 import type { HtmlTagDescriptor } from 'vite'
 
-export type GoogleFontFamily = {
+export interface GoogleFontFamily {
   name: string
   styles?: string
   defer?: boolean
 }
-export type GoogleFonts = {
+export interface GoogleFonts {
   families: (string | GoogleFontFamily)[]
   text?: string
   display?: 'auto' | 'block' | 'swap' | 'fallback' | 'optional'

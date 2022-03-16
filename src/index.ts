@@ -1,10 +1,13 @@
 
-import type { Plugin, HtmlTagDescriptor, ResolvedConfig } from 'vite'
-import injectGoogleFonts, { GoogleFonts } from './google-fonts'
-import injectTypekitFonts, { TypeKitFonts } from './typekit'
-import injectCustomFonts, { CustomFonts } from './custom'
+import type { HtmlTagDescriptor, Plugin, ResolvedConfig } from 'vite'
+import type { GoogleFonts } from './google-fonts'
+import injectGoogleFonts from './google-fonts'
+import type { TypeKitFonts } from './typekit'
+import injectTypekitFonts from './typekit'
+import type { CustomFonts } from './custom'
+import injectCustomFonts from './custom'
 
-type VitePluginFontsOptions = {
+interface VitePluginFontsOptions {
   google?: GoogleFonts
   typekit?: TypeKitFonts
   custom?: CustomFonts
@@ -50,7 +53,7 @@ function VitePluginFonts(options: VitePluginFontsOptions = {}): Plugin {
 }
 
 export {
-  VitePluginFonts as Plugin,
+  VitePluginFonts,
   VitePluginFontsOptions,
 }
 export default VitePluginFonts

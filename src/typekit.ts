@@ -1,6 +1,6 @@
 import type { HtmlTagDescriptor } from 'vite'
 
-export type TypeKitFonts = {
+export interface TypeKitFonts {
   id: string
   defer?: boolean
 }

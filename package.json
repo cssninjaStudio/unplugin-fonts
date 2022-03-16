@@ -24,13 +24,13 @@
     "vite": "^2.0.0"
   },
   "devDependencies": {
-    "@antfu/eslint-config-ts": "^0.5.0",
-    "@typescript-eslint/eslint-plugin": "^4.17.0",
-    "eslint": "^7.22.0",
+    "@antfu/eslint-config-ts": "^0.18.8",
+    "@typescript-eslint/eslint-plugin": "^5.15.0",
+    "eslint": "^8.11.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
-    "tsup": "^4.6.1",
-    "typescript": "^4.2.3",
-    "vite": "^2.0.5"
+    "tsup": "^5.12.1",
+    "typescript": "^4.6.2",
+    "vite": "^2.8.6"
   },
   "dependencies": {
     "fast-glob": "^3.2.11"

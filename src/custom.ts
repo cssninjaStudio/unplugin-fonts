@@ -1,7 +1,7 @@
-import { HtmlTagDescriptor, ResolvedConfig } from 'vite'
+import type { HtmlTagDescriptor, ResolvedConfig } from 'vite'
 import { sync as glob } from 'fast-glob'
 
-type CustomFontFace = {
+interface CustomFontFace {
   src: string[]
   name: string
   weight: number | string
@@ -10,7 +10,7 @@ type CustomFontFace = {
   local?: string | string[]
 }
 
-export type CustomFontFamily = {
+export interface CustomFontFamily {
   /**
    * Name of the font family.
    * @example 'Comic Sans MS'
@@ -44,7 +44,7 @@ export type CustomFontFamily = {
   local?: string | string[]
 }
 
-export type CustomFonts = {
+export interface CustomFonts {
   /**
    * Font families.
    */
