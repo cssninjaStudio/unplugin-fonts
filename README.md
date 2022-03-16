@@ -25,7 +25,7 @@ export default {
 }
 ```
 
-### Import custom `@font-rules`
+### Import generated `@font-rules` CSS
 Only needed if using local/custom fonts
 ```ts
 // main.ts
