@@ -191,11 +191,6 @@ export default (options: CustomFonts, config: ResolvedConfig) => {
     for (const face of faces) css.push(createFontFaceCSS(face))
   }
 
-  console.log({
-    tags,
-    css: css.join('\n\n'),
-  })
-
   // --- Return tags and CSS.
   return {
     tags,
