@@ -10,7 +10,7 @@ export default defineConfig({
 
       custom: {
         families: {
-          'Dancing Script': './assets/fonts/DancingScript-*.ttf',
+          'Dancing Script': './assets/fonts/DancingScript*',
         },
       },
     }),
