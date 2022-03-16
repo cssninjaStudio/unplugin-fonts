@@ -25,6 +25,12 @@ export default {
 }
 ```
 
+### Import custom `@font-rules`
+Only needed if using local/custom fonts
+```ts
+// main.ts
+import 'virtual:fonts.css'
+```
 
 ## Options
 
