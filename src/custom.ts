@@ -1,13 +1,12 @@
 import { HtmlTagDescriptor, ResolvedConfig } from 'vite'
-import { sync as glob } from 'glob'
-import { chain as _ } from 'lodash'
+import { sync as glob } from 'fast-glob'
 
 type CustomFontFace = {
   src: string[]
-  name?: string
-  weight?: number | string
-  style?: string
-  display?: 'auto' | 'block' | 'swap' | 'fallback' | 'optional'
+  name: string
+  weight: number | string
+  style: string
+  display: 'auto' | 'block' | 'swap' | 'fallback' | 'optional'
   local?: string | string[]
 }
 
@@ -96,10 +95,9 @@ const resolveStyle = (styleOrSrc?: string) => {
   return 'normal'
 }
 
-const createFontFaceCSS = (options: CustomFontFace) => {
+const createFontFaceCSS = ({ name, src, local, weight, style, display }: CustomFontFace) => {
   // --- Format sources.
-  const srcs = _(options.src)
-    .castArray()
+  const srcs = (Array.isArray(src) ? src : [src])
     .filter(Boolean)
     .map((url) => {
       let format = url.split('.').pop()
@@ -107,26 +105,20 @@ const createFontFaceCSS = (options: CustomFontFace) => {
       return `url('${url}') format('${format}')`
     })
     .join(',\n\t\t')
-    .value()
 
   // --- Format local.
-  const local = _(options.local)
-    .castArray()
+  const locals = (Array.isArray(local) ? local : [local])
     .filter(Boolean)
     .map(x => `local('${x}')`)
     .join(', ')
-    .value()
-
-  // --- Merge local and sources.
-  const src = [srcs, local].filter(Boolean).join(', ')
 
   // --- Return CSS rule as string.
   return `@font-face {
-  font-family: '${options.name}';
-  src: ${src};
-  font-weight: ${resolveWeight(options.weight || srcs)};
-  font-style: ${resolveStyle(options.style ?? srcs)};
-  font-display: ${options.display ?? 'auto'};
+  font-family: '${name}';
+  src: ${[srcs, locals].filter(Boolean).join(',')};
+  font-weight: ${weight};
+  font-style: ${style};
+  font-display: ${display};
 }`
 }
 
@@ -158,37 +150,39 @@ export default (options: CustomFonts, config: ResolvedConfig) => {
 
   // --- Cast as array of `CustomFontFamily`.
   if (!Array.isArray(families)) {
-    families = _(families)
-      .map((family, name) => (Array.isArray(family) || typeof family === 'string')
+    families = Object.entries(families)
+      .map(([name, family]) => (Array.isArray(family) || typeof family === 'string')
         ? { name, src: family }
         : { name, ...family },
       )
-      .value()
   }
 
   // --- Iterate over font families and their faces.
   for (const { name, src, local } of families) {
+    const facesGrouped: Record<string, string[]> = {};
+
     // --- Resolve glob(s) and group faces with the same name.
-    const faces = _(src)
-      .castArray()
-      .map(x => glob(x, { nodir: true, root: config.root, absolute: true }))
-      .flatten()
-      .groupBy(x => x.match(/(.*)\.(\w|\d)+$/)?.[1].toLowerCase())
+    (Array.isArray(src) ? src : [src])
+      .flatMap(x => glob(x, { absolute: true, cwd: config.root, onlyFiles: true }))
       .filter(Boolean)
-      .map(src => ({
+      .forEach((src) => {
+        const srcNoExt = src.match(/(.*)\.(\w|\d)+$/)?.[1].toLowerCase()
+        if (srcNoExt) facesGrouped[srcNoExt] = (facesGrouped[srcNoExt] ?? []).concat(src)
+      })
+
+    const faces = Object.entries(facesGrouped)
+      .map(([srcNoExt, src]) => ({
         name,
         src,
-        weight: resolveWeight(src[0]),
-        style: resolveStyle(src[0]),
+        weight: resolveWeight(srcNoExt),
+        style: resolveStyle(srcNoExt),
         display,
         local,
       }))
-      .value()
 
-    const hrefs = _(faces)
+    const hrefs = faces
       .flatMap(face => face.src)
       .map(src => src.replace(config.root, '.'))
-      .value()
 
     // --- Generate `<link>` tags.
     if (preload) tags.push(...hrefs.map(createFontFaceLink))
@@ -196,6 +190,11 @@ export default (options: CustomFonts, config: ResolvedConfig) => {
     // --- Generate CSS `@font-face` rules.
     for (const face of faces) css.push(createFontFaceCSS(face))
   }
+
+  console.log({
+    tags,
+    css: css.join('\n\n'),
+  })
 
   // --- Return tags and CSS.
   return {
