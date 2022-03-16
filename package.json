@@ -15,6 +15,7 @@
     "dev": "npm run build -- --watch",
     "example:dev": "npm -C example run dev",
     "example:build": "npm -C example run build",
+    "example:preview": "npm -C example run preview",
     "build": "tsup src/index.ts --dts --format cjs,esm",
     "lint": "eslint --ext .ts ./src",
     "lint:fix": "eslint --fix --ext .ts ./src"
@@ -30,5 +31,8 @@
     "tsup": "^4.6.1",
     "typescript": "^4.2.3",
     "vite": "^2.0.5"
+  },
+  "dependencies": {
+    "fast-glob": "^3.2.11"
   }
 }

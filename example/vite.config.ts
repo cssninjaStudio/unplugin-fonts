@@ -7,6 +7,12 @@ export default defineConfig({
       google: {
         families: ['Crimson Pro', 'Open Sans', 'Material+Icons'],
       },
+
+      custom: {
+        families: {
+          'Dancing Script': './assets/fonts/DancingScript*',
+        },
+      },
     }),
   ],
 })
