@@ -64,6 +64,11 @@ export interface CustomFonts {
    * @default true
    */
   preload?: boolean
+    /**
+   * Using `<link rel="prefetch">`  
+   * @default true
+   */
+  prefetch?: boolean
 }
 
 const resolveWeight = (weightOrSrc?: string | number) => {
@@ -122,7 +127,7 @@ const createFontFaceCSS = ({ name, src, local, weight, style, display }: CustomF
 }`
 }
 
-const createFontFaceLink = (href: string) => {
+const createPreloadFontFaceLink = (href: string) => {
   return {
     tag: 'link',
     attrs: {
@@ -135,6 +140,19 @@ const createFontFaceLink = (href: string) => {
   }
 }
 
+const createPrefetchFontFaceLink = (href: string) => {
+    return {
+      tag: 'link',
+      attrs: {
+        rel: 'prefetch',
+        as: 'font',
+        type: `font/${href.split('.').pop()}`,
+        href,
+        crossorigin: true,
+      },
+    }
+  }
+
 export default (options: CustomFonts, config: ResolvedConfig) => {
   const tags: HtmlTagDescriptor[] = []
   const css: string[] = []
@@ -146,6 +164,7 @@ export default (options: CustomFonts, config: ResolvedConfig) => {
     display = 'auto',
     // eslint-disable-next-line prefer-const
     preload = true,
+    prefetch = true,
   } = options
 
   // --- Cast as array of `CustomFontFamily`.
@@ -185,7 +204,8 @@ export default (options: CustomFonts, config: ResolvedConfig) => {
       .map(src => src.replace(config.root, '.'))
 
     // --- Generate `<link>` tags.
-    if (preload) tags.push(...hrefs.map(createFontFaceLink))
+    if (preload) tags.push(...hrefs.map(createPreloadFontFaceLink))
+    if (prefetch) tags.push(...hrefs.map(createPrefetchFontFaceLink))
 
     // --- Generate CSS `@font-face` rules.
     for (const face of faces) css.push(createFontFaceCSS(face))
