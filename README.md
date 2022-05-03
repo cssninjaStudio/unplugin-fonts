@@ -140,6 +140,15 @@ export default {
          * CSSOM to be created.
          */
         preload: true
+
+        /**
+         * Using `<link rel="prefetch">` is intended for prefetching resources 
+         * that will be used in the next navigation/page load 
+         * (e.g. when you go to the next page)
+         * 
+         * Note: this can not be used with `preload`
+         */
+        prefetch: false
       }
     })
   ],

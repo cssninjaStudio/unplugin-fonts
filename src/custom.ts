@@ -64,9 +64,14 @@ export interface CustomFonts {
    * @default true
    */
   preload?: boolean
-    /**
-   * Using `<link rel="prefetch">`  
-   * @default true
+
+  /**
+   * Using `<link rel="prefetch">` is intended for prefetching resources
+   * that will be used in the next navigation/page load
+   * (e.g. when you go to the next page)
+   *
+   * Note: this can not be used with `preload`
+   * @default false
    */
   prefetch?: boolean
 }
@@ -127,11 +132,11 @@ const createFontFaceCSS = ({ name, src, local, weight, style, display }: CustomF
 }`
 }
 
-const createPreloadFontFaceLink = (href: string) => {
+const createFontFaceLink = (prefetch = false) => (href: string) => {
   return {
     tag: 'link',
     attrs: {
-      rel: 'preload',
+      rel: prefetch ? 'prefetch' : 'preload',
       as: 'font',
       type: `font/${href.split('.').pop()}`,
       href,
@@ -140,32 +145,19 @@ const createPreloadFontFaceLink = (href: string) => {
   }
 }
 
-const createPrefetchFontFaceLink = (href: string) => {
-    return {
-      tag: 'link',
-      attrs: {
-        rel: 'prefetch',
-        as: 'font',
-        type: `font/${href.split('.').pop()}`,
-        href,
-        crossorigin: true,
-      },
-    }
-  }
-
 export default (options: CustomFonts, config: ResolvedConfig) => {
   const tags: HtmlTagDescriptor[] = []
   const css: string[] = []
 
   // --- Extract and defaults plugin options.
+  /* eslint-disable prefer-const */
   let {
     families = [],
-    // eslint-disable-next-line prefer-const
     display = 'auto',
-    // eslint-disable-next-line prefer-const
     preload = true,
     prefetch = false,
   } = options
+  /* eslint-enable prefer-const */
 
   // --- Cast as array of `CustomFontFamily`.
   if (!Array.isArray(families)) {
@@ -205,12 +197,11 @@ export default (options: CustomFonts, config: ResolvedConfig) => {
 
     // --- Generate `<link>` tags.
     // --- We can not do a prefetch and a preload for the same files.
-    if(preload && prefetch){
-      console.warn('vite-plugin-fonts','We can not do a prefetch and a preload for the same files.');
-      console.warn('vite-plugin-fonts','The prefetch stand for a lower priority for the resource (maybe we will need it in a future page) whereas preload is for the current page, so we can not have both.')
-    };
-    if (preload) tags.push(...hrefs.map(createPreloadFontFaceLink))
-    if (prefetch && !preload) tags.push(...hrefs.map(createPrefetchFontFaceLink))
+    if (preload && prefetch) {
+      console.warn('vite-plugin-fonts: Prefetch and a Preload options can not be used together.')
+      console.warn('vite-plugin-fonts: The prefetch stand for a lower priority for the resource (maybe we will need it in a future page) whereas preload is for the current page, so we can not have both.')
+    }
+    if (preload || prefetch) tags.push(...hrefs.map(createFontFaceLink(prefetch)))
 
     // --- Generate CSS `@font-face` rules.
     for (const face of faces) css.push(createFontFaceCSS(face))
