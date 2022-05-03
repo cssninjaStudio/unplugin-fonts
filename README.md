@@ -18,9 +18,9 @@ export default {
   plugins: [
     ViteFonts({
       google: {
-        families: ['Source Sans Pro']
+        families: ['Source Sans Pro'],
       },
-    })
+    }),
   ],
 }
 ```
@@ -47,37 +47,36 @@ export default {
          * Typekit project id
          */
         id: '<projectId>',
-        
+
         /**
          * enable non-blocking renderer
          *   <link rel="preload" href="xxx" as="style" onload="this.rel='stylesheet'">
          * default: true
          */
-        defer: true
+        defer: true,
       },
 
       // Google Fonts API V2
       google: {
         /**
-         * enable preconnect link injection 
+         * enable preconnect link injection
          *   <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
          * default: true
          */
         preconnect: false,
-        
+
         /**
          * values: auto, block, swap(default), fallback, optional
          * default: 'swap'
          */
         display: 'block',
-        
+
         /**
          * values: auto, block, swap(default), fallback, optional
          * default: undefined
          */
         text: 'ViteAwsom',
 
-        
         /**
          * Fonts families lists
          */
@@ -102,9 +101,9 @@ export default {
              *   <link rel="preload" href="xxx" as="style" onload="this.rel='stylesheet'">
              * default: true
              */
-            defer: true
-          }
-        ]
+            defer: true,
+          },
+        ],
       },
 
       // Custom fonts.
@@ -139,18 +138,18 @@ export default {
          * early in the critical rendering path, without having to wait for the
          * CSSOM to be created.
          */
-        preload: true
+        preload: true,
 
         /**
-         * Using `<link rel="prefetch">` is intended for prefetching resources 
-         * that will be used in the next navigation/page load 
+         * Using `<link rel="prefetch">` is intended for prefetching resources
+         * that will be used in the next navigation/page load
          * (e.g. when you go to the next page)
-         * 
+         *
          * Note: this can not be used with `preload`
          */
-        prefetch: false
-      }
-    })
+        prefetch: false,
+      },
+    }),
   ],
 }
 ```
