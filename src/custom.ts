@@ -164,7 +164,7 @@ export default (options: CustomFonts, config: ResolvedConfig) => {
     display = 'auto',
     // eslint-disable-next-line prefer-const
     preload = true,
-    prefetch = true,
+    prefetch = false,
   } = options
 
   // --- Cast as array of `CustomFontFamily`.
@@ -204,8 +204,13 @@ export default (options: CustomFonts, config: ResolvedConfig) => {
       .map(src => src.replace(config.root, '.'))
 
     // --- Generate `<link>` tags.
+    // --- We can not do a prefetch and a preload for the same files.
+    if(preload && prefetch){
+      console.warn('vite-plugin-fonts','We can not do a prefetch and a preload for the same files.');
+      console.warn('vite-plugin-fonts','The prefetch stand for a lower priority for the resource (maybe we will need it in a future page) whereas preload is for the current page, so we can not have both.')
+    };
     if (preload) tags.push(...hrefs.map(createPreloadFontFaceLink))
-    if (prefetch) tags.push(...hrefs.map(createPrefetchFontFaceLink))
+    if (prefetch && !preload) tags.push(...hrefs.map(createPrefetchFontFaceLink))
 
     // --- Generate CSS `@font-face` rules.
     for (const face of faces) css.push(createFontFaceCSS(face))
