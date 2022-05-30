@@ -12,11 +12,11 @@ npm i --save-dev vite-plugin-fonts # yarn add -D vite-plugin-fonts
 
 ```ts
 // vite.config.js
-import ViteFonts from 'vite-plugin-fonts'
+import { VitePluginFonts } from 'vite-plugin-fonts'
 
 export default {
   plugins: [
-    ViteFonts({
+    VitePluginFonts({
       google: {
         families: ['Source Sans Pro'],
       },
@@ -36,11 +36,11 @@ import 'virtual:fonts.css'
 
 ```ts
 // vite.config.js
-import ViteFonts from 'vite-plugin-fonts'
+import { VitePluginFonts } from 'vite-plugin-fonts'
 
 export default {
   plugins: [
-    ViteFonts({
+    VitePluginFonts({
       // Typekit API
       typekit: {
         /**
