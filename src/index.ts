@@ -1,4 +1,3 @@
-
 import type { HtmlTagDescriptor, Plugin, ResolvedConfig } from 'vite'
 import type { GoogleFonts } from './google-fonts'
 import injectGoogleFonts from './google-fonts'

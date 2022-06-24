@@ -2,8 +2,8 @@
   "name": "vite-plugin-fonts",
   "version": "0.4.0",
   "description": "Webfont loader for vite",
-  "license": "MIT",
   "author": "stafyniaksacha",
+  "license": "MIT",
   "repository": "stafyniaksacha/vite-plugin-fonts",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -17,8 +17,8 @@
     "example:build": "npm -C example run build",
     "example:preview": "npm -C example run preview",
     "build": "tsup src/index.ts --dts --format cjs,esm",
-    "lint": "eslint --ext .ts ./src",
-    "lint:fix": "eslint --fix --ext .ts ./src"
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
   },
   "peerDependencies": {
     "vite": "^2.0.0"
@@ -27,12 +27,12 @@
     "fast-glob": "^3.2.11"
   },
   "devDependencies": {
-    "@antfu/eslint-config-ts": "^0.18.8",
-    "@typescript-eslint/eslint-plugin": "^5.15.0",
-    "eslint": "^8.11.0",
+    "@antfu/eslint-config-ts": "^0.25.1",
+    "@typescript-eslint/eslint-plugin": "^5.29.0",
+    "eslint": "^8.18.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
-    "tsup": "^5.12.1",
-    "typescript": "^4.6.2",
-    "vite": "^2.8.6"
+    "tsup": "^6.1.2",
+    "typescript": "^4.7.4",
+    "vite": "^2.9.12"
   }
 }

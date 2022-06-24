@@ -77,31 +77,50 @@ export interface CustomFonts {
 }
 
 const resolveWeight = (weightOrSrc?: string | number) => {
-  if (typeof weightOrSrc === 'number') return weightOrSrc
-  if (!weightOrSrc) return 400
+  if (typeof weightOrSrc === 'number')
+    return weightOrSrc
+  if (!weightOrSrc)
+    return 400
   weightOrSrc = weightOrSrc.toLowerCase()
-  if (weightOrSrc.includes('thin')) return 100
-  if (weightOrSrc.includes('extralight')) return 200
-  if (weightOrSrc.includes('ultralight')) return 200
-  if (weightOrSrc.includes('light')) return 300
-  if (weightOrSrc.includes('normal')) return 400
-  if (weightOrSrc.includes('medium')) return 500
-  if (weightOrSrc.includes('semibold')) return 600
-  if (weightOrSrc.includes('demibold')) return 600
-  if (weightOrSrc.includes('extrabold')) return 800
-  if (weightOrSrc.includes('ultrabold')) return 800
-  if (weightOrSrc.includes('bold')) return 700
-  if (weightOrSrc.includes('black')) return 900
-  if (weightOrSrc.includes('heavy')) return 900
+  if (weightOrSrc.includes('thin'))
+    return 100
+  if (weightOrSrc.includes('extralight'))
+    return 200
+  if (weightOrSrc.includes('ultralight'))
+    return 200
+  if (weightOrSrc.includes('light'))
+    return 300
+  if (weightOrSrc.includes('normal'))
+    return 400
+  if (weightOrSrc.includes('medium'))
+    return 500
+  if (weightOrSrc.includes('semibold'))
+    return 600
+  if (weightOrSrc.includes('demibold'))
+    return 600
+  if (weightOrSrc.includes('extrabold'))
+    return 800
+  if (weightOrSrc.includes('ultrabold'))
+    return 800
+  if (weightOrSrc.includes('bold'))
+    return 700
+  if (weightOrSrc.includes('black'))
+    return 900
+  if (weightOrSrc.includes('heavy'))
+    return 900
   return 400
 }
 
 const resolveStyle = (styleOrSrc?: string) => {
-  if (!styleOrSrc) return 'normal'
+  if (!styleOrSrc)
+    return 'normal'
   styleOrSrc = styleOrSrc.toLowerCase()
-  if (styleOrSrc.includes('normal')) return 'normal'
-  if (styleOrSrc.includes('italic')) return 'italic'
-  if (styleOrSrc.includes('oblique')) return 'oblique'
+  if (styleOrSrc.includes('normal'))
+    return 'normal'
+  if (styleOrSrc.includes('italic'))
+    return 'italic'
+  if (styleOrSrc.includes('oblique'))
+    return 'oblique'
   return 'normal'
 }
 
@@ -111,8 +130,10 @@ const createFontFaceCSS = ({ name, src, local, weight, style, display }: CustomF
     .filter(Boolean)
     .map((url) => {
       let format = url.split('.').pop()
-      if (format === 'ttf') format = 'truetype'
-      if (format === 'otf') format = 'opentype'
+      if (format === 'ttf')
+        format = 'truetype'
+      if (format === 'otf')
+        format = 'opentype'
       return `url('${url}') format('${format}')`
     })
     .join(',\n\t\t')
@@ -179,7 +200,8 @@ export default (options: CustomFonts, config: ResolvedConfig) => {
       .filter(Boolean)
       .forEach((src) => {
         const srcNoExt = src.match(/(.*)\.(\w|\d)+$/)?.[1].toLowerCase()
-        if (srcNoExt) facesGrouped[srcNoExt] = (facesGrouped[srcNoExt] ?? []).concat(src)
+        if (srcNoExt)
+          facesGrouped[srcNoExt] = (facesGrouped[srcNoExt] ?? []).concat(src)
       })
 
     const faces = Object.entries(facesGrouped)
@@ -202,7 +224,8 @@ export default (options: CustomFonts, config: ResolvedConfig) => {
       console.warn('vite-plugin-fonts: Prefetch and a Preload options can not be used together.')
       console.warn('vite-plugin-fonts: The prefetch stand for a lower priority for the resource (maybe we will need it in a future page) whereas preload is for the current page, so we can not have both.')
     }
-    if (preload || prefetch) tags.push(...hrefs.map(createFontFaceLink(prefetch)))
+    if (preload || prefetch)
+      tags.push(...hrefs.map(createFontFaceLink(prefetch)))
 
     // --- Generate CSS `@font-face` rules.
     for (const face of faces) css.push(createFontFaceCSS(face))
