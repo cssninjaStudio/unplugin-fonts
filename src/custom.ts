@@ -112,6 +112,7 @@ const createFontFaceCSS = ({ name, src, local, weight, style, display }: CustomF
     .map((url) => {
       let format = url.split('.').pop()
       if (format === 'ttf') format = 'truetype'
+      if (format === 'otf') format = 'opentype'
       return `url('${url}') format('${format}')`
     })
     .join(',\n\t\t')
