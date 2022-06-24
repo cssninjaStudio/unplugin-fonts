@@ -88,9 +88,9 @@ const resolveWeight = (weightOrSrc?: string | number) => {
   if (weightOrSrc.includes('medium')) return 500
   if (weightOrSrc.includes('semibold')) return 600
   if (weightOrSrc.includes('demibold')) return 600
-  if (weightOrSrc.includes('bold')) return 700
   if (weightOrSrc.includes('extrabold')) return 800
   if (weightOrSrc.includes('ultrabold')) return 800
+  if (weightOrSrc.includes('bold')) return 700
   if (weightOrSrc.includes('black')) return 900
   if (weightOrSrc.includes('heavy')) return 900
   return 400
