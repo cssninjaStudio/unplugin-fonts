@@ -50,6 +50,9 @@ export default defineNuxtConfig({
 })
 ```
 
+> :warning:
+> This will not inject Google/Typekit fonts, only custom fonts will be loaded.
+
 ## Options
 
 ```ts
@@ -97,8 +100,8 @@ export default {
         display: 'block',
 
         /**
-         * values: auto, block, swap(default), fallback, optional
-         * default: undefined
+         * define which characters to load
+         * default: undefined (load all characters)
          */
         text: 'ViteAwsom',
 
