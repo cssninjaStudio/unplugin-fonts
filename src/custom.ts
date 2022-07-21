@@ -74,6 +74,10 @@ export interface CustomFonts {
    * @default false
    */
   prefetch?: boolean
+  /**
+   * @default: 'head-prepend'
+   */
+  injectTo?: 'head' | 'body' | 'head-prepend' | 'body-prepend'
 }
 
 const resolveWeight = (weightOrSrc?: string | number) => {
@@ -154,9 +158,13 @@ const createFontFaceCSS = ({ name, src, local, weight, style, display }: CustomF
 }`
 }
 
-const createFontFaceLink = (prefetch = false) => (href: string) => {
+const createFontFaceLink = (
+  prefetch = false,
+  injectTo: 'head' | 'body' | 'head-prepend' | 'body-prepend' = 'head-prepend',
+) => (href: string) => {
   return {
     tag: 'link',
+    injectTo,
     attrs: {
       rel: prefetch ? 'prefetch' : 'preload',
       as: 'font',
@@ -178,6 +186,7 @@ export default (options: CustomFonts, config: ResolvedConfig) => {
     display = 'auto',
     preload = true,
     prefetch = false,
+    injectTo = 'head-prepend',
   } = options
   /* eslint-enable prefer-const */
 
@@ -225,7 +234,7 @@ export default (options: CustomFonts, config: ResolvedConfig) => {
       console.warn('vite-plugin-fonts: The prefetch stand for a lower priority for the resource (maybe we will need it in a future page) whereas preload is for the current page, so we can not have both.')
     }
     if (preload || prefetch)
-      tags.push(...hrefs.map(createFontFaceLink(prefetch)))
+      tags.push(...hrefs.map(createFontFaceLink(prefetch, injectTo)))
 
     // --- Generate CSS `@font-face` rules.
     for (const face of faces) css.push(createFontFaceCSS(face))

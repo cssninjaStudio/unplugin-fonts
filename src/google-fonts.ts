@@ -10,6 +10,10 @@ export interface GoogleFonts {
   text?: string
   display?: 'auto' | 'block' | 'swap' | 'fallback' | 'optional'
   preconnect?: boolean
+  /**
+   * @default: 'head-prepend'
+   */
+  injectTo?: 'head' | 'body' | 'head-prepend' | 'body-prepend'
 }
 
 const GoogleFontsBase = 'https://fonts.googleapis.com/css2'
@@ -19,6 +23,7 @@ function injectFonts({
   text,
   preconnect = true,
   display = 'swap',
+  injectTo = 'head-prepend',
 }: GoogleFonts): HtmlTagDescriptor[] {
   const specs: string[] = []
   const deferedSpecs: string[] = []
@@ -67,6 +72,7 @@ function injectFonts({
   if (preconnect && specs.length + deferedSpecs.length > 0) {
     tags.push({
       tag: 'link',
+      injectTo,
       attrs: {
         rel: 'preconnect',
         href: 'https://fonts.gstatic.com/',
@@ -109,6 +115,7 @@ function injectFonts({
 
     tags.push({
       tag: 'link',
+      injectTo,
       attrs: {
         rel: 'stylesheet',
         href,

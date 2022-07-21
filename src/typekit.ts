@@ -3,6 +3,10 @@ import type { HtmlTagDescriptor } from 'vite'
 export interface TypeKitFonts {
   id: string
   defer?: boolean
+  /**
+   * default: 'head-prepend'
+   */
+  injectTo?: 'head' | 'body' | 'head-prepend' | 'body-prepend'
 }
 
 const TypekitFontBase = 'https://use.typekit.net/'
@@ -10,6 +14,7 @@ const TypekitFontBase = 'https://use.typekit.net/'
 function injectFonts({
   id,
   defer = true,
+  injectTo = 'head-prepend',
 }: TypeKitFonts): HtmlTagDescriptor[] {
   const tags: HtmlTagDescriptor[] = []
 
@@ -22,6 +27,7 @@ function injectFonts({
   if (defer) {
     tags.push({
       tag: 'link',
+      injectTo,
       attrs: {
         rel: 'preload',
         as: 'style',
@@ -33,6 +39,7 @@ function injectFonts({
   else {
     tags.push({
       tag: 'link',
+      injectTo,
       attrs: {
         rel: 'stylesheet',
         href: `${TypekitFontBase}${id}.css`,

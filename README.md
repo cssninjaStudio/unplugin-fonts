@@ -54,6 +54,13 @@ export default {
          * default: true
          */
         defer: true,
+
+        /**
+         * define where the font load tags should be inserted
+         * default: 'head-prepend'
+         *   values: 'head' | 'body' | 'head-prepend' | 'body-prepend'
+         */
+        injectTo: 'head-prepend',
       },
 
       // Google Fonts API V2
@@ -76,6 +83,13 @@ export default {
          * default: undefined
          */
         text: 'ViteAwsom',
+
+        /**
+         * define where the font load tags should be inserted
+         * default: 'head-prepend'
+         *   values: 'head' | 'body' | 'head-prepend' | 'body-prepend'
+         */
+        injectTo: 'head-prepend',
 
         /**
          * Fonts families lists
@@ -148,6 +162,13 @@ export default {
          * Note: this can not be used with `preload`
          */
         prefetch: false,
+
+        /**
+         * define where the font load tags should be inserted
+         * default: 'head-prepend'
+         *   values: 'head' | 'body' | 'head-prepend' | 'body-prepend'
+         */
+        injectTo: 'head-prepend',
       },
     }),
   ],
