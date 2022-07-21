@@ -32,6 +32,24 @@ Only needed if using local/custom fonts
 import 'virtual:fonts.css'
 ```
 
+If using `nuxt@>3` or `nuxt-edge`, you can leverage the virtual file system to import the generated CSS.
+```ts
+// nuxt.config.ts
+import { defineNuxtConfig } from 'nuxt'
+import Fonts from 'vite-plugin-fonts'
+
+export default defineNuxtConfig({
+  css: [
+    'virtual:fonts.css',
+  ],
+  vite: {
+    plugins: [
+      Fonts({ /** vite-plugin-fonts config */}),
+    ],
+  },
+})
+```
+
 ## Options
 
 ```ts
