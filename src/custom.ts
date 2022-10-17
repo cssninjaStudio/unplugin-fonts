@@ -158,6 +158,14 @@ const createFontFaceCSS = ({ name, src, local, weight, style, display }: CustomF
 }`
 }
 
+const resolveHref = (hrefPath: string): string => {
+  const isRelative = hrefPath.startsWith('.')
+  if (isRelative) {
+    return hrefPath.split('.')[1]
+  }
+  return hrefPath
+}
+
 const createFontFaceLink = (
   prefetch = false,
   injectTo: 'head' | 'body' | 'head-prepend' | 'body-prepend' = 'head-prepend',
@@ -169,7 +177,7 @@ const createFontFaceLink = (
       rel: prefetch ? 'prefetch' : 'preload',
       as: 'font',
       type: `font/${href.split('.').pop()}`,
-      href,
+      href: resolveHref(href),
       crossorigin: true,
     },
   }
