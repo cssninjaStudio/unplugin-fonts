@@ -42,6 +42,16 @@ export interface CustomFontFamily {
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face#description
    */
   local?: string | string[]
+  /**
+   * Font-weight property
+   * @see https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight
+   */
+  customWeight?: string | number
+  /**
+   * Font-style property
+   * @see https://developer.mozilla.org/en-US/docs/Web/CSS/font-style
+   */
+  customStyle?: string
 }
 
 export interface CustomFonts {
@@ -52,7 +62,7 @@ export interface CustomFonts {
   /**
    * Defines the default `font-display` value used for the generated
    * `@font-rule` classes.
-   * @see https://developer.mozilla.org/fr/docs/Web/CSS/@font-face/font-display
+   * @see https://developer.mozilla.org/docs/Web/CSS/@font-face/font-display
    * @default 'auto'
    */
   display?: 'auto' | 'block' | 'swap' | 'fallback' | 'optional'
@@ -200,7 +210,7 @@ export default (options: CustomFonts, config: ResolvedConfig) => {
   }
 
   // --- Iterate over font families and their faces.
-  for (const { name, src, local } of families) {
+  for (const { name, src, local, customWeight, customStyle } of families) {
     const facesGrouped: Record<string, string[]> = {};
 
     // --- Resolve glob(s) and group faces with the same name.
@@ -217,8 +227,8 @@ export default (options: CustomFonts, config: ResolvedConfig) => {
       .map(([srcNoExt, src]) => ({
         name,
         src,
-        weight: resolveWeight(srcNoExt),
-        style: resolveStyle(srcNoExt),
+        weight: customWeight || resolveWeight(srcNoExt),
+        style: customStyle || resolveStyle(srcNoExt),
         display,
         local,
       }))
