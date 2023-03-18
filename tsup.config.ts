@@ -1,9 +1,13 @@
 import type { Options } from 'tsup'
 
 export default <Options>{
-  entryPoints: [
+  entry: [
     'src/*.ts',
+    'src/astro/component.astro',
   ],
+  loader: {
+    '.astro': 'copy'
+  },
   clean: true,
   format: ['cjs', 'esm'],
   dts: true,

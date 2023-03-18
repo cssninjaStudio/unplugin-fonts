@@ -4,8 +4,11 @@ import { getHeadLinkTags } from './loaders'
 import { fontsourceVirtualModule } from './loaders/fontsource'
 import { customVirtualModule } from './loaders/custom'
 
-const MODULE_ID = 'unfonts.css'
-const MODULE_ID_RESOLVED = '/@unplugin-fonts/fonts.css'
+const virtualStylesId = 'unfonts.css'
+const resolvedVirtualStylesId = '\0' + virtualStylesId
+
+const virtualModuleId = 'unplugin-fonts/head'
+const resolvedVirtualModuleId = '\0' + virtualModuleId
 
 export default createUnplugin<Options | undefined>((userOptions) => {
   const options = userOptions || {}
@@ -15,12 +18,21 @@ export default createUnplugin<Options | undefined>((userOptions) => {
     name: 'unplugin-fonts',
     enforce: 'pre',
     resolveId(id) {
-      if (id === MODULE_ID)
-        return MODULE_ID_RESOLVED
+      if (id === virtualStylesId) {
+        return resolvedVirtualStylesId
+      } 
+      
+      if (id === virtualModuleId) {
+        return resolvedVirtualModuleId
+      }
     },
 
     load(id) {
-      if (id === MODULE_ID_RESOLVED) {
+      if (id === resolvedVirtualModuleId) {
+        return `export const links = ${JSON.stringify(getHeadLinkTags(options, root))}`
+      }
+      
+      if (id === resolvedVirtualStylesId) {
         const source: string[] = []
 
         if (options.fontsource) {
@@ -31,7 +43,7 @@ export default createUnplugin<Options | undefined>((userOptions) => {
           source.push(customVirtualModule(options.custom, root))
         }
 
-        return source.join('\n\n')
+        return source.join('\n')
       }
     },
     vite: {

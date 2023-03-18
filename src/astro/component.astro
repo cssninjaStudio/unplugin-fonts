@@ -1,0 +1,15 @@
+---
+import type { HtmlTagDescriptor } from 'vite'
+
+// @ts-ignore
+import { links } from 'unplugin-fonts/head'
+---
+
+<>
+  {links.map((link: HtmlTagDescriptor) => {
+    const attrs = link?.attrs || {}
+    return (
+      <link {...attrs} />
+    )
+  })}
+</>

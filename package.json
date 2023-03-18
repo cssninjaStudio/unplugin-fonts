@@ -16,6 +16,13 @@
       "require": "./dist/astro.js",
       "import": "./dist/astro.mjs"
     },
+    "./astro/component.astro": {
+      "types": "./dist/astro/component.d.ts",
+      "import": "./dist/astro/component.astro"
+    },
+    "./head": {
+      "types": "./dist/head.d.ts"
+    },
     "./esbuild": {
       "types": "./dist/esbuild.d.ts",
       "require": "./dist/esbuild.js",

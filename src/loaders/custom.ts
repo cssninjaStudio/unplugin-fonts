@@ -228,7 +228,7 @@ export function customVirtualModule(options: CustomFonts, root: string) {
     const faces = resolveFontfaceFiles({ src, root })
       .map((item) => ({
         name,
-        src: item.src.map(x => relative(root, x.replace(stripPrefix, ''))),
+        src: item.src.map(x => join('/', relative(root, x.replace(stripPrefix, '')))),
         weight: resolveWeight(item.srcNoExt),
         style: resolveStyle(item.srcNoExt),
         display,
@@ -271,7 +271,7 @@ export function customLoader(options: CustomFonts, root: string) {
 
     const hrefs = faces
       .flatMap(face => face.src)
-      .map(src => relative(root, src.replace(stripPrefix, '')))
+      .map(src => join('/', relative(root, src.replace(stripPrefix, ''))))
 
     // --- Generate `<link>` tags.
     // --- We can not do a prefetch and a preload for the same files.

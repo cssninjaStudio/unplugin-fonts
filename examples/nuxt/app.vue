@@ -1,6 +1,12 @@
+<script setup lang="ts">
+// @ts-ignore
+import { tags } from 'unplugin-fonts/head'
+</script>
+
 <template>
   <h1>Hello Nuxt!</h1>
   <h2>I'm using a local font !</h2>
+  <pre>{{ tags }}</pre>
   <a href="https://vitejs.dev/guide/features.html" target="_blank">Documentation</a>
 </template>
 
