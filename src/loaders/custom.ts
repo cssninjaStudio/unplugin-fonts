@@ -204,7 +204,7 @@ function resolveFontfaceFiles({ src, root }: {
   }))
 }
 
-export function virtualModule(options: CustomFonts, root: string) {
+export function customVirtualModule(options: CustomFonts, root: string) {
   const css: string[] = []
 
   /* eslint-disable prefer-const */
@@ -223,7 +223,6 @@ export function virtualModule(options: CustomFonts, root: string) {
         : { name, ...family },
       )
   }
-
 
   for (const { name, src, local } of families) {
     const faces = resolveFontfaceFiles({ src, root })

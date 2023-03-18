@@ -1,7 +1,8 @@
 import { createUnplugin } from 'unplugin'
 import type { Options } from './types'
 import { getHeadLinkTags } from './loaders'
-import { virtualModule } from './loaders/custom'
+import { fontsourceVirtualModule } from './loaders/fontsource'
+import { customVirtualModule } from './loaders/custom'
 
 const MODULE_ID = 'unfonts.css'
 const MODULE_ID_RESOLVED = '/@unplugin-fonts/fonts.css'
@@ -20,7 +21,17 @@ export default createUnplugin<Options | undefined>((userOptions) => {
 
     load(id) {
       if (id === MODULE_ID_RESOLVED) {
-        return options.custom ? virtualModule(options.custom, root) : ''
+        const source: string[] = []
+
+        if (options.fontsource) {
+          source.push(fontsourceVirtualModule(options.fontsource))
+        }
+
+        if (options.custom) {
+          source.push(customVirtualModule(options.custom, root))
+        }
+
+        return source.join('\n\n')
       }
     },
     vite: {

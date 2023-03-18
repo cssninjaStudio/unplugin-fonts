@@ -14,6 +14,21 @@ export default defineConfig({
           'Dancing Script': './assets/fonts/DancingScript*',
         },
       },
+
+      fontsource: {
+        families: [
+          {
+            name: 'ABeeZee',
+            weights: [400],
+            styles: ['italic'],
+          },
+          {
+            name: 'Truculenta',
+            weights: [400, 700],
+            subset: 'latin-ext',
+          },
+        ],
+      },
     }),
   ],
 })

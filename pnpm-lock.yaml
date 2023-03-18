@@ -57,9 +57,13 @@ importers:
 
   examples/vite:
     specifiers:
+      '@fontsource/abeezee': ^4.5.10
+      '@fontsource/truculenta': ^4.5.12
       unplugin-fonts: workspace:*
       vite: ^4.2.0
     devDependencies:
+      '@fontsource/abeezee': 4.5.10
+      '@fontsource/truculenta': 4.5.12
       unplugin-fonts: link:../..
       vite: 4.2.0
 
@@ -989,6 +993,14 @@ packages:
   /@eslint/js/8.36.0:
     resolution: {integrity: sha512-lxJ9R5ygVm8ZWgYdUweoq5ownDlJ4upvoWmO4eLxBYHdMo+vZ/Rx0EN6MbKWDJOSUGrqJy2Gt+Dyv/VKml0fjg==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+    dev: true
+
+  /@fontsource/abeezee/4.5.10:
+    resolution: {integrity: sha512-8lA2V9q+jwOf2wG5WMJyNzJUDEmMxC7m22av3Tq7mCKb43KPi53cx1H6FzRc5VZ97f7BDQeDvSDKy+QgLucw1w==}
+    dev: true
+
+  /@fontsource/truculenta/4.5.12:
+    resolution: {integrity: sha512-W/9cRvVbkHUdH5GwmPYDhqbipUlUK1s2tbEmRYAVZS/SnJupctMZOIHcYQ6dAlQZiUSZaLvMjtSuBEL3wrWzmA==}
     dev: true
 
   /@humanwhocodes/config-array/0.11.8:
