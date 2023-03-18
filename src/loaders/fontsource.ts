@@ -1,14 +1,15 @@
 
 export interface FontsourceFontFamily {
   name: string
+  variables?: ('variable' | 'variable-italic' | 'variable-full' | 'variable-full-italic')[]
   weights: (100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900)[]
   styles?: ('italic' | 'normal')[]
   subset?: string
 }
 export interface FontsourceFonts {
   families: (string | FontsourceFontFamily)[]
-  text?: string
-  display?: 'auto' | 'block' | 'swap' | 'fallback' | 'optional'
+  // text?: string
+  // display?: 'auto' | 'block' | 'swap' | 'fallback' | 'optional'
 }
 
 export function fontsourceVirtualModule(options?: FontsourceFonts) {
@@ -24,15 +25,23 @@ export function fontsourceVirtualModule(options?: FontsourceFonts) {
     } else {
       const {
         name,
+        variables,
         weights,
         styles,
         subset
       } = family
 
-
       const subsetPrefix = subset ? `${subset}-` : ''
 
-      if (weights) {
+      if (variables) {
+        if (weights) {
+          console.warn('unplugin-fonts: Variable fonts do not support weights. Ignoring weights.')
+        }
+
+        for (const variable of variables) {
+          source.push(`@import "@fontsource/${name.toLowerCase()}/${subsetPrefix}${variable}.css";`)
+        }
+      } else if (weights) {
         for (const weight of weights) {
           if (styles) {
             for (const style of styles) {

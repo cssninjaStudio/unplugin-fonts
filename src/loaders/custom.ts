@@ -276,8 +276,8 @@ export function customLoader(options: CustomFonts, root: string) {
     // --- Generate `<link>` tags.
     // --- We can not do a prefetch and a preload for the same files.
     if (preload && prefetch) {
-      console.warn('vite-plugin-fonts: Prefetch and a Preload options can not be used together.')
-      console.warn('vite-plugin-fonts: The prefetch stand for a lower priority for the resource (maybe we will need it in a future page) whereas preload is for the current page, so we can not have both.')
+      console.warn('unplugin-fonts: Prefetch and a Preload options can not be used together.')
+      console.warn('unplugin-fonts: The prefetch stand for a lower priority for the resource (maybe we will need it in a future page) whereas preload is for the current page, so we can not have both.')
     }
     if (preload || prefetch)
       tags.push(...hrefs.map(createFontFaceLink(prefetch, injectTo)))
