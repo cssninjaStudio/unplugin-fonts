@@ -1,5 +1,6 @@
-import type { HtmlTagDescriptor, ResolvedConfig } from 'vite'
+import type { HtmlTagDescriptor } from 'vite'
 import { sync as glob } from 'fast-glob'
+import { resolve, join, relative } from 'pathe'
 
 interface CustomFontFace {
   src: string[]
@@ -78,6 +79,12 @@ export interface CustomFonts {
    * @default: 'head-prepend'
    */
   injectTo?: 'head' | 'body' | 'head-prepend' | 'body-prepend'
+
+  /**
+   * Remove the prefix from the front path
+   * @default: 'public/'
+   */
+  stripPrefix?: string
 }
 
 const resolveWeight = (weightOrSrc?: string | number) => {
@@ -138,7 +145,7 @@ const createFontFaceCSS = ({ name, src, local, weight, style, display }: CustomF
         format = 'truetype'
       if (format === 'otf')
         format = 'opentype'
-      return `url('${url}') format('${format}')`
+      return `url('${join('/', url)}') format('${format}')`
     })
     .join(',\n\t\t')
 
@@ -175,18 +182,78 @@ const createFontFaceLink = (
   }
 }
 
-export default (options: CustomFonts, config: ResolvedConfig) => {
-  const tags: HtmlTagDescriptor[] = []
+function resolveFontfaceFiles({ src, root }: { 
+  src: string | string[] 
+  root: string
+}) {
+  const facesGrouped: Record<string, string[]> = {};
+
+  (Array.isArray(src) ? src : [src])
+      .flatMap(x => {
+        return glob(join(root, x), { absolute: true, cwd: root, onlyFiles: true })
+      })
+      .filter(Boolean)
+      .forEach((src) => {
+        const srcNoExt = src.match(/(.*)\.(\w|\d)+$/)?.[1].toLowerCase()
+        if (srcNoExt)
+          facesGrouped[srcNoExt] = (facesGrouped[srcNoExt] ?? []).concat(src)
+      })
+
+  return Object.entries(facesGrouped).map(([srcNoExt, src]) => ({
+    srcNoExt, src
+  }))
+}
+
+export function virtualModule(options: CustomFonts, root: string) {
   const css: string[] = []
+
+  /* eslint-disable prefer-const */
+  let {
+    families = [],
+    display = 'auto',
+    stripPrefix = 'public/',
+  } = options
+  /* eslint-enable prefer-const */
+
+  // --- Cast as array of `CustomFontFamily`.
+  if (!Array.isArray(families)) {
+    families = Object.entries(families)
+      .map(([name, family]) => (Array.isArray(family) || typeof family === 'string')
+        ? { name, src: family }
+        : { name, ...family },
+      )
+  }
+
+
+  for (const { name, src, local } of families) {
+    const faces = resolveFontfaceFiles({ src, root })
+      .map((item) => ({
+        name,
+        src: item.src.map(x => relative(root, x.replace(stripPrefix, ''))),
+        weight: resolveWeight(item.srcNoExt),
+        style: resolveStyle(item.srcNoExt),
+        display,
+        local,
+      }))
+    // --- Generate CSS `@font-face` rules.
+    for (const face of faces) css.push(createFontFaceCSS(face))
+  }
+
+  return css.join('\n\n')
+}
+
+export function customLoader(options: CustomFonts, root: string) {
+  const tags: HtmlTagDescriptor[] = []
+  // const css: string[] = []
 
   // --- Extract and defaults plugin options.
   /* eslint-disable prefer-const */
   let {
     families = [],
-    display = 'auto',
     preload = true,
     prefetch = false,
     injectTo = 'head-prepend',
+    stripPrefix = 'public/',
   } = options
   /* eslint-enable prefer-const */
 
@@ -200,32 +267,12 @@ export default (options: CustomFonts, config: ResolvedConfig) => {
   }
 
   // --- Iterate over font families and their faces.
-  for (const { name, src, local } of families) {
-    const facesGrouped: Record<string, string[]> = {};
-
-    // --- Resolve glob(s) and group faces with the same name.
-    (Array.isArray(src) ? src : [src])
-      .flatMap(x => glob(x, { absolute: true, cwd: config.root, onlyFiles: true }))
-      .filter(Boolean)
-      .forEach((src) => {
-        const srcNoExt = src.match(/(.*)\.(\w|\d)+$/)?.[1].toLowerCase()
-        if (srcNoExt)
-          facesGrouped[srcNoExt] = (facesGrouped[srcNoExt] ?? []).concat(src)
-      })
-
-    const faces = Object.entries(facesGrouped)
-      .map(([srcNoExt, src]) => ({
-        name,
-        src,
-        weight: resolveWeight(srcNoExt),
-        style: resolveStyle(srcNoExt),
-        display,
-        local,
-      }))
+  for (const { src } of families) {
+    const faces = resolveFontfaceFiles({ src, root })
 
     const hrefs = faces
       .flatMap(face => face.src)
-      .map(src => src.replace(config.root, '.'))
+      .map(src => relative(root, src.replace(stripPrefix, '')))
 
     // --- Generate `<link>` tags.
     // --- We can not do a prefetch and a preload for the same files.
@@ -236,13 +283,11 @@ export default (options: CustomFonts, config: ResolvedConfig) => {
     if (preload || prefetch)
       tags.push(...hrefs.map(createFontFaceLink(prefetch, injectTo)))
 
-    // --- Generate CSS `@font-face` rules.
-    for (const face of faces) css.push(createFontFaceCSS(face))
+    // // --- Generate CSS `@font-face` rules.
+    // for (const face of faces) css.push(createFontFaceCSS(face))
   }
 
   // --- Return tags and CSS.
-  return {
-    tags,
-    css: css.join('\n\n'),
-  }
+  return tags
 }
+

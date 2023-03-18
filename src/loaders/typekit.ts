@@ -11,7 +11,7 @@ export interface TypeKitFonts {
 
 const TypekitFontBase = 'https://use.typekit.net/'
 
-function injectFonts({
+export function typekitLoader({
   id,
   defer = true,
   injectTo = 'head-prepend',
@@ -50,4 +50,3 @@ function injectFonts({
   return tags
 }
 
-export default injectFonts

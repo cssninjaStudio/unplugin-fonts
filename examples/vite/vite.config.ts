@@ -1,14 +1,15 @@
 import { defineConfig } from 'vite'
-import ViteFonts from 'vite-plugin-fonts'
+import Unfonts from '../../src/vite'
 
 export default defineConfig({
   plugins: [
-    ViteFonts({
+    Unfonts({
       google: {
         families: ['Crimson Pro', 'Open Sans', 'Material+Icons'],
       },
 
       custom: {
+        display: 'swap',
         families: {
           'Dancing Script': './assets/fonts/DancingScript*',
         },

@@ -17,8 +17,9 @@ export interface GoogleFonts {
 }
 
 const GoogleFontsBase = 'https://fonts.googleapis.com/css2'
+const GStaticBase = 'https://fonts.gstatic.com/'
 
-function injectFonts({
+export function googleLoader({
   families,
   text,
   preconnect = true,
@@ -75,7 +76,7 @@ function injectFonts({
       injectTo,
       attrs: {
         rel: 'preconnect',
-        href: 'https://fonts.gstatic.com/',
+        href: GStaticBase,
         crossorigin: true,
       },
     })
@@ -125,4 +126,3 @@ function injectFonts({
 
   return tags
 }
-export default injectFonts
