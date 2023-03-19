@@ -7,9 +7,8 @@ export default function (options: Options) {
     name: 'unplugin-fonts',
     hooks: {
       'astro:config:setup': async (astro: any) => {
-        if (options?.custom) {
+        if (options?.custom)
           options.custom.stripPrefix = 'public/'
-        }
 
         astro.config.vite.plugins ||= []
         astro.config.vite.plugins.push(unplugin.vite(options))
@@ -17,7 +16,6 @@ export default function (options: Options) {
         // const links = getHeadLinkTags(options, astro.config.root.toString())
         // const linksString: string[] = []
 
-      
         // for (const link of links) {
         //   linksString.push(`<link ${Object.entries(link.attrs || {}).map(([key, value]) => `${key}="${value}"`).join(' ')} />`)
         // }

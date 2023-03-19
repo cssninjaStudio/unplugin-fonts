@@ -1,20 +1,5 @@
 import type { HtmlTagDescriptor } from 'vite'
-
-export interface GoogleFontFamily {
-  name: string
-  styles?: string
-  defer?: boolean
-}
-export interface GoogleFonts {
-  families: (string | GoogleFontFamily)[]
-  text?: string
-  display?: 'auto' | 'block' | 'swap' | 'fallback' | 'optional'
-  preconnect?: boolean
-  /**
-   * @default: 'head-prepend'
-   */
-  injectTo?: 'head' | 'body' | 'head-prepend' | 'body-prepend'
-}
+import type { GoogleFonts } from '../types'
 
 const GoogleFontsBase = 'https://fonts.googleapis.com/css2'
 const GStaticBase = 'https://fonts.gstatic.com/'
@@ -43,7 +28,7 @@ export function googleLoader({
         continue
       }
 
-      if (!(family as GoogleFontFamily))
+      if (!family)
         continue
 
       const {

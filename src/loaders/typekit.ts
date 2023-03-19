@@ -1,13 +1,5 @@
 import type { HtmlTagDescriptor } from 'vite'
-
-export interface TypeKitFonts {
-  id: string
-  defer?: boolean
-  /**
-   * default: 'head-prepend'
-   */
-  injectTo?: 'head' | 'body' | 'head-prepend' | 'body-prepend'
-}
+import type { TypeKitFonts } from '../types'
 
 const TypekitFontBase = 'https://use.typekit.net/'
 
@@ -49,4 +41,3 @@ export function typekitLoader({
 
   return tags
 }
-

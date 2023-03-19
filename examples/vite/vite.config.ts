@@ -11,7 +11,15 @@ export default defineConfig({
       custom: {
         display: 'swap',
         families: {
-          'Dancing Script': './assets/fonts/DancingScript*',
+          'Dancing Script': {
+            src: './assets/fonts/DancingScript*',
+            transform(font) {
+              if (font.basename === 'DancingScript-Bold')
+                font.weight = 700
+
+              return font
+            },
+          },
         },
       },
 

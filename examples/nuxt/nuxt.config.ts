@@ -15,5 +15,5 @@ export default defineNuxtConfig({
         'Dancing Script': './assets/fonts/DancingScript*',
       },
     },
-  }
+  },
 })

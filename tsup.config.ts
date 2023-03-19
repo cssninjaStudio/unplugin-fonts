@@ -6,7 +6,7 @@ export default <Options>{
     'src/astro/component.astro',
   ],
   loader: {
-    '.astro': 'copy'
+    '.astro': 'copy',
   },
   clean: true,
   format: ['cjs', 'esm'],

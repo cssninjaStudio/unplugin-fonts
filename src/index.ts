@@ -5,10 +5,10 @@ import { fontsourceVirtualModule } from './loaders/fontsource'
 import { customVirtualModule } from './loaders/custom'
 
 const virtualStylesId = 'unfonts.css'
-const resolvedVirtualStylesId = '\0' + virtualStylesId
+const resolvedVirtualStylesId = `\0${virtualStylesId}`
 
 const virtualModuleId = 'unplugin-fonts/head'
-const resolvedVirtualModuleId = '\0' + virtualModuleId
+const resolvedVirtualModuleId = `\0${virtualModuleId}`
 
 export default createUnplugin<Options | undefined>((userOptions) => {
   const options = userOptions || {}
@@ -18,30 +18,25 @@ export default createUnplugin<Options | undefined>((userOptions) => {
     name: 'unplugin-fonts',
     enforce: 'pre',
     resolveId(id) {
-      if (id === virtualStylesId) {
+      if (id === virtualStylesId)
         return resolvedVirtualStylesId
-      } 
-      
-      if (id === virtualModuleId) {
+
+      if (id === virtualModuleId)
         return resolvedVirtualModuleId
-      }
     },
 
     load(id) {
-      if (id === resolvedVirtualModuleId) {
+      if (id === resolvedVirtualModuleId)
         return `export const links = ${JSON.stringify(getHeadLinkTags(options, root))}`
-      }
-      
+
       if (id === resolvedVirtualStylesId) {
         const source: string[] = []
 
-        if (options.fontsource) {
+        if (options.fontsource)
           source.push(fontsourceVirtualModule(options.fontsource))
-        }
 
-        if (options.custom) {
+        if (options.custom)
           source.push(customVirtualModule(options.custom, root))
-        }
 
         return source.join('\n')
       }
