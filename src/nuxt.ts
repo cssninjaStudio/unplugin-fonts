@@ -9,16 +9,16 @@ import unplugin from '.'
 export default defineNuxtModule({
   meta: {
     name: 'unplugin-fonts',
-    configKey: 'fonts',
+    configKey: 'unfonts',
   },
   setup(options: Options, nuxt) {
-    nuxt.options.css ??= []
+    nuxt.options.css ||= []
     nuxt.options.css.push('unfonts.css')
 
     const links = getHeadLinkTags(options, nuxt.options.rootDir)
 
-    nuxt.options.app.head ??= {}
-    nuxt.options.app.head.link ??= []
+    nuxt.options.app.head ||= {}
+    nuxt.options.app.head.link ||= []
 
     for (const link of links) {
       nuxt.options.app.head.link.push({

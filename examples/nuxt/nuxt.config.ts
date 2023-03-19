@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   modules: [
     Unfonts,
   ],
-  fonts: {
+  unfonts: {
     google: {
       families: ['Crimson Pro', 'Open Sans', 'Material+Icons'],
     },

@@ -1,17 +1,18 @@
 <script setup lang="ts">
-// @ts-ignore
-import { tags } from 'unplugin-fonts/head'
+import { links } from 'unplugin-fonts/head'
+import src from 'unfonts.css'
 </script>
 
 <template>
   <h1>Hello Nuxt!</h1>
   <h2>I'm using a local font !</h2>
-  <pre>{{ tags }}</pre>
+  <pre>links: {{ links }}</pre>
+  <pre>src: {{ src }}</pre>
   <a href="https://vitejs.dev/guide/features.html" target="_blank">Documentation</a>
 </template>
 
 <style>
-body {
+:root {
   font-family: "Crimson Pro", Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -22,6 +23,10 @@ body {
 
 a {
   font-family: "Open Sans", Avenir, Helvetica, Arial, sans-serif;
+}
+
+pre {
+  text-align: left;
 }
 
 h2 {

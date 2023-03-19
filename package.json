@@ -20,9 +20,6 @@
       "types": "./dist/astro/component.d.ts",
       "import": "./dist/astro/component.astro"
     },
-    "./head": {
-      "types": "./dist/head.d.ts"
-    },
     "./esbuild": {
       "types": "./dist/esbuild.d.ts",
       "require": "./dist/esbuild.js",
@@ -53,6 +50,9 @@
       "require": "./dist/webpack.js",
       "import": "./dist/webpack.mjs"
     },
+    "./client": {
+      "types": "./client.d.ts"
+    },
     "./*": "./*"
   },
   "main": "dist/index.js",
@@ -67,7 +67,8 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "client.d.ts"
   ],
   "scripts": {
     "build": "tsup",

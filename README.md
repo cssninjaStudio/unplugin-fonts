@@ -147,6 +147,7 @@ import 'unfonts.css'
 ```
 
 
+
 ## Options
 
 
@@ -366,6 +367,15 @@ Unfonts({
 })
 ```
 
+## Typescript Definitions
+
+```json
+{
+  "compilerOptions": {
+    "types": ["unplugin-fonts/client"]
+  }
+}
+```
 
 ## Ressources
 
