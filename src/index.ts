@@ -17,7 +17,9 @@ export default createUnplugin<Options | undefined>((userOptions) => {
   return {
     name: 'unplugin-fonts',
     enforce: 'pre',
-    resolveId(id) {
+    resolveId(_id) {
+      const id = _id.replace(/\?.*$/, '')
+
       if (id === virtualStylesId)
         return resolvedVirtualStylesId
 
@@ -25,7 +27,9 @@ export default createUnplugin<Options | undefined>((userOptions) => {
         return resolvedVirtualModuleId
     },
 
-    load(id) {
+    load(_id) {
+      const id = _id.replace(/\?.*$/, '')
+
       if (id === resolvedVirtualModuleId)
         return `export const links = ${JSON.stringify(getHeadLinkTags(options, root))}`
 
