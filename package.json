@@ -75,8 +75,6 @@
     "build:fix": "esno scripts/postbuild.ts",
     "example:dev": "npm -C examples/vite run dev",
     "example:build": "npm -C examples/vite run build",
-    "docs:dev": "npm -C docs run dev",
-    "docs:build": "npm -C docs run build",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "test": "vitest"

@@ -1,0 +1,25 @@
+{
+  "name": "sveltekit-test",
+  "private": true,
+	"type": "module",
+  "scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "vite preview",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch"
+	},
+	"devDependencies": {
+    "@fontsource/abeezee": "^4.5.10",
+    "@fontsource/truculenta": "^4.5.12",
+		"@neoconfetti/svelte": "^1.0.0",
+		"@sveltejs/adapter-auto": "^2.0.0",
+		"@sveltejs/kit": "^1.5.0",
+		"@types/cookie": "^0.5.1",
+		"svelte": "^3.54.0",
+		"svelte-check": "^3.0.1",
+    "unplugin-fonts": "workspace:*",
+		"vite": "^4.0.0",
+    "typescript": "^5.0.2"
+	}
+}

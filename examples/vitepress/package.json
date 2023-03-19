@@ -1,5 +1,5 @@
 {
-  "name": "docs",
+  "name": "vitepress-test",
   "private": true,
   "scripts": {
     "dev": "vitepress dev",
@@ -11,5 +11,4 @@
     "unplugin-fonts": "workspace:*",
     "vitepress": "^1.0.0-alpha.60"
   }
-
 }

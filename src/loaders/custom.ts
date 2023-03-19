@@ -1,5 +1,5 @@
 import type { HtmlTagDescriptor } from 'vite'
-import { sync as glob } from 'fast-glob'
+import fg from 'fast-glob'
 import { basename as _basename, extname, join, relative } from 'pathe'
 import type { CustomFontFace, CustomFontFamily, CustomFonts } from '../types'
 
@@ -79,7 +79,7 @@ function resolveFontFiles(family: CustomFontFamily, options: ResolvedCustomFonts
   const facesMap: Record<string, CustomFontFace> = {}
 
   for (const source of sources) {
-    const results = glob(join(root, source), { absolute: true, cwd: root, onlyFiles: true })
+    const results = fg.sync(join(root, source), { absolute: true, cwd: root, onlyFiles: true })
 
     for (const file of results) {
       const ext = extname(file)
