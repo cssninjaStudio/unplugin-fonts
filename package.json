@@ -1,11 +1,18 @@
 {
   "name": "unplugin-fonts",
-  "version": "0.7.0",
+  "version": "1.0.0-beta.0",
   "description": "Universal Webfont loader",
   "author": "stafyniaksacha",
   "license": "MIT",
   "repository": "stafyniaksacha/unplugin-fonts",
-  "keywords": ["fonts", "svelte", "nuxt", "vite", "vitepress", "astro-integration"],
+  "keywords": [
+    "fonts",
+    "svelte",
+    "nuxt",
+    "vite",
+    "vitepress",
+    "astro-integration"
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
