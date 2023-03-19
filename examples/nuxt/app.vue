@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { links } from 'unplugin-fonts/head'
-import src from 'unfonts.css'
+import src from 'unfonts.css?raw'
 </script>
 
 <template>

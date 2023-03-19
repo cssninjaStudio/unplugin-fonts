@@ -1,3 +1,4 @@
+import MagicString from 'magic-string'
 import { createUnplugin } from 'unplugin'
 import type { Options } from './types'
 import { getHeadLinkTags } from './loaders'
@@ -17,32 +18,37 @@ export default createUnplugin<Options | undefined>((userOptions) => {
   return {
     name: 'unplugin-fonts',
     enforce: 'pre',
-    resolveId(_id) {
-      const id = _id.replace(/\?.*$/, '')
-
-      if (id === virtualStylesId)
+    resolveId(id) {
+      if (id.startsWith(virtualStylesId))
         return resolvedVirtualStylesId
 
-      if (id === virtualModuleId)
+      if (id.startsWith(virtualModuleId))
         return resolvedVirtualModuleId
     },
 
-    load(_id) {
-      const id = _id.replace(/\?.*$/, '')
+    load(id) {
+      if (id.startsWith(resolvedVirtualModuleId)) {
+        const s = new MagicString(`export const links = ${JSON.stringify(getHeadLinkTags(options, root))};\n`)
 
-      if (id === resolvedVirtualModuleId)
-        return `export const links = ${JSON.stringify(getHeadLinkTags(options, root))}`
+        return {
+          code: s.toString(),
+          map: s.generateMap({ source: id, includeContent: true }),
+        }
+      }
 
-      if (id === resolvedVirtualStylesId) {
-        const source: string[] = []
+      if (id.startsWith(resolvedVirtualStylesId)) {
+        const s = new MagicString('')
 
         if (options.fontsource)
-          source.push(fontsourceVirtualModule(options.fontsource))
+          s.append(`${fontsourceVirtualModule(options.fontsource)}\n`)
 
         if (options.custom)
-          source.push(customVirtualModule(options.custom, root))
+          s.append(`${customVirtualModule(options.custom, root)}\n`)
 
-        return source.join('\n')
+        return {
+          code: s.toString(),
+          map: s.generateMap({ source: id, includeContent: true }),
+        }
       }
     },
     vite: {

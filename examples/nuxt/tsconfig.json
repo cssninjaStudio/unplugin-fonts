@@ -2,6 +2,6 @@
   // https://nuxt.com/docs/guide/concepts/typescript
   "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
-    "types": ["unplugin-fonts/client"]
+    "types": ["vite/client", "unplugin-fonts/client"]
   }
 }

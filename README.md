@@ -23,7 +23,7 @@ export default defineConfig({
 })
 ```
 
-Example: [`playground/`](./playground/)
+Example: [`examples/vite`](./examples/vite)
 
 <br></details>
 
@@ -77,6 +77,8 @@ export default {
 }
 ```
 
+Example: [`examples/nuxt`](./examples/nuxt)
+
 <br></details>
 
 <!-- <details>
@@ -115,6 +117,8 @@ export default defineConfig({
 })
 ```
 
+Example: [`examples/sveltekit`](./examples/sveltekit)
+
 <br></details>
 
 <details>
@@ -133,6 +137,24 @@ export default defineConfig({
   ]
 })
 ```
+
+```astro
+---
+// src/pages/index.astro
+import Unfont from 'unplugin-fonts/astro/component.astro';
+---
+
+<html>
+  <head>
+    <Unfont />
+  </head>
+  <body>
+    <!-- ... -->
+  </body>
+</html>
+```
+
+Example: [`examples/astro`](./examples/astro)
 
 <br></details>
 
