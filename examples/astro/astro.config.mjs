@@ -14,6 +14,6 @@ export default defineConfig({
           'Dancing Script': './public/assets/fonts/DancingScript*',
         },
       },
-    })
+    }),
   ],
 })
