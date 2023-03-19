@@ -1,6 +1,6 @@
 # unplugin-fonts
 
-Webfont loader for vite
+Universal Webfont loader
 
 
 ## Install
