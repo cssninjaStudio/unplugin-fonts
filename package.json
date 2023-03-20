@@ -93,7 +93,8 @@
     "example:build": "npm -C examples/vite run build",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "test": "vitest"
+    "test": "vitest",
+    "release": "npm run lint && npx standard-version && git push --follow-tags origin main && npm publish"
   },
   "peerDependencies": {
     "@nuxt/kit": "^3.0.0",
@@ -121,6 +122,7 @@
     "magic-string": "^0.30.0",
     "pathe": "^1.1.0",
     "rollup": "^3.19.1",
+    "standard-version": "^9.5.0",
     "tsup": "^6.6.3",
     "typescript": "^5.0.2",
     "vite": "^4.2.0",
