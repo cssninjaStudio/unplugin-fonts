@@ -1,0 +1,15 @@
+{
+  "name": "astro-test",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "devDependencies": {
+    "astro": "^2.1.3",
+    "unplugin-fonts": "workspace:*"
+  }
+}

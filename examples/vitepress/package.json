@@ -1,0 +1,14 @@
+{
+  "name": "vitepress-test",
+  "private": true,
+  "scripts": {
+    "dev": "vitepress dev",
+    "start": "vitepress dev",
+    "build": "vitepress build",
+    "preview": "vitepress preview"
+  },
+  "devDependencies": {
+    "unplugin-fonts": "workspace:*",
+    "vitepress": "^1.0.0-alpha.60"
+  }
+}

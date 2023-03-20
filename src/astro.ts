@@ -1,0 +1,20 @@
+import type { AstroIntegration } from 'astro'
+import type { Options } from './types'
+import unplugin from '.'
+
+export default function (options: Options) {
+  return <AstroIntegration>{
+    name: 'unplugin-fonts',
+    hooks: {
+      'astro:config:setup': async (astro) => {
+        if (options?.custom)
+          options.custom.stripPrefix = 'public/'
+
+        astro.config.vite.plugins ||= []
+        astro.config.vite.plugins.push(unplugin.vite(options))
+
+        astro.injectScript('page-ssr', 'import "unfonts.css";')
+      },
+    },
+  }
+}

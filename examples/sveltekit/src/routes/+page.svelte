@@ -1,0 +1,38 @@
+<section>
+  <h1>Hello SvelteKit!</h1>
+  <h2>I'm using a local font !</h2>
+  <div class="fontsource-abeezee">I'm a ABeeZee fontsource</div>
+  <div class="fontsource-truculenta">I'm a Truculenta fontsource</div>
+  <a href="https://vitejs.dev/guide/features.html" target="_blank">Documentation</a>
+</section>
+
+<style>
+:root {
+  font-family: "Crimson Pro", Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+
+a {
+  font-family: "Open Sans", Avenir, Helvetica, Arial, sans-serif;
+}
+
+h2 {
+  font-family: "Dancing Script", sans-serif;
+  font-size: 3rem;
+  font-weight: 600;
+}
+
+
+.fontsource-abeezee { 
+  font-family: "ABeeZee", sans-serif;
+}
+
+.fontsource-truculenta { 
+  font-family: "Truculenta", sans-serif;
+}
+
+</style>
