@@ -113,7 +113,7 @@ module.exports = {
 
 
 <details>
-<summary>SveltKit</summary><br>
+<summary>SvelteKit</summary><br>
 
 ```ts
 // vite.config.ts
