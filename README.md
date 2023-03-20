@@ -1,14 +1,16 @@
 # unplugin-fonts
 
-㊗️ Universal Webfont loader
+㊗️ Universal Webfont loader - Unfonts
 
 [![npm](https://img.shields.io/npm/v/unplugin-fonts.svg)](https://www.npmjs.com/package/unplugin-fonts)
 
-Load fonts from any provider and use them in your project, whatever the framework you use.
+This plugin goes beyond just generating font-face rules - it also takes care of link preload and prefetch, optimizing font loading for a faster and more efficient user experience.
 
-This module takes care of loading the font files and generating the font-face rules. By default it preloads the font files and uses the swap strategy, but you can customize this behavior.
+Unfonts currently supports popular font providers like Typekit, Google Fonts, and Fontsource, as well as custom fonts. This gives you the flexibility to choose from a vast range of fonts and seamlessly integrate them into your projects.
 
-Currently supported providers:
+With Unfonts, you no longer have to manually manage font files and font-face rules, or worry about slow loading times. Our package does all the heavy lifting for you, so you can focus on creating amazing content with ease.
+
+View configuration:
 - [Typekit](#typekit)
 - [Google Fonts](#google-fonts)
 - [Custom Fonts](#custom-fonts)
@@ -451,6 +453,13 @@ Unfonts({
     "types": ["unplugin-fonts/client"]
   }
 }
+```
+
+or 
+
+```ts	
+// declaration.d.ts
+/// <reference types="unplugin-fonts/client" />
 ```
 
 ## Ressources
