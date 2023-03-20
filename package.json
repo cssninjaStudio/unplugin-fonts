@@ -2,11 +2,17 @@
   "name": "unplugin-fonts",
   "version": "1.0.0-beta.0",
   "description": "Universal Webfont loader",
-  "author": "stafyniaksacha",
+  "author": {
+    "name": "cssninjaStudio <hello@cssninja.io> (https://cssninja.io)"
+  },
   "license": "MIT",
-  "repository": "stafyniaksacha/unplugin-fonts",
+  "repository": "cssninjaStudio/unplugin-fonts",
   "keywords": [
     "fonts",
+    "google-fonts",
+    "typekit",
+    "fontsource",
+    "webfontloader",
     "svelte",
     "nuxt",
     "vite",

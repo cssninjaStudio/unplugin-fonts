@@ -1,6 +1,18 @@
 # unplugin-fonts
 
-Universal Webfont loader
+㊗️ Universal Webfont loader
+
+[![npm](https://img.shields.io/npm/v/unplugin-fonts.svg)](https://www.npmjs.com/package/unplugin-fonts)
+
+Load fonts from any provider and use them in your project, whatever the framework you use.
+
+This module takes care of loading the font files and generating the font-face rules. By default it preloads the font files and uses the swap strategy, but you can customize this behavior.
+
+Currently supported providers:
+- [Typekit](#typekit)
+- [Google Fonts](#google-fonts)
+- [Custom Fonts](#custom-fonts)
+- [Fontsource](#fontsource)
 
 
 ## Install
@@ -158,11 +170,42 @@ Example: [`examples/astro`](./examples/astro)
 
 <br></details>
 
+---
+
+
+<details>
+<summary>Migrating from <code>vite-plugin-fonts</code></summary><br>
+
+```diff
+// vite.config.ts
+-import { VitePluginFonts } from 'vite-plugin-fonts'
++import Unfonts from 'unplugin-fonts/vite'
+
+export default defineConfig({
+  plugins: [
+-    VitePluginFonts({ 
++    Unfonts({ 
+      /* options */ 
+    }),
+  ],
+})
+```
+
+
+```diff
+// main.ts
+-import 'virtual:fonts.css'
++import 'unfonts.css'
+```
+
+
+<br></details>
+
 
 ## Import generated `@font-rules` CSS
 
 > **Note**  
-> Required if using local/custom or fontsource fonts
+> Required if using **custom** or **fontsource** providers
 
 ```ts
 import 'unfonts.css'
@@ -170,10 +213,12 @@ import 'unfonts.css'
 
 
 
-## Options
+## Providers
 
 
 ### Typekit
+
+Load fonts from [Typekit](https://typekit.com/).
 
 ```ts
 Unfonts({
@@ -203,6 +248,8 @@ Unfonts({
 
 
 ### Google Fonts
+
+Load fonts from [Google Fonts](https://fonts.google.com/).
 
 ```ts
 Unfonts({
@@ -266,6 +313,8 @@ Unfonts({
 ``` 
 
 ### Custom Fonts
+
+Load custom fonts from files.
 
 ```ts
 Unfonts({
@@ -338,6 +387,11 @@ Unfonts({
 ``` 
 
 ### Fontsource
+
+Load fonts from [Fontsource](https://fontsource.org/) packages.
+
+> **Note**
+> You will need to install `@fontsource/<font>` packages.
 
 ```ts
 Unfonts({

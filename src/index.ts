@@ -28,7 +28,8 @@ export default createUnplugin<Options | undefined>((userOptions) => {
 
     load(id) {
       if (id.startsWith(resolvedVirtualModuleId)) {
-        const s = new MagicString(`export const links = ${JSON.stringify(getHeadLinkTags(options, root))};\n`)
+        const tags = getHeadLinkTags(options, root)
+        const s = new MagicString(`export const links = ${JSON.stringify(tags)};\n`)
 
         return {
           code: s.toString(),
