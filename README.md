@@ -462,7 +462,7 @@ or
 /// <reference types="unplugin-fonts/client" />
 ```
 
-## Ressources
+## Resources
 
 - https://web.dev/optimize-webfont-loading/
 - https://csswizardry.com/2020/05/the-fastest-google-fonts/
