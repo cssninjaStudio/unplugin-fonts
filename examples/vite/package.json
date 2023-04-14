@@ -10,6 +10,6 @@
     "@fontsource/abeezee": "^4.5.10",
     "@fontsource/truculenta": "^4.5.12",
     "unplugin-fonts": "workspace:*",
-    "vite": "^4.2.0"
+    "vite": "^4.2.1"
   }
 }

@@ -11,8 +11,31 @@ export default defineConfig({
       custom: {
         display: 'swap',
         families: {
-          'Dancing Script': './public/assets/fonts/DancingScript*',
+          'Dancing Script': {
+            src: './public/assets/fonts/DancingScript*',
+            transform(font) {
+              if (font.basename === 'DancingScript-Bold')
+                font.weight = 700
+
+              return font
+            },
+          },
         },
+      },
+
+      fontsource: {
+        families: [
+          {
+            name: 'ABeeZee',
+            weights: [400],
+            styles: ['italic'],
+          },
+          {
+            name: 'Truculenta',
+            weights: [400, 700],
+            subset: 'latin-ext',
+          },
+        ],
       },
     }),
   ],
