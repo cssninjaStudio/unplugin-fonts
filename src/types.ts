@@ -108,13 +108,18 @@ export interface CustomFonts {
   stripPrefix?: string
 }
 
-export interface FontsourceFontFamily {
+interface BaseFontsourceFontFamily {
   name: string
-  variables?: ('variable' | 'variable-italic' | 'variable-full' | 'variable-full-italic')[]
-  weights: (100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900)[]
   styles?: ('italic' | 'normal')[]
   subset?: string
 }
+interface WeightsFontsourceFontFamily extends BaseFontsourceFontFamily {
+  weights: (100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900)[]
+}
+interface VariableFontsourceFontFamily extends BaseFontsourceFontFamily {
+  variables: ('variable' | 'variable-italic' | 'variable-full' | 'variable-full-italic')[]
+}
+export type FontsourceFontFamily = WeightsFontsourceFontFamily | VariableFontsourceFontFamily
 export interface FontsourceFonts {
   families: (string | FontsourceFontFamily)[]
 }
