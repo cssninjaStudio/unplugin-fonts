@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.1](https://github.com/cssninjaStudio/unplugin-fonts/compare/v1.0.0...v1.0.1) (2023-04-14)
+
+
+### Bug Fixes
+
+* update dependencies ([2d75cbb](https://github.com/cssninjaStudio/unplugin-fonts/commit/2d75cbbface8a8ba5c4b2512da6995a54e850a92))
+
 ## [1.0.0](https://github.com/cssninjaStudio/unplugin-fonts/compare/v1.0.0-beta.1...v1.0.0) (2023-03-20)
 
 
