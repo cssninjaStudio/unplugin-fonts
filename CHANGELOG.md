@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.3](https://github.com/cssninjaStudio/unplugin-fonts/compare/v1.0.2...v1.0.3) (2023-04-15)
+
+
+### Bug Fixes
+
+* **fontsource:** slugify family name to match package ([570ea24](https://github.com/cssninjaStudio/unplugin-fonts/commit/570ea24fe93341ed27f7178a2d46081cc0bc020e))
+* **nuxt:** only load unfonts.css when necessary ([0c6bd30](https://github.com/cssninjaStudio/unplugin-fonts/commit/0c6bd30d77200675cda3eba20ec6370b2ee8a6e0))
+* optionally generate sourcemap ([e6c5ffb](https://github.com/cssninjaStudio/unplugin-fonts/commit/e6c5ffbfbf9363563105c1e92e4e1a31ef8f138b))
+
 ### [1.0.2](https://github.com/cssninjaStudio/unplugin-fonts/compare/v1.0.1...v1.0.2) (2023-04-14)
 
 
