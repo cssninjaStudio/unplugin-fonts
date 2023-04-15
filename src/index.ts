@@ -33,7 +33,9 @@ export default createUnplugin<Options | undefined>((userOptions) => {
 
         return {
           code: s.toString(),
-          map: s.generateMap({ source: id, includeContent: true }),
+          map: options.sourcemap
+            ? s.generateMap({ hires: true })
+            : undefined,
         }
       }
 
@@ -48,7 +50,9 @@ export default createUnplugin<Options | undefined>((userOptions) => {
 
         return {
           code: s.toString(),
-          map: s.generateMap({ source: id, includeContent: true }),
+          map: options.sourcemap
+            ? s.generateMap({ hires: true })
+            : undefined,
         }
       }
     },

@@ -3,6 +3,7 @@ export interface Options {
   fontsource?: FontsourceFonts
   google?: GoogleFonts
   typekit?: TypeKitFonts
+  sourcemap?: string
 }
 
 export interface CustomFontFace {
