@@ -12,46 +12,32 @@ export function fontsourceVirtualModule(options?: FontsourceFonts) {
       continue
 
     if (typeof family === 'string') {
-      source.push(`@import "@fontsource/${family.toLowerCase()}";`)
+      const name = family.toLowerCase().replace(/ /g, '-')
+      source.push(`@import "@fontsource/${name}";`)
       continue
     }
-    const {
-      name,
-      variables,
-      weights,
-      styles,
-      subset,
-    } = family
 
-    const subsetPrefix = subset ? `${subset}-` : ''
+    const name = family.name.toLowerCase().replace(/ /g, '-')
+    const subsetPrefix = family.subset ? `${family.subset}-` : ''
 
-    if (variables) {
-      if (weights)
-        console.warn('unplugin-fonts: Variable fonts does not support weights. Ignoring weights.')
-
-      for (const variable of variables)
-        source.push(`@import "@fontsource/${name.toLowerCase()}/${subsetPrefix}${variable}.css";`)
+    if ('variables' in family) {
+      for (const variable of family.variables)
+        source.push(`@import "@fontsource/${name}/${subsetPrefix}${variable}.css";`)
     }
-    else if (weights) {
-      for (const weight of weights) {
-        if (styles) {
-          for (const style of styles) {
+    else if ('weights' in family) {
+      for (const weight of family.weights) {
+        if (family.styles) {
+          for (const style of family.styles) {
             if (style === 'normal')
-              source.push(`@import "@fontsource/${name.toLowerCase()}/${subsetPrefix}${style}.css";`)
+              source.push(`@import "@fontsource/${name}/${subsetPrefix}${style}.css";`)
             else
-              source.push(`@import "@fontsource/${name.toLowerCase()}/${subsetPrefix}${weight}-${style}.css";`)
+              source.push(`@import "@fontsource/${name}/${subsetPrefix}${weight}-${style}.css";`)
           }
         }
         else {
-          source.push(`@import "@fontsource/${name.toLowerCase()}/${subsetPrefix}${weight}.css";`)
+          source.push(`@import "@fontsource/${name}/${subsetPrefix}${weight}.css";`)
         }
       }
-    }
-    else {
-      if (subset)
-        source.push(`@import "@fontsource/${name.toLowerCase()}/${subset}.css";`)
-      else
-        source.push(`@import "@fontsource/${name.toLowerCase()}";`)
     }
   }
 
