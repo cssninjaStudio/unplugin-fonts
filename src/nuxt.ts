@@ -12,8 +12,10 @@ export default defineNuxtModule({
     configKey: 'unfonts',
   },
   setup(options: Options, nuxt) {
-    nuxt.options.css ||= []
-    nuxt.options.css.push('unfonts.css')
+    if ('fontsource' in options || 'custom' in options) {
+      nuxt.options.css ||= []
+      nuxt.options.css.push('unfonts.css')
+    }
 
     const links = getHeadLinkTags(options, nuxt.options.rootDir)
 
