@@ -29,7 +29,7 @@ export function fontsourceVirtualModule(options?: FontsourceFonts) {
         if (family.styles) {
           for (const style of family.styles) {
             if (style === 'normal')
-              source.push(`@import "@fontsource/${name}/${subsetPrefix}${style}.css";`)
+              source.push(`@import "@fontsource/${name}/${subsetPrefix}${weight}.css";`)
             else
               source.push(`@import "@fontsource/${name}/${subsetPrefix}${weight}-${style}.css";`)
           }
