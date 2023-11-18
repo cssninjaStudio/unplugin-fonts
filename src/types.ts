@@ -118,7 +118,13 @@ interface WeightsFontsourceFontFamily extends BaseFontsourceFontFamily {
   weights: (100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900)[]
 }
 interface VariableFontsourceFontFamily extends BaseFontsourceFontFamily {
-  variables: ('variable' | 'variable-italic' | 'variable-full' | 'variable-full-italic')[]
+  variable: true | {
+    wght?: boolean;
+    wdth?: boolean;
+    slnt?: boolean;
+    opsz?: boolean;
+    ital?: boolean;
+  }
 }
 export type FontsourceFontFamily = WeightsFontsourceFontFamily | VariableFontsourceFontFamily
 export interface FontsourceFonts {

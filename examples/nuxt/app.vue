@@ -8,6 +8,7 @@ import src from 'unfonts.css?raw'
   <h2>I'm using a local font !</h2>
   <div class="fontsource-abeezee">I'm a ABeeZee fontsource</div>
   <div class="fontsource-truculenta">I'm a Truculenta fontsource</div>
+  <div class="fontsource-variable">I'm a Noto Sans JP Variable fontsource</div>
   <pre>links: {{ links }}</pre>
   <ClientOnly>
     <pre>src: {{ src }}</pre>
@@ -45,5 +46,9 @@ h2 {
 
 .fontsource-truculenta { 
   font-family: "Truculenta", sans-serif;
+}
+.fontsource-variable {
+  font-family: "Noto Sans JP Variable", sans-serif;
+  font-weight: 875;
 }
 </style>

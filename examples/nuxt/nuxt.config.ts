@@ -27,6 +27,9 @@ export default defineNuxtConfig({
           name: 'Truculenta',
           weights: [400, 700],
         },
+        {
+          name: 'Noto Sans JP Variable',
+        },
       ],
     },
   },

@@ -7,6 +7,9 @@
     "preview": "nuxt preview"
   },
   "devDependencies": {
+    "@fontsource/abeezee": "^4.5.10",
+    "@fontsource/truculenta": "^4.5.12",
+    "@fontsource-variable/noto-sans-jp": "^5.0.16",
     "nuxt": "^3.4.1",
     "unplugin-fonts": "workspace:*"
   }

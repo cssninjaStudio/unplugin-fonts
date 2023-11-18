@@ -406,6 +406,7 @@ Unfonts({
       // families can be either strings (load default font set)
       // Require the `@fontsource/abeezee` package to be installed.
       'ABeeZee',
+      'Inter Variable', // Require the `@fontsource-variable/inter` package to be installed.
       {
         /**
          * Name of the font family.
@@ -428,17 +429,17 @@ Unfonts({
       {
         /**
          * Name of the font family.
-         * Require the `@fontsource/cabin` package to be installed.
+         * Require the `@fontsource-variable/cabin` package to be installed.
          */
         name: 'Cabin',
         /**
-         * Instead of using weights/styles, we can use variables fonts.
+         * When using variable fonts, you can choose which axes to load.
          */
-        variables: ['variable-full', 'variable-full-italic'],
-        /**
-         * Use another font subset.
-         */
-        subset: 'latin-ext',
+        variable: {
+          wght: true,
+          slnt: true,
+          ital: true,
+        },
       },
     ],
   },
