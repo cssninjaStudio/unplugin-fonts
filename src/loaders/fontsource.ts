@@ -1,6 +1,6 @@
 import type { FontsourceFonts } from '../types'
 
-export function fontsourceVirtualModule(options?: FontsourceFonts) {
+export function fontsourceImports(options?: FontsourceFonts) {
   const source: string[] = []
 
   const {
@@ -13,7 +13,7 @@ export function fontsourceVirtualModule(options?: FontsourceFonts) {
 
     if (typeof family === 'string') {
       const name = family.toLowerCase().replace(/ /g, '-')
-      source.push(`@import "@fontsource/${name}";`)
+      source.push(`@fontsource/${name}/index.css`)
       continue
     }
 
@@ -22,24 +22,30 @@ export function fontsourceVirtualModule(options?: FontsourceFonts) {
 
     if ('variables' in family) {
       for (const variable of family.variables)
-        source.push(`@import "@fontsource/${name}/${subsetPrefix}${variable}.css";`)
+        source.push(`@fontsource/${name}/${subsetPrefix}${variable}.css`)
     }
     else if ('weights' in family) {
       for (const weight of family.weights) {
         if (family.styles) {
           for (const style of family.styles) {
             if (style === 'normal')
-              source.push(`@import "@fontsource/${name}/${subsetPrefix}${weight}.css";`)
+              source.push(`@fontsource/${name}/${subsetPrefix}${weight}.css`)
             else
-              source.push(`@import "@fontsource/${name}/${subsetPrefix}${weight}-${style}.css";`)
+              source.push(`@fontsource/${name}/${subsetPrefix}${weight}-${style}.css`)
           }
         }
         else {
-          source.push(`@import "@fontsource/${name}/${subsetPrefix}${weight}.css";`)
+          source.push(`@fontsource/${name}/${subsetPrefix}${weight}.css`)
         }
       }
     }
   }
 
-  return source.join('\n')
+  return source
+}
+
+export function fontsourceVirtualModule(options?: FontsourceFonts) {
+  return fontsourceImports(options)
+    .map((src) => `@import "${src}";`)
+    .join('\n')
 }

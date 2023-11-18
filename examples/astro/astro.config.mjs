@@ -33,7 +33,6 @@ export default defineConfig({
           {
             name: 'Truculenta',
             weights: [400, 700],
-            subset: 'latin-ext',
           },
         ],
       },

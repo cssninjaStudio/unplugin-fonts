@@ -15,5 +15,19 @@ export default defineNuxtConfig({
         'Dancing Script': './assets/fonts/DancingScript*',
       },
     },
+
+    fontsource: {
+      families: [
+        {
+          name: 'ABeeZee',
+          weights: [400],
+          styles: ['italic'],
+        },
+        {
+          name: 'Truculenta',
+          weights: [400, 700],
+        },
+      ],
+    },
   },
 })

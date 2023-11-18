@@ -9,6 +9,7 @@ function resolveUserOption(options: CustomFonts): ResolvedCustomFonts {
   let {
     families = [],
     preload = true,
+    prefetchPrefix = '',
     prefetch = false,
     injectTo = 'head-prepend',
     display = 'auto',
@@ -27,6 +28,7 @@ function resolveUserOption(options: CustomFonts): ResolvedCustomFonts {
   return {
     families,
     preload,
+    prefetchPrefix,
     prefetch,
     injectTo,
     display,
@@ -229,7 +231,7 @@ function createFontLinks(options: ResolvedCustomFonts, face: CustomFontFace) {
         rel: options.prefetch ? 'prefetch' : 'preload',
         as: 'font',
         type: `font/${file.ext.replace('.', '')}`,
-        href: file.path,
+        href: join(options.prefetchPrefix, file.path),
         crossorigin: true,
       },
     })

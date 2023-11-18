@@ -4,6 +4,7 @@ import { addVitePlugin, addWebpackPlugin, defineNuxtModule } from '@nuxt/kit'
 import type {} from '@nuxt/schema'
 import type { Options } from './types'
 import { getHeadLinkTags } from './loaders'
+import { fontsourceImports } from './loaders/fontsource'
 import unplugin from '.'
 
 export default defineNuxtModule({
@@ -15,6 +16,16 @@ export default defineNuxtModule({
     if ('fontsource' in options || 'custom' in options) {
       nuxt.options.css ||= []
       nuxt.options.css.push('unfonts.css')
+      if ('fontsource' in options) {
+        for (const src of fontsourceImports(options.fontsource)) {
+          nuxt.options.css.push(src)
+        }
+        delete options.fontsource
+      }
+    }
+
+    if (options.custom) {
+      options.custom.prefetchPrefix = nuxt.options.runtimeConfig.app.buildAssetsDir
     }
 
     const links = getHeadLinkTags(options, nuxt.options.rootDir)

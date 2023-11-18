@@ -55,7 +55,6 @@ export interface CustomFontFamily {
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face#description
    */
   local?: string | string[]
-
   /**
    * Allows to transform the generated config for any font face.
    *
@@ -97,6 +96,7 @@ export interface CustomFonts {
    * @default false
    */
   prefetch?: boolean
+  prefetchPrefix?: string
   /**
    * @default: 'head-prepend'
    */

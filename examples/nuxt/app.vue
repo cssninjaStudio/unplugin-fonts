@@ -6,8 +6,12 @@ import src from 'unfonts.css?raw'
 <template>
   <h1>Hello Nuxt!</h1>
   <h2>I'm using a local font !</h2>
+  <div class="fontsource-abeezee">I'm a ABeeZee fontsource</div>
+  <div class="fontsource-truculenta">I'm a Truculenta fontsource</div>
   <pre>links: {{ links }}</pre>
-  <pre>src: {{ src }}</pre>
+  <ClientOnly>
+    <pre>src: {{ src }}</pre>
+  </ClientOnly>
   <a href="https://vitejs.dev/guide/features.html" target="_blank">Documentation</a>
 </template>
 
@@ -33,5 +37,13 @@ h2 {
   font-family: "Dancing Script", sans-serif;
   font-size: 3rem;
   font-weight: 600;
+}
+
+.fontsource-abeezee { 
+  font-family: "ABeeZee", sans-serif;
+}
+
+.fontsource-truculenta { 
+  font-family: "Truculenta", sans-serif;
 }
 </style>
