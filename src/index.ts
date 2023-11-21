@@ -17,7 +17,7 @@ export default createUnplugin<Options | undefined>((userOptions) => {
 
   return {
     name: 'unplugin-fonts',
-    enforce: 'pre',
+    order: 'pre',
     resolveId(id) {
       if (id.startsWith(virtualStylesId))
         return resolvedVirtualStylesId
@@ -61,8 +61,8 @@ export default createUnplugin<Options | undefined>((userOptions) => {
         root = viteConfig.root
       },
       transformIndexHtml: {
-        enforce: 'pre',
-        transform: () => getHeadLinkTags(options, root),
+        order: 'pre',
+        handler: () => getHeadLinkTags(options, root),
       },
     },
   }
