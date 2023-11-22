@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/cssninjaStudio/unplugin-fonts/compare/v1.0.3...v1.1.0) (2023-11-22)
+
+
+### Features
+
+* add support to fontsource variable v5 ([a17831d](https://github.com/cssninjaStudio/unplugin-fonts/commit/a17831d213ef3cf207f481bed7202526d7e235d4)), closes [#60](https://github.com/cssninjaStudio/unplugin-fonts/issues/60) [#57](https://github.com/cssninjaStudio/unplugin-fonts/issues/57)
+* improve local file preload for vite and vitepress ([10d7067](https://github.com/cssninjaStudio/unplugin-fonts/commit/10d7067a98dae5b054e90e22922d3a0f471358c6))
+* vite 5 compatibility ([15ea829](https://github.com/cssninjaStudio/unplugin-fonts/commit/15ea8291b9db79cf1ffd5dc7b4ceba8650e39a93))
+
+
+### Bug Fixes
+
+* bug in `fontsource.ts` when style is normal ([#52](https://github.com/cssninjaStudio/unplugin-fonts/issues/52)) ([1253f4d](https://github.com/cssninjaStudio/unplugin-fonts/commit/1253f4d4604e4a8b80bc342e252c17911fc439dc))
+* **nuxt:** fontsource loading and custom font preloading ([5260277](https://github.com/cssninjaStudio/unplugin-fonts/commit/5260277b85fb92c64217a8a6ba4519637bc5f6bc))
+
 ### [1.0.3](https://github.com/cssninjaStudio/unplugin-fonts/compare/v1.0.2...v1.0.3) (2023-04-15)
 
 
