@@ -1,0 +1,17 @@
+{
+  "name": "astro-test",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "devDependencies": {
+    "@fontsource/abeezee": "^4.5.10",
+    "@fontsource/truculenta": "^4.5.12",
+    "astro": "^3.5.5",
+    "unplugin-fonts": "workspace:*"
+  }
+}

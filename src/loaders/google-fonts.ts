@@ -62,7 +62,7 @@ export function googleLoader({
       attrs: {
         rel: 'preconnect',
         href: GStaticBase,
-        crossorigin: true,
+        crossorigin: 'anonymous',
       },
     })
   }

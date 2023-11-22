@@ -1,10 +1,10 @@
 import type { HtmlTagDescriptor } from 'vite'
 import type { Options } from '../types'
-import { customLoader } from './custom'
+// import { customLoader } from './custom'
 import { typekitLoader } from './typekit'
 import { googleLoader } from './google-fonts'
 
-export function getHeadLinkTags(resolvedOptions: Options, root: string) {
+export function getHeadLinkTags(resolvedOptions: Options) {
   const tags: HtmlTagDescriptor[] = []
 
   if (resolvedOptions.typekit)
@@ -13,8 +13,8 @@ export function getHeadLinkTags(resolvedOptions: Options, root: string) {
   if (resolvedOptions.google)
     tags.push(...googleLoader(resolvedOptions.google))
 
-  if (resolvedOptions.custom)
-    tags.push(...customLoader(resolvedOptions.custom, root))
+  // if (resolvedOptions.custom)
+  //   tags.push(...customLoader(resolvedOptions.custom, root))
 
   return tags
 }

@@ -1,0 +1,16 @@
+{
+  "name": "vite-test",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@fontsource/abeezee": "^4.5.10",
+    "@fontsource/truculenta": "^4.5.12",
+    "unplugin-fonts": "workspace:*",
+    "vite": "^5.0.0"
+  }
+}
