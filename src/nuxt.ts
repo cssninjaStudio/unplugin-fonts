@@ -17,18 +17,17 @@ export default defineNuxtModule({
       nuxt.options.css ||= []
       nuxt.options.css.push('unfonts.css')
       if ('fontsource' in options) {
-        for (const src of fontsourceImports(options.fontsource)) {
+        for (const src of fontsourceImports(options.fontsource))
           nuxt.options.css.push(src)
-        }
+
         delete options.fontsource
       }
     }
 
-    if (options.custom) {
+    if (options.custom)
       options.custom.prefetchPrefix = nuxt.options.runtimeConfig.app.buildAssetsDir
-    }
 
-    const links = getHeadLinkTags(options, nuxt.options.rootDir)
+    const links = getHeadLinkTags(options)
 
     nuxt.options.app.head ||= {}
     nuxt.options.app.head.link ||= []

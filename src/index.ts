@@ -35,7 +35,7 @@ export default createUnplugin<Options | undefined>((userOptions) => {
         const tags = getHeadLinkTags(options)
         const s = new MagicString(`export const links = ${JSON.stringify(tags)};\n`)
 
-        s.append(`export const stylesImports = ${JSON.stringify(fontsourceImports(options.fontsource))};\n`)
+        s.append(`export const importMap = ${JSON.stringify(fontsourceImports(options.fontsource))};\n`)
         s.append(`export const styles = ${JSON.stringify(fontsourceVirtualModule(options.fontsource))};\n`)
 
         return {
