@@ -129,6 +129,17 @@ export default defineConfig({
     })
   ]
 })
+
+// +layout.svelte
+<script>
+  import { links } from 'unplugin-fonts/head'
+</script>
+
+<svelte:head>
+	{#each links as link}
+    <link {...link?.attrs || {}} />
+	{/each}
+</svelte:head>
 ```
 
 Example: [`examples/sveltekit`](./examples/sveltekit)
