@@ -136,9 +136,9 @@ export default defineConfig({
 </script>
 
 <svelte:head>
-	{#each links as link}
+  {#each links as link}
     <link {...link?.attrs || {}} />
-	{/each}
+  {/each}
 </svelte:head>
 ```
 
