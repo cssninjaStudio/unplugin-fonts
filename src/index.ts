@@ -87,7 +87,13 @@ export default createUnplugin<Options | undefined>((userOptions) => {
         handler: (html, ctx) => {
           const tags = getHeadLinkTags(options)
           const files = Object.keys(ctx.bundle ?? {}).filter(key => fontFileRegex.test(key))
+          const { prefetch: wantPrefetch, preload: wantPreload } = options?.custom || {}
           for (const file of files) {
+            if (!(
+              wantPrefetch === true || wantPreload === true ||
+              (wantPrefetch === undefined && wantPreload === undefined)
+            ))
+              continue
             const ext = extname(file)
             tags.push({
               tag: 'link',
@@ -121,7 +127,14 @@ function generateVitepressBundle(
 
   const tags = getHeadLinkTags(options)
   const files = Object.keys(bundle ?? {}).filter(key => fontFileRegex.test(key))
+  const { prefetch: wantPrefetch, preload: wantPreload } = options?.custom || {}
   for (const file of files) {
+    if (!(
+      wantPrefetch === true || wantPreload === true ||
+      (wantPrefetch === undefined && wantPreload === undefined)
+    ))
+      continue
+
     const ext = extname(file)
     tags.push({
       tag: 'link',
