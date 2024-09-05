@@ -107,7 +107,16 @@ export default createUnplugin<Options | undefined>((userOptions) => {
               },
             })
           }
-          return tags
+          let tagsReturned = tags
+          if (options?.custom?.linkFilter) {
+            const newTags: object[] | boolean = options?.custom?.linkFilter(tags)
+            if (Array.isArray(newTags)) {
+              tagsReturned = newTags
+            } else {
+              tagsReturned = newTags ? tags : []
+            }
+          }
+          return tagsReturned
         },
       },
     },
@@ -149,7 +158,17 @@ function generateVitepressBundle(
     })
   }
 
-  for (const tag of tags) {
+  let tagsReturned = tags
+  if (options?.custom?.linkFilter) {
+    const newTags: object[] | boolean = options?.custom?.linkFilter(tags)
+    if (Array.isArray(newTags)) {
+      tagsReturned = newTags
+    } else {
+      tagsReturned = newTags ? tags : []
+    }
+  }
+
+  for (const tag of tagsReturned) {
     vitepressConfig?.site?.head?.push([
       tag.tag,
       tag.attrs?.onload === 'this.rel=\'stylesheet\''
