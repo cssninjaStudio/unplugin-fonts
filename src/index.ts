@@ -5,6 +5,7 @@ import { createUnplugin } from 'unplugin'
 import { getHeadLinkTags } from './loaders'
 import { customVirtualModule } from './loaders/custom'
 import { fontsourceImports, fontsourceVirtualModule } from './loaders/fontsource'
+import { HtmlTagDescriptor } from 'vite'
 
 const virtualStylesId = 'unfonts.css'
 const resolvedVirtualStylesId = `\0${virtualStylesId}`
@@ -109,7 +110,7 @@ export default createUnplugin<Options | undefined>((userOptions) => {
           }
           let tagsReturned = tags
           if (options?.custom?.linkFilter) {
-            const newTags: object[] | boolean = options?.custom?.linkFilter(tags)
+            const newTags = options?.custom?.linkFilter(tags)
             if (Array.isArray(newTags)) {
               tagsReturned = newTags
             } else {
@@ -160,7 +161,7 @@ function generateVitepressBundle(
 
   let tagsReturned = tags
   if (options?.custom?.linkFilter) {
-    const newTags: object[] | boolean = options?.custom?.linkFilter(tags)
+    const newTags = options?.custom?.linkFilter(tags)
     if (Array.isArray(newTags)) {
       tagsReturned = newTags
     } else {

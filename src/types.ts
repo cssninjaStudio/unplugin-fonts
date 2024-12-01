@@ -1,3 +1,5 @@
+import { HtmlTagDescriptor } from "vite"
+
 export interface Options {
   custom?: CustomFonts
   fontsource?: FontsourceFonts
@@ -102,7 +104,7 @@ export interface CustomFonts {
    * generated.
    * @default true
    */
-  linkFilter?: (tags: object[]) => object[] | boolean
+  linkFilter?: (tags: HtmlTagDescriptor[]) => HtmlTagDescriptor[] | boolean
 
   /**
    * @default: 'head-prepend'
