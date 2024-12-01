@@ -79,6 +79,7 @@ export function googleLoader({
 
     tags.push({
       tag: 'link',
+      injectTo,
       attrs: {
         rel: 'preload',
         as: 'style',
