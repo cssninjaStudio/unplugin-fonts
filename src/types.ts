@@ -98,6 +98,13 @@ export interface CustomFonts {
   prefetch?: boolean
   prefetchPrefix?: string
   /**
+   * Provides a hook for filtering which `<link>` tags should be actually
+   * generated.
+   * @default true
+   */
+  linkFilter?: (tags: object[]) => object[] | boolean
+
+  /**
    * @default: 'head-prepend'
    */
   injectTo?: 'head' | 'body' | 'head-prepend' | 'body-prepend'

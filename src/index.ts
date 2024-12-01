@@ -87,7 +87,13 @@ export default createUnplugin<Options | undefined>((userOptions) => {
         handler: (html, ctx) => {
           const tags = getHeadLinkTags(options)
           const files = Object.keys(ctx.bundle ?? {}).filter(key => fontFileRegex.test(key))
+          const { prefetch: wantPrefetch, preload: wantPreload } = options?.custom || {}
           for (const file of files) {
+            if (!(
+              wantPrefetch === true || wantPreload === true ||
+              (wantPrefetch === undefined && wantPreload === undefined)
+            ))
+              continue
             const ext = extname(file)
             tags.push({
               tag: 'link',
@@ -101,7 +107,16 @@ export default createUnplugin<Options | undefined>((userOptions) => {
               },
             })
           }
-          return tags
+          let tagsReturned = tags
+          if (options?.custom?.linkFilter) {
+            const newTags: object[] | boolean = options?.custom?.linkFilter(tags)
+            if (Array.isArray(newTags)) {
+              tagsReturned = newTags
+            } else {
+              tagsReturned = newTags ? tags : []
+            }
+          }
+          return tagsReturned
         },
       },
     },
@@ -121,7 +136,14 @@ function generateVitepressBundle(
 
   const tags = getHeadLinkTags(options)
   const files = Object.keys(bundle ?? {}).filter(key => fontFileRegex.test(key))
+  const { prefetch: wantPrefetch, preload: wantPreload } = options?.custom || {}
   for (const file of files) {
+    if (!(
+      wantPrefetch === true || wantPreload === true ||
+      (wantPrefetch === undefined && wantPreload === undefined)
+    ))
+      continue
+
     const ext = extname(file)
     tags.push({
       tag: 'link',
@@ -136,7 +158,17 @@ function generateVitepressBundle(
     })
   }
 
-  for (const tag of tags) {
+  let tagsReturned = tags
+  if (options?.custom?.linkFilter) {
+    const newTags: object[] | boolean = options?.custom?.linkFilter(tags)
+    if (Array.isArray(newTags)) {
+      tagsReturned = newTags
+    } else {
+      tagsReturned = newTags ? tags : []
+    }
+  }
+
+  for (const tag of tagsReturned) {
     vitepressConfig?.site?.head?.push([
       tag.tag,
       tag.attrs?.onload === 'this.rel=\'stylesheet\''
