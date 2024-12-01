@@ -1,5 +1,5 @@
 {
-  "name": "astro-test",
+  "name": "astro-3",
   "private": true,
   "scripts": {
     "dev": "astro dev",
@@ -9,8 +9,8 @@
     "astro": "astro"
   },
   "devDependencies": {
-    "@fontsource/abeezee": "^4.5.10",
-    "@fontsource/truculenta": "^4.5.12",
+    "@fontsource/abeezee": "^5.1.0",
+    "@fontsource/truculenta": "^5.1.0",
     "astro": "^3.5.5",
     "unplugin-fonts": "workspace:*"
   }

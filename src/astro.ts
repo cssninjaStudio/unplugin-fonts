@@ -11,7 +11,7 @@ export default function (options: Options) {
           options.custom.stripPrefix = 'public/'
 
         astro.config.vite.plugins ||= []
-        astro.config.vite.plugins.push(unplugin.vite(options))
+        astro.config.vite.plugins.push(unplugin.vite(options) as any)
 
         astro.injectScript('page-ssr', 'import "unfonts.css";')
       },

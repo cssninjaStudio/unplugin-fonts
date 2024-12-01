@@ -6,7 +6,7 @@ import { links } from 'unplugin-fonts/head'
   {links.map((link) => {
     const attrs = link?.attrs || {}
     return (
-      <link {...attrs} />
+      <link {...attrs} data-unfont />
     )
   })}
 </>

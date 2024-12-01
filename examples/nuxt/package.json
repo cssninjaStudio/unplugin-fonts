@@ -1,5 +1,5 @@
 {
-  "name": "nuxt-test",
+  "name": "nuxt",
   "private": true,
   "scripts": {
     "dev": "nuxt dev",
@@ -7,10 +7,10 @@
     "preview": "nuxt preview"
   },
   "devDependencies": {
-    "@fontsource/abeezee": "^4.5.10",
-    "@fontsource/truculenta": "^4.5.12",
-    "@fontsource-variable/noto-sans-jp": "^5.0.16",
-    "nuxt": "^3.4.1",
+    "@fontsource-variable/noto-sans-jp": "^5.1.0",
+    "@fontsource/abeezee": "^5.1.0",
+    "@fontsource/truculenta": "^5.1.0",
+    "nuxt": "^3.14.1592",
     "unplugin-fonts": "workspace:*"
   }
 }

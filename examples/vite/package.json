@@ -7,8 +7,8 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "@fontsource/abeezee": "^4.5.10",
-    "@fontsource/truculenta": "^4.5.12",
+    "@fontsource/abeezee": "^5.1.0",
+    "@fontsource/truculenta": "^5.1.0",
     "unplugin-fonts": "workspace:*",
     "vite": "^4.2.1"
   }
