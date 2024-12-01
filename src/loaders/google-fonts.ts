@@ -1,15 +1,14 @@
 import type { HtmlTagDescriptor } from 'vite'
 import type { GoogleFonts } from '../types'
 
-const GoogleFontsBase = 'https://fonts.googleapis.com/css2'
-const GStaticBase = 'https://fonts.gstatic.com/'
-
 export function googleLoader({
   families,
   text,
   preconnect = true,
   display = 'swap',
   injectTo = 'head-prepend',
+  fontBaseUrl = 'https://fonts.googleapis.com/css2',
+  preconnectUrl = 'https://fonts.gstatic.com/',
 }: GoogleFonts): HtmlTagDescriptor[] {
   const specs: string[] = []
   const deferedSpecs: string[] = []
@@ -61,7 +60,7 @@ export function googleLoader({
       injectTo,
       attrs: {
         rel: 'preconnect',
-        href: GStaticBase,
+        href: preconnectUrl,
         crossorigin: 'anonymous',
       },
     })
@@ -70,7 +69,7 @@ export function googleLoader({
   // defer loading font-faces definitions
   // @see https://web.dev/optimize-lcp/#defer-non-critical-css
   if (deferedSpecs.length > 0) {
-    let href = `${GoogleFontsBase}?family=${deferedSpecs.join('&family=')}`
+    let href = `${fontBaseUrl}?family=${deferedSpecs.join('&family=')}`
 
     if (typeof display === 'string' && display !== 'auto')
       href += `&display=${display}`
@@ -91,7 +90,7 @@ export function googleLoader({
 
   // load critical fonts
   if (specs.length > 0) {
-    let href = `${GoogleFontsBase}?family=${specs.join('&family=')}`
+    let href = `${fontBaseUrl}?family=${specs.join('&family=')}`
 
     if (typeof display === 'string' && display !== 'auto')
       href += `&display=${display}`

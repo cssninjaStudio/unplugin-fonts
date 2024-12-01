@@ -267,6 +267,18 @@ Unfonts({
     preconnect: false,
 
     /**
+     * allow preconnect to be customized
+     * default: 'https://fonts.gstatic.com'
+     */
+    preconnectUrl: 'https://fonts.gstatic.com',
+
+    /**
+     * customizes the base URL for the font request
+     * default: 'https://fonts.googleapis.com/css2'
+     */
+    fontBaseUrl: 'https://fonts.googleapis.com/css2',
+
+    /**
      * values: auto, block, swap(default), fallback, optional
      * default: 'swap'
      */

@@ -145,6 +145,14 @@ export interface GoogleFonts {
    * @default: 'head-prepend'
    */
   injectTo?: 'head' | 'body' | 'head-prepend' | 'body-prepend'
+  /**
+   * @default: 'https://fonts.googleapis.com/css2'
+   */
+  fontBaseUrl?: string
+  /**
+   * @default: 'https://fonts.gstatic.com/'
+   */
+  preconnectUrl?: string
 }
 
 export interface TypeKitFonts {
