@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/cssninjaStudio/unplugin-fonts/compare/v1.1.1...v1.2.0) (2024-12-01)
+
+
+### Features
+
+* add fontBaseUrl and preconnectUrl on google font provider ([12684bc](https://github.com/cssninjaStudio/unplugin-fonts/commit/12684bc134737304baadde2aa9a3bfb2f8640742)), closes [#78](https://github.com/cssninjaStudio/unplugin-fonts/issues/78)
+* add fontBaseUrl on typekit font provider ([724026b](https://github.com/cssninjaStudio/unplugin-fonts/commit/724026b4bb3be0233347310a0b3b0527a9747c70))
+* support vite 6.0 ([#77](https://github.com/cssninjaStudio/unplugin-fonts/issues/77)) ([38332ba](https://github.com/cssninjaStudio/unplugin-fonts/commit/38332baad92a4b8f405a062242abc97f6e5a99b2))
+
 ### [1.1.1](https://github.com/cssninjaStudio/unplugin-fonts/compare/v1.1.0...v1.1.1) (2023-11-22)
 
 
