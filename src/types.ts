@@ -162,4 +162,8 @@ export interface TypeKitFonts {
    * default: 'head-prepend'
    */
   injectTo?: 'head' | 'body' | 'head-prepend' | 'body-prepend'
+  /**
+   * @default: 'https://use.typekit.net/'
+   */
+  fontBaseUrl?: string
 }

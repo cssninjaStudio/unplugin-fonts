@@ -1,12 +1,11 @@
 import type { HtmlTagDescriptor } from 'vite'
 import type { TypeKitFonts } from '../types'
 
-const TypekitFontBase = 'https://use.typekit.net/'
-
 export function typekitLoader({
   id,
   defer = true,
   injectTo = 'head-prepend',
+  fontBaseUrl = 'https://use.typekit.net/',
 }: TypeKitFonts): HtmlTagDescriptor[] {
   const tags: HtmlTagDescriptor[] = []
 
@@ -24,7 +23,7 @@ export function typekitLoader({
         rel: 'preload',
         as: 'style',
         onload: 'this.rel=\'stylesheet\'',
-        href: `${TypekitFontBase}${id}.css`,
+        href: `${fontBaseUrl}${id}.css`,
       },
     })
   }
@@ -34,7 +33,7 @@ export function typekitLoader({
       injectTo,
       attrs: {
         rel: 'stylesheet',
-        href: `${TypekitFontBase}${id}.css`,
+        href: `${fontBaseUrl}${id}.css`,
       },
     })
   }

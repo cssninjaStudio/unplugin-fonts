@@ -235,6 +235,12 @@ Unfonts({
     id: '<projectId>',
 
     /**
+     * customizes the base URL for the font request
+     * default: 'https://use.typekit.net/'
+     */
+    fontBaseUrl: 'https://use.typekit.net/',
+
+    /**
      * enable non-blocking renderer
      *   <link rel="preload" href="xxx" as="style" onload="this.rel='stylesheet'">
      * default: true
