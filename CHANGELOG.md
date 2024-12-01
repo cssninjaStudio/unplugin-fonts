@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/cssninjaStudio/unplugin-fonts/compare/v1.2.0...v1.3.0) (2024-12-01)
+
+
+### Features
+
+* introduce link tag filter hook ([#71](https://github.com/cssninjaStudio/unplugin-fonts/issues/71)) ([6b61890](https://github.com/cssninjaStudio/unplugin-fonts/commit/6b61890952fa61501eb93296a445657fb1ac8bcb)), closes [#70](https://github.com/cssninjaStudio/unplugin-fonts/issues/70) [#7](https://github.com/cssninjaStudio/unplugin-fonts/issues/7) [#10](https://github.com/cssninjaStudio/unplugin-fonts/issues/10)
+
+
+### Bug Fixes
+
+* google font missing injectTo ([#75](https://github.com/cssninjaStudio/unplugin-fonts/issues/75)) ([4107af6](https://github.com/cssninjaStudio/unplugin-fonts/commit/4107af60674701c513cf11388c459e0363a831b3))
+
 ## [1.2.0](https://github.com/cssninjaStudio/unplugin-fonts/compare/v1.1.1...v1.2.0) (2024-12-01)
 
 
