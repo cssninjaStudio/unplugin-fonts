@@ -119,11 +119,11 @@ interface WeightsFontsourceFontFamily extends BaseFontsourceFontFamily {
 }
 interface VariableFontsourceFontFamily extends BaseFontsourceFontFamily {
   variable: true | {
-    wght?: boolean;
-    wdth?: boolean;
-    slnt?: boolean;
-    opsz?: boolean;
-    ital?: boolean;
+    wght?: boolean
+    wdth?: boolean
+    slnt?: boolean
+    opsz?: boolean
+    ital?: boolean
   }
 }
 export type FontsourceFontFamily = WeightsFontsourceFontFamily | VariableFontsourceFontFamily

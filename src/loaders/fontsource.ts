@@ -15,13 +15,14 @@ export function fontsourceImports(options?: FontsourceFonts) {
       const name = family.toLowerCase().replace(/ /g, '-')
       if (name.endsWith('-variable')) {
         source.push(`@fontsource-variable/${name.replace('-variable', '')}/index.css`)
-      } else {
+      }
+      else {
         source.push(`@fontsource/${name}/index.css`)
       }
       continue
     }
 
-    let name = family.name.toLowerCase()
+    const name = family.name.toLowerCase()
       .replace(/ /g, '-')
       .replace('-variable', '')
 
@@ -36,11 +37,11 @@ export function fontsourceImports(options?: FontsourceFonts) {
         continue
       }
 
-      const activeAxes = Object.keys(family.variable).filter((axis) => axis !== 'ital');
+      const activeAxes = Object.keys(family.variable).filter(axis => axis !== 'ital')
       const isItal = family.variable.ital
-      const isStandard = activeAxes.every((axis) =>
+      const isStandard = activeAxes.every(axis =>
         ['wght', 'wdth', 'slnt', 'opsz'].includes(axis),
-      );
+      )
       if (activeAxes.length === 1 && family.variable.wght) {
         if (isItal) {
           source.push(`@fontsource-variable/${name}/wght-italic.css`)
@@ -52,10 +53,10 @@ export function fontsourceImports(options?: FontsourceFonts) {
       }
 
       if (activeAxes.length === 2 && family.variable.wght) {
-        const selected =
-          activeAxes.find((axis) => axis !== 'wght')?.toLowerCase() ?? 'wght';
+        const selected
+          = activeAxes.find(axis => axis !== 'wght')?.toLowerCase() ?? 'wght'
         if (isItal) {
-          source.push(`@fontsource-variable/${name}/${selected}-italic.css`);
+          source.push(`@fontsource-variable/${name}/${selected}-italic.css`)
           continue
         }
         source.push(`@fontsource-variable/${name}/${selected}.css`)
@@ -95,6 +96,6 @@ export function fontsourceImports(options?: FontsourceFonts) {
 
 export function fontsourceVirtualModule(options?: FontsourceFonts) {
   return fontsourceImports(options)
-    .map((src) => `@import "${src}";`)
+    .map(src => `@import "${src}";`)
     .join('\n')
 }

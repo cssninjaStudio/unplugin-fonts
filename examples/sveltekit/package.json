@@ -1,24 +1,24 @@
 {
-		"name": "sveltekit",
-		"private": true,
-		"type": "module",
-		"scripts": {
-			"dev": "vite dev",
-			"build": "vite build",
-			"preview": "vite preview",
-			"check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
-			"check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch"
-		},
-		"devDependencies": {
-			"@fontsource/abeezee": "^5.1.0",
-			"@fontsource/truculenta": "^5.1.0",
-			"@neoconfetti/svelte": "^2.2.1",
-			"@sveltejs/adapter-auto": "^3.3.1",
-			"@sveltejs/kit": "^2.8.5",
-			"svelte": "^5.2.10",
-			"svelte-check": "^4.1.0",
-			"typescript": "^5.7.2",
-			"unplugin-fonts": "workspace:*",
-			"vite": "^6.0.1"
-		}
+  "name": "sveltekit",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch"
+  },
+  "devDependencies": {
+    "@fontsource/abeezee": "^5.1.0",
+    "@fontsource/truculenta": "^5.1.0",
+    "@neoconfetti/svelte": "^2.2.1",
+    "@sveltejs/adapter-auto": "^3.3.1",
+    "@sveltejs/kit": "^2.8.5",
+    "svelte": "^5.2.10",
+    "svelte-check": "^4.1.0",
+    "typescript": "^5.7.2",
+    "unplugin-fonts": "workspace:*",
+    "vite": "^6.0.1"
+  }
 }

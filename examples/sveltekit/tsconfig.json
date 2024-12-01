@@ -1,14 +1,14 @@
 {
-	"extends": "./.svelte-kit/tsconfig.json",
-	"compilerOptions": {
-		"allowJs": true,
-		"checkJs": true,
-		"esModuleInterop": true,
-		"forceConsistentCasingInFileNames": true,
-		"resolveJsonModule": true,
-		"skipLibCheck": true,
-		"sourceMap": true,
-		"strict": true,
-    "types": ["unplugin-fonts/client"]
+  "extends": "./.svelte-kit/tsconfig.json",
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "types": ["unplugin-fonts/client"],
+    "allowJs": true,
+    "checkJs": true,
+    "strict": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
   }
 }

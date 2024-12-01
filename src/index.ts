@@ -1,10 +1,10 @@
-import MagicString from 'magic-string'
-import { createUnplugin } from 'unplugin'
-import { extname, join } from 'pathe'
 import type { Options } from './types'
+import MagicString from 'magic-string'
+import { extname, join } from 'pathe'
+import { createUnplugin } from 'unplugin'
 import { getHeadLinkTags } from './loaders'
-import { fontsourceImports, fontsourceVirtualModule } from './loaders/fontsource'
 import { customVirtualModule } from './loaders/custom'
+import { fontsourceImports, fontsourceVirtualModule } from './loaders/fontsource'
 
 const virtualStylesId = 'unfonts.css'
 const resolvedVirtualStylesId = `\0${virtualStylesId}`
@@ -12,7 +12,7 @@ const resolvedVirtualStylesId = `\0${virtualStylesId}`
 const virtualModuleId = 'unplugin-fonts/head'
 const resolvedVirtualModuleId = `\0${virtualModuleId}`
 
-const fontFileRegex = /\.(woff2?|ttf|eot|otf)(\?.*)?$/i
+const fontFileRegex = /\.(?:woff2?|ttf|eot|otf)(?:\?.*)?$/i
 
 export default createUnplugin<Options | undefined>((userOptions) => {
   const options = userOptions || {}
@@ -69,8 +69,8 @@ export default createUnplugin<Options | undefined>((userOptions) => {
         base = viteConfig.base
       },
       generateBundle(_options, bundle) {
-        if ('VITEPRESS_CONFIG' in global) {
-          generateVitepressBundle(options, base, bundle, global.VITEPRESS_CONFIG)
+        if ('VITEPRESS_CONFIG' in globalThis) {
+          generateVitepressBundle(options, base, bundle, (globalThis as any).VITEPRESS_CONFIG)
           return
         }
 

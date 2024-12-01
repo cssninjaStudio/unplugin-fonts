@@ -1,5 +1,5 @@
 {
-  "name": "astro",
+  "name": "astro-2",
   "private": true,
   "scripts": {
     "dev": "astro dev",

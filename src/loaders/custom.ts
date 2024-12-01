@@ -1,7 +1,7 @@
 import type { HtmlTagDescriptor } from 'vite'
+import type { CustomFontFace, CustomFontFamily, CustomFonts } from '../types'
 import fg from 'fast-glob'
 import { basename as _basename, extname, join, relative } from 'pathe'
-import type { CustomFontFace, CustomFontFamily, CustomFonts } from '../types'
 
 type ResolvedCustomFonts = Required<Omit<CustomFonts, 'families'>> & { families: CustomFontFamily[] }
 

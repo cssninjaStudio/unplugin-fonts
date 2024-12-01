@@ -4,6 +4,7 @@ declare module 'unfonts.css' {
 }
 
 declare module 'unplugin-fonts/head' {
-  import { HtmlTagDescriptor } from "vite"
+  import type { HtmlTagDescriptor } from 'vite'
+
   export const links: HtmlTagDescriptor[]
 }

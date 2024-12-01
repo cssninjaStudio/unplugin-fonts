@@ -22,13 +22,13 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.js",
-      "import": "./dist/index.mjs"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
     },
     "./astro": {
       "types": "./dist/astro.d.ts",
-      "require": "./dist/astro.js",
-      "import": "./dist/astro.mjs"
+      "import": "./dist/astro.mjs",
+      "require": "./dist/astro.js"
     },
     "./astro/component.astro": {
       "types": "./dist/astro/component.d.ts",
@@ -36,33 +36,33 @@
     },
     "./esbuild": {
       "types": "./dist/esbuild.d.ts",
-      "require": "./dist/esbuild.js",
-      "import": "./dist/esbuild.mjs"
+      "import": "./dist/esbuild.mjs",
+      "require": "./dist/esbuild.js"
     },
     "./nuxt": {
       "types": "./dist/nuxt.d.ts",
-      "require": "./dist/nuxt.js",
-      "import": "./dist/nuxt.mjs"
+      "import": "./dist/nuxt.mjs",
+      "require": "./dist/nuxt.js"
     },
     "./rollup": {
       "types": "./dist/rollup.d.ts",
-      "require": "./dist/rollup.js",
-      "import": "./dist/rollup.mjs"
+      "import": "./dist/rollup.mjs",
+      "require": "./dist/rollup.js"
     },
     "./types": {
       "types": "./dist/types.d.ts",
-      "require": "./dist/types.js",
-      "import": "./dist/types.mjs"
+      "import": "./dist/types.mjs",
+      "require": "./dist/types.js"
     },
     "./vite": {
       "types": "./dist/vite.d.ts",
-      "require": "./dist/vite.js",
-      "import": "./dist/vite.mjs"
+      "import": "./dist/vite.mjs",
+      "require": "./dist/vite.js"
     },
     "./webpack": {
       "types": "./dist/webpack.d.ts",
-      "require": "./dist/webpack.js",
-      "import": "./dist/webpack.mjs"
+      "import": "./dist/webpack.mjs",
+      "require": "./dist/webpack.js"
     },
     "./client": {
       "types": "./client.d.ts"
@@ -81,8 +81,8 @@
     }
   },
   "files": [
-    "dist",
-    "client.d.ts"
+    "client.d.ts",
+    "dist"
   ],
   "scripts": {
     "prepack": "npm run build",
@@ -110,16 +110,14 @@
     "unplugin": "2.0.0-beta.1"
   },
   "devDependencies": {
-    "@antfu/eslint-config-ts": "^0.43.1",
+    "@antfu/eslint-config": "^3.11.2",
     "@nuxt/kit": "^3.14.1592",
     "@nuxt/schema": "^3.14.1592",
     "@types/node": "^22.10.1",
-    "@typescript-eslint/eslint-plugin": "^8.16.0",
     "astro": "^4.16.16",
     "chalk": "^5.3.0",
     "defu": "^6.1.4",
     "eslint": "^9.15.0",
-    "eslint-plugin-eslint-comments": "^3.2.0",
     "esno": "^4.8.0",
     "magic-string": "^0.30.14",
     "pathe": "^1.1.2",

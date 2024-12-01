@@ -16,7 +16,6 @@ View configuration:
 - [Custom Fonts](#custom-fonts)
 - [Fontsource](#fontsource)
 
-
 ## Install
 
 ```bash
@@ -57,11 +56,10 @@ export default {
 
 <br></details> -->
 
-
 <details>
 <summary>Webpack</summary><br>
 
-> **Warning**  
+> **Warning**
 > Not implemented yet
 
 ```ts
@@ -111,15 +109,14 @@ module.exports = {
 
 <br></details> -->
 
-
 <details>
 <summary>SvelteKit</summary><br>
 
 ```ts
-// vite.config.ts
-import { defineConfig } from 'vite'
 import { sveltekit } from '@sveltejs/kit/vite'
 import Unfonts from 'unplugin-fonts/vite'
+// vite.config.ts
+import { defineConfig } from 'vite'
 
 export default defineConfig({
   plugins: [
@@ -129,10 +126,12 @@ export default defineConfig({
     })
   ]
 })
+```
 
-// +layout.svelte
+```html
 <script>
-  import { links } from 'unplugin-fonts/head'
+// +layout.svelte
+import { links } from 'unplugin-fonts/head'
 </script>
 
 <svelte:head>
@@ -185,7 +184,6 @@ Example: [`examples/astro`](./examples/astro)
 
 ---
 
-
 <details>
 <summary>Migrating from <code>vite-plugin-fonts</code></summary><br>
 
@@ -196,14 +194,13 @@ Example: [`examples/astro`](./examples/astro)
 
 export default defineConfig({
   plugins: [
--    VitePluginFonts({ 
-+    Unfonts({ 
-      /* options */ 
+-    VitePluginFonts({
++    Unfonts({
+      /* options */
     }),
   ],
 })
 ```
-
 
 ```diff
 // main.ts
@@ -211,23 +208,18 @@ export default defineConfig({
 +import 'unfonts.css'
 ```
 
-
 <br></details>
-
 
 ## Import generated `@font-rules` CSS
 
-> **Note**  
+> **Note**
 > Required if using **custom** or **fontsource** providers
 
 ```ts
 import 'unfonts.css'
 ```
 
-
-
 ## Providers
-
 
 ### Typekit
 
@@ -257,8 +249,7 @@ Unfonts({
     injectTo: 'head-prepend',
   },
 })
-``` 
-
+```
 
 ### Google Fonts
 
@@ -323,7 +314,7 @@ Unfonts({
     ],
   },
 })
-``` 
+```
 
 ### Custom Fonts
 
@@ -397,7 +388,7 @@ Unfonts({
   },
 
 })
-``` 
+```
 
 ### Fontsource
 
@@ -467,9 +458,9 @@ Unfonts({
 }
 ```
 
-or 
+or
 
-```ts	
+```ts
 // declaration.d.ts
 /// <reference types="unplugin-fonts/client" />
 ```
