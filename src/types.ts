@@ -1,4 +1,4 @@
-import { HtmlTagDescriptor } from "vite"
+import type { HtmlTagDescriptor } from 'vite'
 
 export interface Options {
   custom?: CustomFonts
