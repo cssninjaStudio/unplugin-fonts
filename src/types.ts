@@ -1,4 +1,4 @@
-import { HtmlTagDescriptor } from "vite"
+import type { HtmlTagDescriptor } from 'vite'
 
 export interface Options {
   custom?: CustomFonts
@@ -12,7 +12,7 @@ export interface CustomFontFace {
   source: string
   name: string
   basename: string
-  weight: number
+  weight: number | `${number} ${number}`
   style: string
   display: string
   local?: string | string[]
