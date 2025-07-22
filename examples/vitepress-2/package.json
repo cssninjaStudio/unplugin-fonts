@@ -1,0 +1,17 @@
+{
+  "name": "vitepress-2",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "vitepress dev",
+    "start": "vitepress dev",
+    "build": "vitepress build",
+    "preview": "vitepress preview"
+  },
+  "devDependencies": {
+    "@fontsource/abeezee": "^5.1.0",
+    "@fontsource/truculenta": "^5.1.0",
+    "unplugin-fonts": "workspace:*",
+    "vitepress": "2.0.0-alpha.8"
+  }
+}
