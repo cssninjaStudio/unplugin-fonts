@@ -61,8 +61,8 @@ importers:
         specifier: ^5.8.3
         version: 5.8.3
       vite:
-        specifier: ^6.3.5
-        version: 6.3.5(@types/node@22.16.5)(jiti@2.4.2)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0)
+        specifier: ^7.0.5
+        version: 7.0.5(@types/node@22.16.5)(jiti@2.4.2)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0)
       vitest:
         specifier: ^2.1.9
         version: 2.1.9(@types/node@22.16.5)(terser@5.43.1)
@@ -17043,7 +17043,7 @@ snapshots:
       debug: 4.4.1
       es-module-lexer: 1.7.0
       pathe: 2.0.3
-      vite: 6.3.5(@types/node@22.16.5)(jiti@2.4.2)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0)
+      vite: 7.0.5(@types/node@22.16.5)(jiti@2.4.2)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0)
     transitivePeerDependencies:
       - '@types/node'
       - jiti
