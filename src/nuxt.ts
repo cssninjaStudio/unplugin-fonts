@@ -1,10 +1,8 @@
-// Workaround for:
-// src/nuxt.ts(5,1): error TS2742: The inferred type of 'default' cannot be named without a reference to '.pnpm/@nuxt+schema@3.0.0_rollup@3.7.3/node_modules/@nuxt/schema'. This is likely not portable. A type annotation is necessary.
-import type {} from '@nuxt/schema'
 import type { Options } from './types'
-import { addVitePlugin, addWebpackPlugin, defineNuxtModule } from '@nuxt/kit'
+import { addTemplate, addVitePlugin, addWebpackPlugin, defineNuxtModule } from '@nuxt/kit'
 import unplugin from '.'
 import { getHeadLinkTags } from './loaders'
+import { customVirtualModule } from './loaders/custom'
 import { fontsourceImports } from './loaders/fontsource'
 
 export default defineNuxtModule({
@@ -15,17 +13,21 @@ export default defineNuxtModule({
   setup(options: Options, nuxt) {
     if ('fontsource' in options || 'custom' in options) {
       nuxt.options.css ||= []
-      nuxt.options.css.push('unfonts.css')
-      if ('fontsource' in options) {
+      if (options.fontsource) {
         for (const src of fontsourceImports(options.fontsource))
           nuxt.options.css.push(src)
+      }
 
-        delete options.fontsource
+      if (options.custom) {
+        nuxt.options.css.push('#build/unfonts.css')
+        options.custom.prefetchPrefix = nuxt.options.runtimeConfig.app.buildAssetsDir
+
+        addTemplate({
+          filename: 'unfonts.css',
+          getContents: () => customVirtualModule(options.custom!, nuxt.options.rootDir),
+        })
       }
     }
-
-    if (options.custom)
-      options.custom.prefetchPrefix = nuxt.options.runtimeConfig.app.buildAssetsDir
 
     const links = getHeadLinkTags(options)
 

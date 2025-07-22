@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { links } from 'unplugin-fonts/head'
-import src from 'unfonts.css?raw'
 </script>
 
 <template>
@@ -10,9 +9,6 @@ import src from 'unfonts.css?raw'
   <div class="fontsource-truculenta">I'm a Truculenta fontsource</div>
   <div class="fontsource-variable">I'm a Noto Sans JP Variable fontsource</div>
   <pre>links: {{ links }}</pre>
-  <ClientOnly>
-    <pre>src: {{ src }}</pre>
-  </ClientOnly>
   <a href="https://vitejs.dev/guide/features.html" target="_blank">Documentation</a>
 </template>
 

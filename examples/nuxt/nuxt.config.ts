@@ -14,7 +14,7 @@ export default defineNuxtConfig({
     custom: {
       display: 'swap',
       families: {
-        'Dancing Script': './assets/fonts/DancingScript*',
+        'Dancing Script': './public/fonts/DancingScript*',
       },
     },
 

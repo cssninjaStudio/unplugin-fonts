@@ -3,7 +3,7 @@ import type { CustomFontFace, CustomFontFamily, CustomFonts } from '../types'
 import fg from 'fast-glob'
 import { basename as _basename, extname, join, relative } from 'pathe'
 
-type ResolvedCustomFonts = Required<Omit<CustomFonts, 'families'>> & { families: CustomFontFamily[] }
+type ResolvedCustomFonts = Required<Omit<CustomFonts, 'families' | 'linkFilter'>> & { families: CustomFontFamily[], linkFilter?: CustomFonts['linkFilter'] }
 
 function resolveUserOption(options: CustomFonts): ResolvedCustomFonts {
   let {
@@ -14,6 +14,7 @@ function resolveUserOption(options: CustomFonts): ResolvedCustomFonts {
     injectTo = 'head-prepend',
     display = 'auto',
     stripPrefix = 'public/',
+    linkFilter,
   } = options
 
   // --- Cast as array of `CustomFontFamily`.
@@ -33,6 +34,7 @@ function resolveUserOption(options: CustomFonts): ResolvedCustomFonts {
     injectTo,
     display,
     stripPrefix,
+    linkFilter,
   }
 }
 
