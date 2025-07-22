@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/cssninjaStudio/unplugin-fonts/compare/v1.3.1...v1.4.0) (2025-07-22)
+
+
+### Features
+
+* add Vite 7 support ([#87](https://github.com/cssninjaStudio/unplugin-fonts/issues/87)) ([587f506](https://github.com/cssninjaStudio/unplugin-fonts/commit/587f506c239bb4fe7e61f18fbf8a1b9b57ce1570))
+* allow using nuxt 4 ([0b088c7](https://github.com/cssninjaStudio/unplugin-fonts/commit/0b088c7755e3d2f6b66a318f35f5ecb66eb61bdf))
+
+
+### Bug Fixes
+
+* improve vite 7 plugin typing ([2b8f001](https://github.com/cssninjaStudio/unplugin-fonts/commit/2b8f001fca2cb8babb0c81557b70daba600df78a))
+* loading custom font in nuxt module ([d562a89](https://github.com/cssninjaStudio/unplugin-fonts/commit/d562a892feef5ea2e839c85f1df52311532c9fc9))
+
 ### [1.3.1](https://github.com/cssninjaStudio/unplugin-fonts/compare/v1.3.0...v1.3.1) (2024-12-01)
 
 
