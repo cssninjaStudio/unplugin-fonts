@@ -5,7 +5,6 @@ import { createUnplugin } from 'unplugin'
 import { getHeadLinkTags } from './loaders'
 import { customVirtualModule } from './loaders/custom'
 import { fontsourceImports, fontsourceVirtualModule } from './loaders/fontsource'
-import { HtmlTagDescriptor } from 'vite'
 
 const virtualStylesId = 'unfonts.css'
 const resolvedVirtualStylesId = `\0${virtualStylesId}`
@@ -91,10 +90,12 @@ export default createUnplugin<Options | undefined>((userOptions) => {
           const { prefetch: wantPrefetch, preload: wantPreload } = options?.custom || {}
           for (const file of files) {
             if (!(
-              wantPrefetch === true || wantPreload === true ||
-              (wantPrefetch === undefined && wantPreload === undefined)
-            ))
+              wantPrefetch === true || wantPreload === true
+              || (wantPrefetch === undefined && wantPreload === undefined)
+            )) {
               continue
+            }
+
             const ext = extname(file)
             tags.push({
               tag: 'link',
@@ -113,7 +114,8 @@ export default createUnplugin<Options | undefined>((userOptions) => {
             const newTags = options?.custom?.linkFilter(tags)
             if (Array.isArray(newTags)) {
               tagsReturned = newTags
-            } else {
+            }
+            else {
               tagsReturned = newTags ? tags : []
             }
           }
@@ -140,10 +142,11 @@ function generateVitepressBundle(
   const { prefetch: wantPrefetch, preload: wantPreload } = options?.custom || {}
   for (const file of files) {
     if (!(
-      wantPrefetch === true || wantPreload === true ||
-      (wantPrefetch === undefined && wantPreload === undefined)
-    ))
+      wantPrefetch === true || wantPreload === true
+      || (wantPrefetch === undefined && wantPreload === undefined)
+    )) {
       continue
+    }
 
     const ext = extname(file)
     tags.push({
@@ -164,7 +167,8 @@ function generateVitepressBundle(
     const newTags = options?.custom?.linkFilter(tags)
     if (Array.isArray(newTags)) {
       tagsReturned = newTags
-    } else {
+    }
+    else {
       tagsReturned = newTags ? tags : []
     }
   }
