@@ -19,6 +19,6 @@
     "svelte-check": "^4.1.0",
     "typescript": "^5.7.2",
     "unplugin-fonts": "workspace:*",
-    "vite": "^6.0.1"
+    "vite": "^5.4.21"
   }
 }
