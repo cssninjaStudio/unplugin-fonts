@@ -31,6 +31,10 @@
       "types": "./dist/astro.d.ts",
       "default": "./dist/astro.mjs"
     },
+    "./bun": {
+      "types": "./dist/bun.d.ts",
+      "default": "./dist/bun.mjs"
+    },
     "./esbuild": {
       "types": "./dist/esbuild.d.ts",
       "default": "./dist/esbuild.mjs"
@@ -39,9 +43,17 @@
       "types": "./dist/nuxt.d.ts",
       "default": "./dist/nuxt.mjs"
     },
+    "./rolldown": {
+      "types": "./dist/rolldown.d.ts",
+      "default": "./dist/rolldown.mjs"
+    },
     "./rollup": {
       "types": "./dist/rollup.d.ts",
       "default": "./dist/rollup.mjs"
+    },
+    "./rspack": {
+      "types": "./dist/rspack.d.ts",
+      "default": "./dist/rspack.mjs"
     },
     "./types": {
       "types": "./dist/types.d.ts",
