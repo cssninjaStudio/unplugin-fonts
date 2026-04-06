@@ -8,8 +8,8 @@
   },
   "devDependencies": {
     "@fontsource-variable/noto-sans-jp": "^5.1.0",
-    "@fontsource/abeezee": "catalog:",
-    "@fontsource/truculenta": "catalog:",
+    "@fontsource/abeezee": "catalog:examples",
+    "@fontsource/truculenta": "catalog:examples",
     "nuxt": "^3.14.1592",
     "unplugin-fonts": "workspace:*"
   }

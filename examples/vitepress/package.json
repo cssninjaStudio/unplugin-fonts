@@ -9,8 +9,8 @@
     "preview": "vitepress preview"
   },
   "devDependencies": {
-    "@fontsource/abeezee": "catalog:",
-    "@fontsource/truculenta": "catalog:",
+    "@fontsource/abeezee": "catalog:examples",
+    "@fontsource/truculenta": "catalog:examples",
     "unplugin-fonts": "workspace:*",
     "vitepress": "1.6.4"
   }

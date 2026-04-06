@@ -9,8 +9,8 @@
     "astro": "astro"
   },
   "devDependencies": {
-    "@fontsource/abeezee": "catalog:",
-    "@fontsource/truculenta": "catalog:",
+    "@fontsource/abeezee": "catalog:examples",
+    "@fontsource/truculenta": "catalog:examples",
     "astro": "^2.3.0",
     "unplugin-fonts": "workspace:*"
   }
