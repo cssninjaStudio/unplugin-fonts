@@ -1,4 +1,5 @@
 import type { CustomFontFamily, FontFallbackConfig, Options } from '../types'
+import type { ResolvedCustomFonts } from './custom'
 import { pathToFileURL } from 'node:url'
 import { parse, walk } from 'css-tree'
 import {
@@ -11,26 +12,99 @@ import {
 import MagicString from 'magic-string'
 import { resolveFontFiles, resolveUserOption } from './custom'
 
+const VARIABLE_SUFFIX_RE = /(?: Variable|-variable)$/
+const CSS_RE = /\.(?:css|scss|sass|less|styl|stylus|pcss|postcss)(?:\?.*)?$/
+const GENERIC_FAMILIES = new Set([
+  'serif',
+  'sans-serif',
+  'monospace',
+  'cursive',
+  'fantasy',
+  'system-ui',
+  'ui-serif',
+  'ui-sans-serif',
+  'ui-monospace',
+  'ui-rounded',
+  'emoji',
+  'math',
+  'fangsong',
+  'inherit',
+  'initial',
+  'unset',
+  'revert',
+])
+
+interface FallbackEntry {
+  familyName: string
+  config: FontFallbackConfig
+  fontFilePath?: string
+}
+
+/**
+ * Yields all font families across loaders that have fallback configured.
+ * Single iteration point — hasFallbacks, collectFallbackNames, and
+ * generateAllFallbacks all consume this.
+ */
+function* iterateFallbackFamilies(
+  options: Options,
+  resolvedCustom?: ResolvedCustomFonts,
+  root?: string,
+): Generator<FallbackEntry> {
+  if (options.custom && resolvedCustom) {
+    for (const family of resolvedCustom.families) {
+      if (!family.fallback)
+        continue
+      yield {
+        familyName: family.name,
+        config: family.fallback,
+        fontFilePath: root ? findRepresentativeFontFile(family, resolvedCustom, root) : undefined,
+      }
+    }
+  }
+
+  if (options.google) {
+    for (const family of options.google.families) {
+      if (typeof family === 'string' || !family.fallback)
+        continue
+      yield { familyName: family.name, config: family.fallback }
+    }
+  }
+
+  if (options.fontsource) {
+    for (const family of options.fontsource.families) {
+      if (!family || typeof family === 'string' || !family.fallback)
+        continue
+      yield {
+        familyName: family.name.replace(VARIABLE_SUFFIX_RE, ''),
+        config: family.fallback,
+      }
+    }
+  }
+
+  if (options.typekit?.families) {
+    for (const family of options.typekit.families) {
+      if (typeof family === 'string' || !family.fallback)
+        continue
+      yield { familyName: family.name, config: family.fallback }
+    }
+  }
+}
+
 /**
  * Find a representative font file to read metrics from.
  * Prefers regular (400) weight, then .ttf/.woff2 formats.
  */
 function findRepresentativeFontFile(
   family: CustomFontFamily,
+  resolvedOptions: ResolvedCustomFonts,
   root: string,
 ): string | undefined {
-  const options = resolveUserOption({
-    families: [family],
-    display: 'auto',
-  })
-  const faces = resolveFontFiles(family, options, root)
+  const faces = resolveFontFiles(family, resolvedOptions, root)
   if (faces.length === 0)
     return undefined
 
-  // Prefer the regular weight face
   const regularFace = faces.find(f => f.weight === 400) ?? faces[0]
 
-  // Prefer .ttf > .woff2 > .woff > .otf for reliable metrics
   const preferredOrder = ['.ttf', '.woff2', '.woff', '.otf']
   for (const ext of preferredOrder) {
     const file = regularFace.files.find(f => f.ext === ext)
@@ -41,9 +115,6 @@ function findRepresentativeFontFile(
   return regularFace.files[0]?.src
 }
 
-/**
- * Generate fallback @font-face CSS for a single font family.
- */
 async function generateFallbackForFamily(params: {
   familyName: string
   config: FontFallbackConfig
@@ -51,7 +122,6 @@ async function generateFallbackForFamily(params: {
 }): Promise<string> {
   const { familyName, config, fontFilePath } = params
 
-  // 1. Get web font metrics — try by name first, then by file
   let metrics = await getMetricsForFamily(familyName)
   if (!metrics && fontFilePath) {
     metrics = await readMetrics(pathToFileURL(fontFilePath)).catch(() => null)
@@ -64,7 +134,6 @@ async function generateFallbackForFamily(params: {
     return ''
   }
 
-  // 2. Resolve system fallback fonts
   const systemFonts = config.fallbacks
     ?? resolveCategoryFallbacks({
       fontFamily: familyName,
@@ -74,18 +143,21 @@ async function generateFallbackForFamily(params: {
         : metrics,
     })
 
-  // 3. Generate fallback @font-face for each system font
   const fallbackName = config.name ?? generateFallbackName(familyName)
-  const css: string[] = []
 
-  for (const systemFont of systemFonts) {
-    const systemMetrics = await getMetricsForFamily(systemFont)
+  // Fetch all system font metrics concurrently
+  const systemMetricsList = await Promise.all(
+    systemFonts.map(font => getMetricsForFamily(font)),
+  )
+
+  const css: string[] = []
+  for (let i = 0; i < systemFonts.length; i++) {
+    const systemMetrics = systemMetricsList[i]
     if (!systemMetrics)
       continue
-
     css.push(generateFontFace(metrics, {
       name: fallbackName,
-      font: systemFont,
+      font: systemFonts[i],
       metrics: systemMetrics,
     }))
   }
@@ -93,120 +165,26 @@ async function generateFallbackForFamily(params: {
   return css.join('')
 }
 
-/**
- * Check if any font family across all loaders has fallback configured.
- */
 export function hasFallbacks(options: Options): boolean {
-  if (options.custom) {
-    const resolved = resolveUserOption(options.custom)
-    if (resolved.families.some(f => f.fallback))
-      return true
-  }
-  if (options.google) {
-    for (const family of options.google.families) {
-      if (typeof family !== 'string' && family.fallback)
-        return true
-    }
-  }
-  if (options.fontsource) {
-    for (const family of options.fontsource.families) {
-      if (family && typeof family !== 'string' && family.fallback)
-        return true
-    }
-  }
-  if (options.typekit?.families) {
-    for (const family of options.typekit.families) {
-      if (typeof family !== 'string' && family.fallback)
-        return true
-    }
-  }
-  return false
+  const resolvedCustom = options.custom ? resolveUserOption(options.custom) : undefined
+  // Check if the generator yields at least one entry
+  return !iterateFallbackFamilies(options, resolvedCustom).next().done
 }
 
 /**
  * Generate fallback CSS for all font families that have opted in.
  */
-const VARIABLE_SUFFIX_RE = /(?: Variable|-variable)$/
-const CSS_RE = /\.(?:css|scss|sass|less|styl|stylus|pcss|postcss)(?:\?.*)?$/
 export async function generateAllFallbacks(
   options: Options,
   root: string,
 ): Promise<string> {
-  const results: string[] = []
+  const resolvedCustom = options.custom ? resolveUserOption(options.custom) : undefined
+  // Collect all entries from the generator to run them concurrently
+  const entries = [...iterateFallbackFamilies(options, resolvedCustom, root)]
 
-  // Custom fonts — read metrics from font files
-  if (options.custom) {
-    const resolved = resolveUserOption(options.custom)
-    for (const family of resolved.families) {
-      if (!family.fallback)
-        continue
-
-      const fontFilePath = findRepresentativeFontFile(family, root)
-      results.push(
-        await generateFallbackForFamily({
-          familyName: family.name,
-          config: family.fallback,
-          fontFilePath,
-        }),
-      )
-    }
-  }
-
-  // Google fonts — look up metrics by name
-  if (options.google) {
-    for (const family of options.google.families) {
-      if (typeof family === 'string')
-        continue
-      if (!family.fallback)
-        continue
-
-      results.push(
-        await generateFallbackForFamily({
-          familyName: family.name,
-          config: family.fallback,
-        }),
-      )
-    }
-  }
-
-  // Fontsource fonts — look up metrics by name
-  if (options.fontsource) {
-    for (const family of options.fontsource.families) {
-      if (!family)
-        continue
-      if (typeof family === 'string')
-        continue
-      if (!family.fallback)
-        continue
-
-      const name = family.name
-        .replace(VARIABLE_SUFFIX_RE, '')
-
-      results.push(
-        await generateFallbackForFamily({
-          familyName: name,
-          config: family.fallback,
-        }),
-      )
-    }
-  }
-
-  // Typekit fonts — look up metrics by name (user must declare families)
-  if (options.typekit?.families) {
-    for (const family of options.typekit.families) {
-      if (typeof family === 'string')
-        continue
-      if (!family.fallback)
-        continue
-
-      results.push(
-        await generateFallbackForFamily({
-          familyName: family.name,
-          config: family.fallback,
-        }),
-      )
-    }
-  }
+  const results = await Promise.all(
+    entries.map(entry => generateFallbackForFamily(entry)),
+  )
 
   return results.filter(Boolean).join('')
 }
@@ -216,40 +194,11 @@ export async function generateAllFallbacks(
  * that have fallback configured. Used by the transform hook.
  */
 export function collectFallbackNames(options: Options): Map<string, string> {
+  const resolvedCustom = options.custom ? resolveUserOption(options.custom) : undefined
   const map = new Map<string, string>()
 
-  if (options.custom) {
-    const resolved = resolveUserOption(options.custom)
-    for (const family of resolved.families) {
-      if (!family.fallback)
-        continue
-      map.set(family.name, family.fallback.name ?? generateFallbackName(family.name))
-    }
-  }
-
-  if (options.google) {
-    for (const family of options.google.families) {
-      if (typeof family === 'string' || !family.fallback)
-        continue
-      map.set(family.name, family.fallback.name ?? generateFallbackName(family.name))
-    }
-  }
-
-  if (options.fontsource) {
-    for (const family of options.fontsource.families) {
-      if (!family || typeof family === 'string' || !family.fallback)
-        continue
-      const name = family.name.replace(VARIABLE_SUFFIX_RE, '')
-      map.set(name, family.fallback.name ?? generateFallbackName(name))
-    }
-  }
-
-  if (options.typekit?.families) {
-    for (const family of options.typekit.families) {
-      if (typeof family === 'string' || !family.fallback)
-        continue
-      map.set(family.name, family.fallback.name ?? generateFallbackName(family.name))
-    }
+  for (const { familyName, config } of iterateFallbackFamilies(options, resolvedCustom)) {
+    map.set(familyName, config.name ?? generateFallbackName(familyName))
   }
 
   return map
@@ -278,7 +227,6 @@ export function transformFontFamilyDeclarations(
     enter(node) {
       if (node.property !== 'font-family' && node.property !== 'font')
         return
-      // Don't modify @font-face declarations
       if (this.atrule && this.atrule.name === 'font-face')
         return
       if (node.value.type !== 'Value')
@@ -288,9 +236,9 @@ export function transformFontFamilyDeclarations(
         let family: string | undefined
 
         if (child.type === 'String') {
-          family = child.value.replace(/^['"]|['"]$/g, '')
+          family = child.value
         }
-        else if (child.type === 'Identifier' && child.name !== 'inherit') {
+        else if (child.type === 'Identifier' && !GENERIC_FAMILIES.has(child.name)) {
           family = child.name
         }
 

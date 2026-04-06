@@ -58,9 +58,11 @@ export default createUnplugin<Options | undefined>((userOptions) => {
         if (options.custom)
           s.append(`${customVirtualModule(options.custom, root)}\n`)
 
-        const fallbackCSS = await generateAllFallbacks(options, root)
-        if (fallbackCSS)
-          s.append(`${fallbackCSS}\n`)
+        if (fallbackNames.size > 0) {
+          const fallbackCSS = await generateAllFallbacks(options, root)
+          if (fallbackCSS)
+            s.append(`${fallbackCSS}\n`)
+        }
 
         return {
           code: s.toString(),
