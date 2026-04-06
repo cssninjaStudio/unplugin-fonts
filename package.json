@@ -89,7 +89,7 @@
     "test:vitest": "vitest run",
     "test:lint": "eslint .",
     "test:ts": "tsgo --noEmit",
-    "release": "npm run lint && npx standard-version && git push --follow-tags origin main && npm publish"
+    "release": "npm run test && npx standard-version && git push --follow-tags origin main && npm publish"
   },
   "peerDependencies": {
     "@nuxt/kit": "^3.0.0 || ^4.0.0",
