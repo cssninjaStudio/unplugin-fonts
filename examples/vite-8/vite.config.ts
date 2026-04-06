@@ -4,6 +4,7 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   plugins: [
     Unfonts({
+      inlineFontFace: true,
       google: {
         families: [
           {

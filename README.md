@@ -220,6 +220,19 @@ export default defineConfig({
 import 'unfonts.css'
 ```
 
+## Options
+
+### Inline Font Face
+
+Move `@font-face` rules from the external CSS bundle into an inline `<style>` tag in the HTML `<head>`. This lets the browser discover font URLs immediately without waiting for the stylesheet to load, reducing render-blocking requests and improving LCP.
+
+```ts
+Unfonts({
+  inlineFontFace: true,
+  // ...providers
+})
+```
+
 ## Providers
 
 ### Typekit

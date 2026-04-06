@@ -1,9 +1,9 @@
-import type { Options } from './types'
+import type { CustomFonts, Options } from './types'
 import MagicString from 'magic-string'
-import { extname, join } from 'pathe'
+import { basename as _basename, extname, join } from 'pathe'
 import { createUnplugin } from 'unplugin'
 import { getHeadLinkTags } from './loaders'
-import { customVirtualModule } from './loaders/custom'
+import { customVirtualModule, resolveFontFiles, resolveUserOption } from './loaders/custom'
 import { collectFallbackNames, generateAllFallbacks, transformFontFamilyDeclarations } from './loaders/fallback'
 import { fontsourceImports, fontsourceVirtualModule } from './loaders/fontsource'
 
@@ -82,7 +82,7 @@ export default createUnplugin<Options | undefined>((userOptions) => {
       },
       generateBundle(_options, bundle) {
         if ('VITEPRESS_CONFIG' in globalThis) {
-          generateVitepressBundle(options, base, bundle, (globalThis as any).VITEPRESS_CONFIG)
+          generateVitepressBundle(options, base, root, bundle, (globalThis as any).VITEPRESS_CONFIG)
           return
         }
 
@@ -98,7 +98,19 @@ export default createUnplugin<Options | undefined>((userOptions) => {
         order: 'post',
         handler: (html, ctx) => {
           const tags = getHeadLinkTags(options)
-          const files = Object.keys(ctx.bundle ?? {}).filter(key => fontFileRegex.test(key))
+          const customBasenames = resolveCustomFontBasenames(options.custom, root)
+          const files = Object.entries(ctx.bundle ?? {})
+            .filter(([key, info]) => {
+              if (!fontFileRegex.test(key))
+                return false
+              if (customBasenames.size === 0)
+                return false
+              const asset = info as { originalFileNames?: string[] }
+              return (asset.originalFileNames ?? []).some((name) => {
+                return customBasenames.has(_basename(name, extname(name)))
+              })
+            })
+            .map(([key]) => key)
           const { prefetch: wantPrefetch, preload: wantPreload } = options?.custom || {}
           for (const file of files) {
             if (!(
@@ -121,6 +133,29 @@ export default createUnplugin<Options | undefined>((userOptions) => {
               },
             })
           }
+          // Inline @font-face rules from bundled CSS for faster LCP
+          if (options.inlineFontFace) {
+            const fontFaceRegex = /@font-face\s*\{[^}]*\}/g
+            const fontFaceRules: string[] = []
+            for (const info of Object.values(ctx.bundle ?? {})) {
+              if (info.type === 'asset' && typeof info.fileName === 'string' && info.fileName.endsWith('.css')) {
+                const css = typeof info.source === 'string' ? info.source : ''
+                const matches = css.match(fontFaceRegex)
+                if (matches) {
+                  fontFaceRules.push(...matches)
+                  info.source = css.replace(fontFaceRegex, '')
+                }
+              }
+            }
+            if (fontFaceRules.length > 0) {
+              tags.push({
+                tag: 'style',
+                injectTo: 'head-prepend',
+                children: fontFaceRules.join(''),
+              })
+            }
+          }
+
           let tagsReturned = tags
           if (options?.custom?.linkFilter) {
             const newTags = options?.custom?.linkFilter(tags)
@@ -139,9 +174,22 @@ export default createUnplugin<Options | undefined>((userOptions) => {
 })
 
 let vitepressInjected = false
+function resolveCustomFontBasenames(customOptions: CustomFonts | undefined, root: string): Set<string> {
+  if (!customOptions)
+    return new Set()
+  const resolved = resolveUserOption(customOptions)
+  const basenames = new Set<string>()
+  for (const family of resolved.families) {
+    for (const face of resolveFontFiles(family, resolved, root))
+      basenames.add(face.basename)
+  }
+  return basenames
+}
+
 function generateVitepressBundle(
   options: Options,
   base: string,
+  root: string,
   bundle: any,
   vitepressConfig: any,
 ) {
@@ -150,7 +198,18 @@ function generateVitepressBundle(
   vitepressInjected = true
 
   const tags = getHeadLinkTags(options)
-  const files = Object.keys(bundle ?? {}).filter(key => fontFileRegex.test(key))
+  const customBasenames = resolveCustomFontBasenames(options.custom, root)
+  const files = Object.entries(bundle ?? {})
+    .filter(([key, info]: [string, any]) => {
+      if (!fontFileRegex.test(key))
+        return false
+      if (customBasenames.size === 0)
+        return false
+      return (info.originalFileNames ?? []).some((name: string) => {
+        return customBasenames.has(_basename(name, extname(name)))
+      })
+    })
+    .map(([key]: [string, any]) => key)
   const { prefetch: wantPrefetch, preload: wantPreload } = options?.custom || {}
   for (const file of files) {
     if (!(

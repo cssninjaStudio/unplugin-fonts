@@ -33,6 +33,13 @@ export interface Options {
   typekit?: TypeKitFonts
   /** Enable sourcemap generation for virtual CSS modules. */
   sourcemap?: string
+  /**
+   * Inline `@font-face` rules into the HTML as a `<style>` tag
+   * instead of keeping them in the external CSS bundle.
+   * Reduces render-blocking requests and can improve LCP.
+   * @default false
+   */
+  inlineFontFace?: boolean
 }
 
 export interface CustomFontFace {
