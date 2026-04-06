@@ -1,9 +1,13 @@
+shellEmulator: true
+
+trustPolicy: no-downgrade
+
 packages:
   - examples/*
 
 catalogs:
   examples:
-    "@fontsource/abeezee": ^5.2.8
-    "@fontsource/truculenta": ^5.2.7
+    '@fontsource/abeezee': ^5.2.8
+    '@fontsource/truculenta': ^5.2.7
   shared:
     typescript: ^6.0.2
