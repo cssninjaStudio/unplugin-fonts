@@ -85,11 +85,11 @@
     "example:dev": "pnpm --filter vite-8 run dev",
     "example:build": "pnpm --filter vite-8 run build",
     "lint": "eslint --fix .",
-    "test": "pnpm run test:vitest && pnpm run test:lint && npm run test:ts",
+    "test": "pnpm run test:vitest && pnpm run test:lint && pnpm run test:ts",
     "test:vitest": "vitest run",
     "test:lint": "eslint .",
     "test:ts": "tsgo --noEmit",
-    "release": "npm run test && npx standard-version && git push --follow-tags origin main && npm publish"
+    "release": "pnpm run test && npx standard-version && git push --follow-tags origin main && pnpm publish"
   },
   "peerDependencies": {
     "@nuxt/kit": "^3.0.0 || ^4.0.0",
