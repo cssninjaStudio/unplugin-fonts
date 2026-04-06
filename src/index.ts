@@ -4,6 +4,7 @@ import { extname, join } from 'pathe'
 import { createUnplugin } from 'unplugin'
 import { getHeadLinkTags } from './loaders'
 import { customVirtualModule } from './loaders/custom'
+import { collectFallbackNames, generateAllFallbacks, transformFontFamilyDeclarations } from './loaders/fallback'
 import { fontsourceImports, fontsourceVirtualModule } from './loaders/fontsource'
 
 const virtualStylesId = 'unfonts.css'
@@ -19,6 +20,8 @@ export default createUnplugin<Options | undefined>((userOptions) => {
   let root: string
   let base: string
 
+  const fallbackNames = collectFallbackNames(options)
+
   return {
     name: 'unplugin-fonts',
     enforce: 'pre',
@@ -30,7 +33,7 @@ export default createUnplugin<Options | undefined>((userOptions) => {
         return resolvedVirtualModuleId
     },
 
-    load(id) {
+    async load(id) {
       if (id.startsWith(resolvedVirtualModuleId)) {
         const tags = getHeadLinkTags(options)
         const s = new MagicString(`export const links = ${JSON.stringify(tags)};\n`)
@@ -55,6 +58,10 @@ export default createUnplugin<Options | undefined>((userOptions) => {
         if (options.custom)
           s.append(`${customVirtualModule(options.custom, root)}\n`)
 
+        const fallbackCSS = await generateAllFallbacks(options, root)
+        if (fallbackCSS)
+          s.append(`${fallbackCSS}\n`)
+
         return {
           code: s.toString(),
           map: options.sourcemap
@@ -62,6 +69,9 @@ export default createUnplugin<Options | undefined>((userOptions) => {
             : undefined,
         }
       }
+    },
+    transform(code, id) {
+      return transformFontFamilyDeclarations(code, id, fallbackNames, !!options.sourcemap)
     },
     vite: {
       configResolved(viteConfig) {

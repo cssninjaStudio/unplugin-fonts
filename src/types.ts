@@ -1,5 +1,27 @@
 import type { HtmlTagDescriptor } from 'vite'
 
+export interface FontFallbackConfig {
+  /**
+   * System fonts to use as fallback bases.
+   * When not provided, fontaine auto-selects by category.
+   * @example ['Arial', 'Helvetica Neue']
+   */
+  fallbacks?: string[]
+
+  /**
+   * Generic font category. Used to auto-select system fallbacks
+   * when `fallbacks` is not provided.
+   * @default 'sans-serif'
+   */
+  category?: 'sans-serif' | 'serif' | 'monospace'
+
+  /**
+   * Override the generated fallback font-face name.
+   * @default '{familyName} fallback'
+   */
+  name?: string
+}
+
 export interface Options {
   custom?: CustomFonts
   fontsource?: FontsourceFonts
@@ -64,6 +86,13 @@ export interface CustomFontFamily {
    * @returns
    */
   transform?: (font: CustomFontFace) => CustomFontFace | null
+
+  /**
+   * Generate a fallback @font-face with adjusted metrics to reduce CLS.
+   * Uses fontaine to compute size-adjust, ascent-override, descent-override,
+   * and line-gap-override from the font file.
+   */
+  fallback?: FontFallbackConfig
 }
 
 export interface CustomFonts {
@@ -122,6 +151,12 @@ interface BaseFontsourceFontFamily {
   name: string
   styles?: ('italic' | 'normal')[]
   subset?: string
+
+  /**
+   * Generate a fallback @font-face with adjusted metrics to reduce CLS.
+   * Uses fontaine to look up font metrics by family name.
+   */
+  fallback?: FontFallbackConfig
 }
 interface WeightsFontsourceFontFamily extends BaseFontsourceFontFamily {
   weights: (100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900)[]
@@ -144,6 +179,12 @@ export interface GoogleFontFamily {
   name: string
   styles?: string
   defer?: boolean
+
+  /**
+   * Generate a fallback @font-face with adjusted metrics to reduce CLS.
+   * Uses fontaine to look up font metrics by family name.
+   */
+  fallback?: FontFallbackConfig
 }
 export interface GoogleFonts {
   families: (string | GoogleFontFamily)[]
@@ -164,6 +205,16 @@ export interface GoogleFonts {
   preconnectUrl?: string
 }
 
+export interface TypeKitFontFamily {
+  name: string
+
+  /**
+   * Generate a fallback @font-face with adjusted metrics to reduce CLS.
+   * Uses fontaine to look up font metrics by family name.
+   */
+  fallback?: FontFallbackConfig
+}
+
 export interface TypeKitFonts {
   id: string
   defer?: boolean
@@ -175,4 +226,11 @@ export interface TypeKitFonts {
    * @default: 'https://use.typekit.net/'
    */
   fontBaseUrl?: string
+
+  /**
+   * Font families in this Typekit project.
+   * Needed to generate fallback @font-face declarations since Typekit
+   * only provides a project ID, not individual family metadata.
+   */
+  families?: (string | TypeKitFontFamily)[]
 }

@@ -21,9 +21,15 @@ importers:
 
   .:
     dependencies:
+      css-tree:
+        specifier: ^3.2.1
+        version: 3.2.1
       fast-glob:
         specifier: ^3.3.3
         version: 3.3.3
+      fontaine:
+        specifier: ^0.8.0
+        version: 0.8.0
       magic-string:
         specifier: ^0.30.21
         version: 0.30.21
@@ -43,6 +49,9 @@ importers:
       '@nuxt/schema':
         specifier: ^4.4.2
         version: 4.4.2
+      '@types/css-tree':
+        specifier: ^2.3.11
+        version: 2.3.11
       '@types/node':
         specifier: ^22.19.17
         version: 22.19.17
@@ -3104,6 +3113,9 @@ packages:
   '@types/cookie@0.6.0':
     resolution: {integrity: sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==}
 
+  '@types/css-tree@2.3.11':
+    resolution: {integrity: sha512-aEokibJOI77uIlqoBOkVbaQGC9zII0A+JH1kcTNKW2CwyYWD8KM6qdo+4c77wD3wZOQfJuNWAr9M4hdk+YhDIg==}
+
   '@types/debug@4.1.13':
     resolution: {integrity: sha512-KSVgmQmzMwPlmtljOomayoR89W4FynCAi3E8PPs7vmDVPe84hT+vGPKkJfThkmXs0x0jAaa9U8uW8bbfyS2fWw==}
 
@@ -5073,6 +5085,10 @@ packages:
 
   fontace@0.4.1:
     resolution: {integrity: sha512-lDMvbAzSnHmbYMTEld5qdtvNH2/pWpICOqpean9IgC7vUbUJc3k+k5Dokp85CegamqQpFbXf0rAVkbzpyTA8aw==}
+
+  fontaine@0.8.0:
+    resolution: {integrity: sha512-eek1GbzOdWIj9FyQH/emqW1aEdfC3lYRCHepzwlFCm5T77fBSRSyNRKE6/antF1/B1M+SfJXVRQTY9GAr7lnDg==}
+    engines: {node: '>=18.12.0'}
 
   fontkitten@1.0.3:
     resolution: {integrity: sha512-Wp1zXWPVUPBmfoa3Cqc9ctaKuzKAV6uLstRqlR56kSjplf5uAce+qeyYym7F+PHbGTk+tCEdkCW6RD7DX/gBZw==}
@@ -11151,6 +11167,8 @@ snapshots:
 
   '@types/cookie@0.6.0': {}
 
+  '@types/css-tree@2.3.11': {}
+
   '@types/debug@4.1.13':
     dependencies:
       '@types/ms': 2.1.0
@@ -13673,6 +13691,16 @@ snapshots:
   fontace@0.4.1:
     dependencies:
       fontkitten: 1.0.3
+
+  fontaine@0.8.0:
+    dependencies:
+      '@capsizecss/unpack': 4.0.0
+      css-tree: 3.2.1
+      magic-regexp: 0.10.0
+      magic-string: 0.30.21
+      pathe: 2.0.3
+      ufo: 1.6.3
+      unplugin: 2.3.11
 
   fontkitten@1.0.3:
     dependencies:

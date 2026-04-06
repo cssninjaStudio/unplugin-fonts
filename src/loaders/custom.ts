@@ -3,9 +3,9 @@ import type { CustomFontFace, CustomFontFamily, CustomFonts } from '../types'
 import fg from 'fast-glob'
 import { basename as _basename, extname, join, relative } from 'pathe'
 
-type ResolvedCustomFonts = Required<Omit<CustomFonts, 'families' | 'linkFilter'>> & { families: CustomFontFamily[], linkFilter?: CustomFonts['linkFilter'] }
+export type ResolvedCustomFonts = Required<Omit<CustomFonts, 'families' | 'linkFilter'>> & { families: CustomFontFamily[], linkFilter?: CustomFonts['linkFilter'] }
 
-function resolveUserOption(options: CustomFonts): ResolvedCustomFonts {
+export function resolveUserOption(options: CustomFonts): ResolvedCustomFonts {
   let {
     families = [],
     preload = true,
@@ -78,7 +78,7 @@ export function customLoader(userOptions: CustomFonts, root: string) {
   return tags
 }
 
-function resolveFontFiles(family: CustomFontFamily, options: ResolvedCustomFonts, root: string) {
+export function resolveFontFiles(family: CustomFontFamily, options: ResolvedCustomFonts, root: string) {
   const sources = Array.isArray(family.src) ? family.src : [family.src]
   const facesMap: Record<string, CustomFontFace> = {}
 

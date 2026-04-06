@@ -15,6 +15,7 @@ View configuration:
 - [Google Fonts](#google-fonts)
 - [Custom Fonts](#custom-fonts)
 - [Fontsource](#fontsource)
+- [Font Fallback Metrics](#font-fallback-metrics)
 
 ## Install
 
@@ -253,6 +254,15 @@ Unfonts({
      *   values: 'head' | 'body' | 'head-prepend' | 'body-prepend'
      */
     injectTo: 'head-prepend',
+
+    /**
+     * Declare font families in this Typekit project to generate
+     * fallback @font-face declarations that reduce layout shift.
+     */
+    families: [{
+      name: 'Futura PT',
+      fallback: { category: 'sans-serif' },
+    }],
   },
 })
 ```
@@ -328,6 +338,14 @@ Unfonts({
          * default: true
          */
         defer: true,
+
+        /**
+         * Generate a fallback @font-face to reduce layout shift.
+         * See "Font Fallback Metrics" section for details.
+         */
+        fallback: {
+          category: 'sans-serif',
+        },
       },
     ],
   },
@@ -372,7 +390,15 @@ Unfonts({
 
         // we can also return null to skip the font
         return font
-      }
+      },
+
+      /**
+       * Generate a fallback @font-face to reduce layout shift.
+       * See "Font Fallback Metrics" section for details.
+       */
+      fallback: {
+        category: 'sans-serif',
+      },
     }],
 
     /**
@@ -460,11 +486,107 @@ Unfonts({
           slnt: true,
           ital: true,
         },
+
+        /**
+         * Generate a fallback @font-face to reduce layout shift.
+         * See "Font Fallback Metrics" section for details.
+         */
+        fallback: {
+          category: 'sans-serif',
+        },
       },
     ],
   },
 })
 ```
+
+### Font Fallback Metrics
+
+Reduce Cumulative Layout Shift (CLS) by generating fallback `@font-face` rules that adjust a local system font to match your web font's dimensions. Powered by [fontaine](https://github.com/unjs/fontaine).
+
+When enabled on a font family, the plugin will:
+
+1. Generate a companion `@font-face` with `size-adjust`, `ascent-override`, `descent-override`, and `line-gap-override` to morph a system font (e.g. Arial) to match the web font's size
+2. Automatically rewrite `font-family` declarations in your CSS to include the fallback
+
+This is opt-in per font family via the `fallback` option. It works with all providers:
+
+```ts
+Unfonts({
+  google: {
+    families: [
+      {
+        name: 'Roboto',
+        styles: 'wght@400;700',
+        // Enable fallback for this font
+        fallback: {
+          // Font category — used to pick appropriate system fonts
+          // values: 'sans-serif' | 'serif' | 'monospace'
+          // default: 'sans-serif'
+          category: 'sans-serif',
+        },
+      },
+      // String families are unaffected
+      'Open Sans',
+    ],
+  },
+  custom: {
+    families: [{
+      name: 'My Font',
+      src: './src/assets/fonts/*.woff2',
+      fallback: {
+        // Explicitly choose which system fonts to use as fallback bases
+        fallbacks: ['Arial', 'Helvetica Neue'],
+        // Override the fallback font-face name (default: '{name} fallback')
+        name: 'My Font Override',
+      },
+    }],
+  },
+  fontsource: {
+    families: [{
+      name: 'Inter',
+      weights: [400, 700],
+      fallback: {
+        category: 'sans-serif',
+      },
+    }],
+  },
+  typekit: {
+    id: '<projectId>',
+    // Typekit requires declaring families to generate fallbacks
+    families: [{
+      name: 'Futura PT',
+      fallback: {
+        category: 'sans-serif',
+      },
+    }],
+  },
+})
+```
+
+The generated output looks like this:
+
+```css
+/* Generated fallback @font-face */
+@font-face {
+  font-family: "Roboto fallback";
+  src: local("Arial");
+  size-adjust: 100.06%;
+  ascent-override: 92.77%;
+  descent-override: 24.41%;
+  line-gap-override: 0%;
+}
+```
+
+And your CSS `font-family: 'Roboto', sans-serif` is automatically transformed to `font-family: 'Roboto', "Roboto fallback", sans-serif`.
+
+#### Fallback options
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `category` | `'sans-serif' \| 'serif' \| 'monospace'` | `'sans-serif'` | Font category, used to auto-select system fallback fonts |
+| `fallbacks` | `string[]` | Auto-detected | Override which system fonts to use as fallback bases |
+| `name` | `string` | `'{family} fallback'` | Override the generated fallback font-face name |
 
 ## Typescript Definitions
 
@@ -487,4 +609,5 @@ or
 
 - https://web.dev/optimize-webfont-loading/
 - https://csswizardry.com/2020/05/the-fastest-google-fonts/
+- https://github.com/unjs/fontaine - Font metric override library used for fallback generation
 - _(unmaintained)_ https://www.npmjs.com/package/webfontloader

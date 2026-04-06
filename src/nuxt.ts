@@ -3,6 +3,7 @@ import { addTemplate, addVitePlugin, addWebpackPlugin, defineNuxtModule } from '
 import unplugin from './index'
 import { getHeadLinkTags } from './loaders'
 import { customVirtualModule } from './loaders/custom'
+import { generateAllFallbacks, hasFallbacks } from './loaders/fallback'
 import { fontsourceImports } from './loaders/fontsource'
 
 export default defineNuxtModule({
@@ -11,7 +12,9 @@ export default defineNuxtModule({
     configKey: 'unfonts',
   },
   setup(options: Options, nuxt) {
-    if ('fontsource' in options || 'custom' in options) {
+    const needsCSSTemplate = 'fontsource' in options || 'custom' in options || hasFallbacks(options)
+
+    if (needsCSSTemplate) {
       nuxt.options.css ||= []
       if (options.fontsource) {
         for (const src of fontsourceImports(options.fontsource))
@@ -19,14 +22,22 @@ export default defineNuxtModule({
       }
 
       if (options.custom) {
-        nuxt.options.css.push('#build/unfonts.css')
         options.custom.prefetchPrefix = nuxt.options.app.buildAssetsDir
-
-        addTemplate({
-          filename: 'unfonts.css',
-          getContents: () => customVirtualModule(options.custom!, nuxt.options.rootDir),
-        })
       }
+
+      nuxt.options.css.push('#build/unfonts.css')
+      addTemplate({
+        filename: 'unfonts.css',
+        getContents: async () => {
+          let css = options.custom
+            ? customVirtualModule(options.custom, nuxt.options.rootDir)
+            : ''
+          const fallbackCSS = await generateAllFallbacks(options, nuxt.options.rootDir)
+          if (fallbackCSS)
+            css += `\n${fallbackCSS}`
+          return css
+        },
+      })
     }
 
     const links = getHeadLinkTags(options)

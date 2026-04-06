@@ -5,7 +5,14 @@ export default defineConfig({
   plugins: [
     Unfonts({
       google: {
-        families: ['Crimson Pro', 'Open Sans', 'Material+Icons'],
+        families: [
+          {
+            name: 'Crimson Pro',
+            fallback: { category: 'sans-serif' },
+          },
+          { name: 'Open Sans', fallback: { category: 'sans-serif' } },
+          { name: 'Material+Icons' },
+        ],
       },
 
       custom: {
@@ -13,6 +20,7 @@ export default defineConfig({
         families: {
           'Dancing Script': {
             src: './assets/fonts/DancingScript*',
+            fallback: { category: 'serif' },
             transform(font) {
               if (font.basename === 'DancingScript-Bold')
                 font.weight = 700
@@ -29,10 +37,12 @@ export default defineConfig({
             name: 'ABeeZee',
             weights: [400],
             styles: ['italic'],
+            fallback: { category: 'sans-serif' },
           },
           {
             name: 'Truculenta',
             weights: [400, 700],
+            fallback: { category: 'sans-serif' },
           },
         ],
       },
