@@ -1,2 +1,6 @@
 packages:
   - examples/*
+
+catalog:
+  "@fontsource/abeezee": "^5.2.8"
+  "@fontsource/truculenta": "^5.2.7"

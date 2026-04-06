@@ -9,9 +9,9 @@
     "preview": "vitepress preview"
   },
   "devDependencies": {
-    "@fontsource/abeezee": "^5.1.0",
-    "@fontsource/truculenta": "^5.1.0",
+    "@fontsource/abeezee": "catalog:",
+    "@fontsource/truculenta": "catalog:",
     "unplugin-fonts": "workspace:*",
-    "vitepress": "2.0.0-alpha.8"
+    "vitepress": "2.0.0-alpha.17"
   }
 }

@@ -1,5 +1,6 @@
 {
-  "name": "vite-3",
+  "name": "vite-8",
+  "type": "module",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -10,6 +11,6 @@
     "@fontsource/abeezee": "catalog:",
     "@fontsource/truculenta": "catalog:",
     "unplugin-fonts": "workspace:*",
-    "vite": "^4.2.1"
+    "vite": "^8.0.0"
   }
 }
