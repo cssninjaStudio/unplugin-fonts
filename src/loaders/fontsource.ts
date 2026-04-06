@@ -64,12 +64,12 @@ export function fontsourceImports(options?: FontsourceFonts) {
       }
 
       if (isStandard) {
-        source.push(`import '@fontsource-variable/${name}/standard.css';`)
+        source.push(`@fontsource-variable/${name}/standard.css`)
         continue
       }
 
       // If the selected axes is not within standard, return full
-      source.push(`import '@fontsource-variable/${name}/full.css';`)
+      source.push(`@fontsource-variable/${name}/full.css`)
       continue
     }
 
