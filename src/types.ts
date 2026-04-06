@@ -23,25 +23,42 @@ export interface FontFallbackConfig {
 }
 
 export interface Options {
+  /** Custom font families loaded from local files. */
   custom?: CustomFonts
+  /** Font families loaded from Fontsource packages. */
   fontsource?: FontsourceFonts
+  /** Font families loaded from Google Fonts. */
   google?: GoogleFonts
+  /** Font families loaded from Adobe Typekit. */
   typekit?: TypeKitFonts
+  /** Enable sourcemap generation for virtual CSS modules. */
   sourcemap?: string
 }
 
 export interface CustomFontFace {
+  /** Original glob source pattern that matched this font face. */
   source: string
+  /** Font family name. */
   name: string
+  /** Base filename without extension. */
   basename: string
+  /** Font weight value or range inferred from the filename. */
   weight: number | `${number} ${number}`
+  /** Font style inferred from the filename (e.g. 'normal', 'italic'). */
   style: string
+  /** Value for the `font-display` descriptor. */
   display: string
+  /** Local font name(s) for `src: local()` in the `@font-face` rule. */
   local?: string | string[]
+  /** Resolved font files matching the source pattern. */
   files: {
+    /** Absolute path to the font file on disk. */
     src: string
+    /** File extension (e.g. '.woff2'). */
     ext: string
+    /** Public-facing URL path for the font file. */
     path: string
+    /** CSS font format string (e.g. 'woff2', 'truetype'). */
     format: string
   }[]
 }
@@ -127,6 +144,9 @@ export interface CustomFonts {
    * @default false
    */
   prefetch?: boolean
+  /**
+   * URL prefix prepended to font paths when using prefetch.
+   */
   prefetchPrefix?: string
   /**
    * Provides a hook for filtering which `<link>` tags should be actually
@@ -148,8 +168,19 @@ export interface CustomFonts {
 }
 
 interface BaseFontsourceFontFamily {
+  /**
+   * Name of the font family.
+   * @example 'Roboto'
+   */
   name: string
+  /**
+   * Font styles to load.
+   * @default ['normal']
+   */
   styles?: ('italic' | 'normal')[]
+  /**
+   * Font subset to load (e.g. 'latin', 'latin-ext').
+   */
   subset?: string
 
   /**
@@ -159,25 +190,54 @@ interface BaseFontsourceFontFamily {
   fallback?: FontFallbackConfig
 }
 interface WeightsFontsourceFontFamily extends BaseFontsourceFontFamily {
+  /**
+   * Font weights to load.
+   * @example [400, 700]
+   */
   weights: (100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900)[]
 }
 interface VariableFontsourceFontFamily extends BaseFontsourceFontFamily {
+  /**
+   * Enable variable font axes. Set to `true` to load the default
+   * variable font, or specify individual axes to load.
+   */
   variable: true | {
+    /** Weight axis. */
     wght?: boolean
+    /** Width axis. */
     wdth?: boolean
+    /** Slant axis. */
     slnt?: boolean
+    /** Optical size axis. */
     opsz?: boolean
+    /** Italic axis. */
     ital?: boolean
   }
 }
 export type FontsourceFontFamily = WeightsFontsourceFontFamily | VariableFontsourceFontFamily
 export interface FontsourceFonts {
+  /**
+   * Font families to load from Fontsource.
+   * Can be strings (load default set) or objects for fine-grained control.
+   */
   families: (string | FontsourceFontFamily)[]
 }
 
 export interface GoogleFontFamily {
+  /**
+   * Font family name.
+   * @example 'Roboto'
+   */
   name: string
+  /**
+   * Font styles/weights to load using the Google Fonts CSS2 API format.
+   * @example 'ital,wght@0,400;1,200'
+   */
   styles?: string
+  /**
+   * Enable non-blocking renderer using `<link rel="preload">`.
+   * @default true
+   */
   defer?: boolean
 
   /**
@@ -187,9 +247,25 @@ export interface GoogleFontFamily {
   fallback?: FontFallbackConfig
 }
 export interface GoogleFonts {
+  /**
+   * Font families to load from Google Fonts.
+   * Can be strings (only regular 400 will be loaded) or objects for fine-grained control.
+   */
   families: (string | GoogleFontFamily)[]
+  /**
+   * Subset the font to only include glyphs needed for the given text.
+   * @see https://developers.google.com/fonts/docs/css2#optimizing_your_font_requests
+   */
   text?: string
+  /**
+   * Font display strategy.
+   * @default 'swap'
+   */
   display?: 'auto' | 'block' | 'swap' | 'fallback' | 'optional'
+  /**
+   * Enable preconnect link injection to warm up the fonts origin.
+   * @default true
+   */
   preconnect?: boolean
   /**
    * @default: 'head-prepend'
@@ -206,6 +282,10 @@ export interface GoogleFonts {
 }
 
 export interface TypeKitFontFamily {
+  /**
+   * Font family name as it appears in the Typekit project.
+   * @example 'Futura PT'
+   */
   name: string
 
   /**
@@ -216,7 +296,15 @@ export interface TypeKitFontFamily {
 }
 
 export interface TypeKitFonts {
+  /**
+   * Typekit project ID.
+   * @example 'abc1def'
+   */
   id: string
+  /**
+   * Enable non-blocking renderer using `<link rel="preload">`.
+   * @default true
+   */
   defer?: boolean
   /**
    * default: 'head-prepend'
