@@ -99,8 +99,8 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^8.0.0",
-    "@nuxt/kit": "^3.21.2",
-    "@nuxt/schema": "^3.21.2",
+    "@nuxt/kit": "^4.4.2",
+    "@nuxt/schema": "^4.4.2",
     "@types/node": "^22.19.17",
     "@typescript/native-preview": "7.0.0-dev.20260406.1",
     "astro": "^4.16.19",

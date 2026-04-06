@@ -10,7 +10,7 @@
     "@fontsource-variable/noto-sans-jp": "^5.1.0",
     "@fontsource/abeezee": "catalog:examples",
     "@fontsource/truculenta": "catalog:examples",
-    "nuxt": "^3.14.1592",
+    "nuxt": "^4.4.2",
     "unplugin-fonts": "workspace:*"
   }
 }
