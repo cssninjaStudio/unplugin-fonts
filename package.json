@@ -84,10 +84,10 @@
     "dev": "tsdown --watch",
     "example:dev": "pnpm --filter vite-8 run dev",
     "example:build": "pnpm --filter vite-8 run build",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix .",
-    "test": "pnpm run test:vitest && npm run test:ts",
+    "lint": "eslint --fix .",
+    "test": "pnpm run test:vitest && pnpm run test:lint && npm run test:ts",
     "test:vitest": "vitest run",
+    "test:lint": "eslint .",
     "test:ts": "tsgo --noEmit",
     "release": "npm run lint && npx standard-version && git push --follow-tags origin main && npm publish"
   },
