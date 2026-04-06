@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/cssninjaStudio/unplugin-fonts/compare/v1.4.0...v2.0.0) (2026-04-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop cjs export. migrate to tsdown and tsgo
+
+### Features
+
+* add bun, rolldown and rspack loaders ([0802a9c](https://github.com/cssninjaStudio/unplugin-fonts/commit/0802a9c5e1326474a02bb6dca33e2a91a98568a6))
+* add font fallback metrics to reduce layout shift ([5cdfe70](https://github.com/cssninjaStudio/unplugin-fonts/commit/5cdfe705481792053e45148e1834832b5bf363a0))
+* add inline font face option to improve LCP by inlining [@font-face](https://github.com/font-face) rules ([9766b0e](https://github.com/cssninjaStudio/unplugin-fonts/commit/9766b0e5ab4e6133c0624c77289616cf3db2e91b))
+* add Vite 8 support ([#92](https://github.com/cssninjaStudio/unplugin-fonts/issues/92)) ([a2c0a0a](https://github.com/cssninjaStudio/unplugin-fonts/commit/a2c0a0a15d869f3e9df714a984266a1a4fd348e0))
+* allow passing range for custom font-weight ([#79](https://github.com/cssninjaStudio/unplugin-fonts/issues/79)) ([a6db654](https://github.com/cssninjaStudio/unplugin-fonts/commit/a6db654efe589f8445e50afec91dff6a8140b97b))
+* **fallback:** optimize fallback generation by checking for configured fallbacks before processing ([71ac94e](https://github.com/cssninjaStudio/unplugin-fonts/commit/71ac94e98bd6433723b2dcd142d7a2d411ea5b6e))
+* **tests:** add comprehensive tests for fontsource, custom, google, and typekit loaders ([c4933a0](https://github.com/cssninjaStudio/unplugin-fonts/commit/c4933a0c8b020c23f6340451300c48f786f77320))
+
+
+### Bug Fixes
+
+* **fontsource:** update variable standard and stylesheet import path ([623abd6](https://github.com/cssninjaStudio/unplugin-fonts/commit/623abd6b124ffc4d006feee2e74093cae90dcb21))
+
+
+* drop cjs export. migrate to tsdown and tsgo ([79a8106](https://github.com/cssninjaStudio/unplugin-fonts/commit/79a81066a7e981c3bebe5844912b0635cd2699c5))
+
 ## [1.4.0](https://github.com/cssninjaStudio/unplugin-fonts/compare/v1.3.1...v1.4.0) (2025-07-22)
 
 
