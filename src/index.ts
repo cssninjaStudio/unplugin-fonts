@@ -81,7 +81,7 @@ export default createUnplugin<Options | undefined>((userOptions) => {
           }
         }
       },
-      // inject head tags on vite 4/5 in spa/mpa mode
+      // inject head tags on vite in spa/mpa mode
       transformIndexHtml: {
         order: 'post',
         handler: (html, ctx) => {

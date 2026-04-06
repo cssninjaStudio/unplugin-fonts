@@ -1,5 +1,6 @@
 {
   "name": "unplugin-fonts",
+  "type": "module",
   "version": "1.4.0",
   "packageManager": "pnpm@10.33.0+sha512.10568bb4a6afb58c9eb3630da90cc9516417abebd3fabbe6739f0ae795728da1491e9db5a544c76ad8eb7570f5c4bb3d6c637b2cb41bfdcdb47fa823c8649319",
   "description": "Universal Webfont loader",
@@ -23,78 +24,59 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "default": "./dist/index.mjs"
     },
+    "./astro/component.astro": "./dist/astro/component.astro",
     "./astro": {
       "types": "./dist/astro.d.ts",
-      "import": "./dist/astro.mjs",
-      "require": "./dist/astro.js"
-    },
-    "./astro/component.astro": {
-      "types": "./dist/astro/component.d.ts",
-      "import": "./dist/astro/component.astro"
+      "default": "./dist/astro.mjs"
     },
     "./esbuild": {
       "types": "./dist/esbuild.d.ts",
-      "import": "./dist/esbuild.mjs",
-      "require": "./dist/esbuild.js"
+      "default": "./dist/esbuild.mjs"
     },
     "./nuxt": {
       "types": "./dist/nuxt.d.ts",
-      "import": "./dist/nuxt.mjs",
-      "require": "./dist/nuxt.js"
+      "default": "./dist/nuxt.mjs"
     },
     "./rollup": {
       "types": "./dist/rollup.d.ts",
-      "import": "./dist/rollup.mjs",
-      "require": "./dist/rollup.js"
+      "default": "./dist/rollup.mjs"
     },
     "./types": {
       "types": "./dist/types.d.ts",
-      "import": "./dist/types.mjs",
-      "require": "./dist/types.js"
+      "default": "./dist/types.mjs"
     },
     "./vite": {
       "types": "./dist/vite.d.ts",
-      "import": "./dist/vite.mjs",
-      "require": "./dist/vite.js"
+      "default": "./dist/vite.mjs"
     },
     "./webpack": {
       "types": "./dist/webpack.d.ts",
-      "import": "./dist/webpack.mjs",
-      "require": "./dist/webpack.js"
+      "default": "./dist/webpack.mjs"
     },
     "./client": {
-      "types": "./client.d.ts"
+      "types": "./client.d.ts",
+      "default": "./client.d.ts"
     },
-    "./*": "./*"
-  },
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
-  "typesVersions": {
-    "*": {
-      "*": [
-        "./dist/*",
-        "./*"
-      ]
-    }
+    "./package.json": "./package.json"
   },
   "files": [
     "client.d.ts",
-    "dist"
+    "dist/",
+    "package.json"
   ],
   "scripts": {
     "prepack": "npm run build",
-    "build": "tsup",
-    "dev": "tsup --watch src",
-    "build:fix": "esno scripts/postbuild.ts",
-    "example:dev": "npm -C examples/vite run dev",
-    "example:build": "npm -C examples/vite run build",
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "example:dev": "pnpm --filter vite-8 run dev",
+    "example:build": "pnpm --filter vite-8 run build",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "test": "vitest",
+    "test": "pnpm run test:vitest && npm run test:ts",
+    "test:vitest": "vitest run",
+    "test:ts": "tsgo --noEmit",
     "release": "npm run lint && npx standard-version && git push --follow-tags origin main && npm publish"
   },
   "peerDependencies": {
@@ -106,28 +88,34 @@
       "optional": true
     }
   },
+  "inlinedDependencies": {
+    "@jridgewell/sourcemap-codec": "1.5.5"
+  },
   "dependencies": {
     "fast-glob": "^3.3.3",
-    "unplugin": "2.3.5"
+    "magic-string": "^0.30.21",
+    "pathe": "^2.0.3",
+    "unplugin": "^3.0.0"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^3.16.0",
-    "@nuxt/kit": "^3.17.7",
-    "@nuxt/schema": "^3.17.7",
-    "@types/node": "^22.16.5",
-    "astro": "^4.16.18",
-    "chalk": "^5.4.1",
-    "defu": "^6.1.4",
-    "eslint": "^9.31.0",
-    "esno": "^4.8.0",
-    "magic-string": "^0.30.17",
-    "pathe": "^1.1.2",
-    "rollup": "^4.45.1",
+    "@antfu/eslint-config": "^8.0.0",
+    "@nuxt/kit": "^3.21.2",
+    "@nuxt/schema": "^3.21.2",
+    "@types/node": "^22.19.17",
+    "@typescript/native-preview": "7.0.0-dev.20260406.1",
+    "astro": "^4.16.19",
+    "chalk": "^5.6.2",
+    "defu": "^6.1.6",
+    "eslint": "^10.2.0",
+    "magic-string": "^0.30.21",
+    "pathe": "^2.0.3",
+    "rollup": "^4.60.1",
     "standard-version": "^9.5.0",
-    "tsup": "^8.5.0",
-    "typescript": "^5.8.3",
-    "vite": "^7.0.5",
-    "vitest": "^2.1.9",
-    "webpack": "^5.100.2"
+    "tsdown": "^0.21.7",
+    "tsup": "^8.5.1",
+    "typescript": "catalog:shared",
+    "vite": "^8.0.4",
+    "vitest": "^4.1.2",
+    "webpack": "^5.105.4"
   }
 }

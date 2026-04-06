@@ -14,10 +14,10 @@
     "@fontsource/truculenta": "catalog:examples",
     "@neoconfetti/svelte": "^2.2.1",
     "@sveltejs/adapter-auto": "^3.3.1",
-    "@sveltejs/kit": "^2.8.5",
-    "svelte": "^5.2.10",
-    "svelte-check": "^4.1.0",
-    "typescript": "^5.7.2",
+    "@sveltejs/kit": "^2.56.1",
+    "svelte": "^5.55.1",
+    "svelte-check": "^4.4.6",
+    "typescript": "catalog:shared",
     "unplugin-fonts": "workspace:*",
     "vite": "^6.0.1"
   }

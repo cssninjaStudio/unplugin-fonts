@@ -4,6 +4,10 @@ export default antfu(
   {
     ignores: [
       '.astro',
+      'dist',
     ],
+    pnpm: {
+      catalogs: false,
+    },
   },
 )

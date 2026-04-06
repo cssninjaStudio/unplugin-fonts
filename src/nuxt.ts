@@ -1,6 +1,6 @@
 import type { Options } from './types'
 import { addTemplate, addVitePlugin, addWebpackPlugin, defineNuxtModule } from '@nuxt/kit'
-import unplugin from '.'
+import unplugin from './index'
 import { getHeadLinkTags } from './loaders'
 import { customVirtualModule } from './loaders/custom'
 import { fontsourceImports } from './loaders/fontsource'
@@ -20,7 +20,7 @@ export default defineNuxtModule({
 
       if (options.custom) {
         nuxt.options.css.push('#build/unfonts.css')
-        options.custom.prefetchPrefix = nuxt.options.runtimeConfig.app.buildAssetsDir
+        options.custom.prefetchPrefix = nuxt.options.app.buildAssetsDir
 
         addTemplate({
           filename: 'unfonts.css',

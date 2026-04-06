@@ -1,5 +1,6 @@
+import type { Plugin } from 'vite'
+import Unfonts from 'unplugin-fonts/vite'
 import { defineConfig } from 'vite'
-import Unfonts from '../../src/vite'
 
 export default defineConfig({
   plugins: [
@@ -36,6 +37,6 @@ export default defineConfig({
           },
         ],
       },
-    }),
+    }) as Plugin,
   ],
 })

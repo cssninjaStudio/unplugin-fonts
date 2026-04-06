@@ -1,5 +1,5 @@
+import Unfonts from 'unplugin-fonts/vite'
 import { defineConfig } from 'vitepress'
-import Unfonts from '../../../src/vite'
 
 export default defineConfig({
   base: '/unplugin-fonts/',
@@ -38,7 +38,7 @@ export default defineConfig({
             },
           ],
         },
-      }),
+      }) as any,
     ],
   },
 })

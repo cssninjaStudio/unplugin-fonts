@@ -1,4 +1,4 @@
-import Unfonts from '../../src/nuxt'
+import Unfonts from 'unplugin-fonts/nuxt'
 
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-29',
