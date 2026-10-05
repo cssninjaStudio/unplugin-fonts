@@ -1,14 +1,14 @@
-import fg from 'fast-glob'
+import { globSync } from 'tinyglobby'
 import { describe, expect, it, vi } from 'vitest'
 import { collectFallbackNames, generateAllFallbacks, transformFontFamilyDeclarations } from '../../src/loaders/fallback'
 
-vi.mock('fast-glob', () => import('../mocks/fast-glob'))
+vi.mock('tinyglobby', () => import('../mocks/tinyglobby'))
 vi.mock('fontaine', () => import('../mocks/fontaine'))
 
 describe('fallback font generation', () => {
   describe('custom fonts', () => {
     it('generates fallback CSS when fallback is configured', async () => {
-      vi.mocked(fg.sync).mockReturnValue(['/root/public/fonts/Roboto-Regular.woff2'])
+      vi.mocked(globSync).mockReturnValue(['/root/public/fonts/Roboto-Regular.woff2'])
 
       const css = await generateAllFallbacks(
         {
@@ -32,7 +32,7 @@ describe('fallback font generation', () => {
     })
 
     it('skips fonts without fallback configured', async () => {
-      vi.mocked(fg.sync).mockReturnValue(['/root/public/fonts/Roboto-Regular.woff2'])
+      vi.mocked(globSync).mockReturnValue(['/root/public/fonts/Roboto-Regular.woff2'])
 
       const css = await generateAllFallbacks(
         {
@@ -50,7 +50,7 @@ describe('fallback font generation', () => {
     })
 
     it('uses custom fallback name when provided', async () => {
-      vi.mocked(fg.sync).mockReturnValue(['/root/public/fonts/Roboto-Regular.woff2'])
+      vi.mocked(globSync).mockReturnValue(['/root/public/fonts/Roboto-Regular.woff2'])
 
       const { generateFontFace } = await import('../../src/../tests/mocks/fontaine')
       generateFontFace.mockClear()
@@ -75,7 +75,7 @@ describe('fallback font generation', () => {
     })
 
     it('uses explicit fallback fonts when provided', async () => {
-      vi.mocked(fg.sync).mockReturnValue(['/root/public/fonts/Roboto-Regular.woff2'])
+      vi.mocked(globSync).mockReturnValue(['/root/public/fonts/Roboto-Regular.woff2'])
 
       const { getMetricsForFamily, generateFontFace } = await import('../../src/../tests/mocks/fontaine')
       generateFontFace.mockClear()
@@ -376,7 +376,7 @@ describe('fallback font generation', () => {
       getMetricsForFamily.mockResolvedValueOnce(null)
       readMetrics.mockRejectedValueOnce(new Error('not found'))
 
-      vi.mocked(fg.sync).mockReturnValue(['/root/public/fonts/Unknown-Regular.woff2'])
+      vi.mocked(globSync).mockReturnValue(['/root/public/fonts/Unknown-Regular.woff2'])
 
       const css = await generateAllFallbacks(
         {
