@@ -43,6 +43,12 @@ importers:
       '@antfu/eslint-config':
         specifier: ^8.0.0
         version: 8.0.0(@typescript-eslint/rule-tester@8.58.0(eslint@10.2.0(jiti@2.6.1))(typescript@6.0.2))(@typescript-eslint/typescript-estree@8.58.0(typescript@6.0.2))(@typescript-eslint/utils@8.58.0(eslint@10.2.0(jiti@2.6.1))(typescript@6.0.2))(@vue/compiler-sfc@3.5.32)(eslint@10.2.0(jiti@2.6.1))(typescript@6.0.2)(vitest@4.1.2(@types/node@22.19.17)(vite@8.0.4(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@types/node@22.19.17)(esbuild@0.27.7)(jiti@2.6.1)(terser@5.46.1)(yaml@2.8.3)))
+      '@fontsource/iosevka':
+        specifier: 5.3.0
+        version: 5.3.0
+      '@fontsource/iosevka-aile':
+        specifier: 5.3.0
+        version: 5.3.0
       '@nuxt/kit':
         specifier: ^4.4.2
         version: 4.4.2(magicast@0.5.2)
@@ -1693,6 +1699,12 @@ packages:
 
   '@fontsource/abeezee@5.2.8':
     resolution: {integrity: sha512-/xTzupKxwadN02p9XLTu+PKbfhY9X5rHhqkJj7G8fEPYVUHv4istXufrWSsYCWWoilIcDqR71cCU9pW8jI38Uw==}
+
+  '@fontsource/iosevka-aile@5.3.0':
+    resolution: {integrity: sha512-XwbV3etYsHR0WZlMRJ4sXKdPSE764dQaC9lrM5qoN/yCd2BDbT8WDCJldTflOT0wbCDzS8VKll+oyTgfSgmG6g==}
+
+  '@fontsource/iosevka@5.3.0':
+    resolution: {integrity: sha512-RcG0v/65e4PTuThR/d7n9jj6PLlex7YUGaLa4ZpL+NnqArWQmD8Z+6gYBTxPMVWxYMRcEw6OF4rdt8XisnC5zA==}
 
   '@fontsource/truculenta@5.2.7':
     resolution: {integrity: sha512-b7nfEBnGXYs6rs8aUbjWOeR+pfTa/xBPT1fNUEto8+HEIkVf56yG2vissqSmGsfPYZC/at0crAtHkhzky30rYQ==}
@@ -9924,6 +9936,10 @@ snapshots:
   '@fontsource-variable/noto-sans-jp@5.2.10': {}
 
   '@fontsource/abeezee@5.2.8': {}
+
+  '@fontsource/iosevka-aile@5.3.0': {}
+
+  '@fontsource/iosevka@5.3.0': {}
 
   '@fontsource/truculenta@5.2.7': {}
 
