@@ -1,7 +1,10 @@
 import type { CustomFontFamily, FontFallbackConfig, Options } from '../types'
 import type { ResolvedCustomFonts } from './custom'
+import { readFile } from 'node:fs/promises'
+import { createRequire } from 'node:module'
+import { resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
-import { parse, walk } from 'css-tree'
+import { find, parse, walk } from 'css-tree'
 import {
   generateFallbackName,
   generateFontFace,
@@ -11,6 +14,7 @@ import {
 } from 'fontaine'
 import MagicString from 'magic-string'
 import { resolveFontFiles, resolveUserOption } from './custom'
+import { fontsourceImports } from './fontsource'
 
 const VARIABLE_SUFFIX_RE = /(?: Variable|-variable)$/
 const CSS_RE = /\.(?:css|scss|sass|less|styl|stylus|pcss|postcss)(?:\?.*)?$/
@@ -38,6 +42,7 @@ interface FallbackEntry {
   familyName: string
   config: FontFallbackConfig
   fontFilePath?: string
+  fontsourceCSS?: { specifier: string, root: string }
 }
 
 /**
@@ -77,6 +82,9 @@ function* iterateFallbackFamilies(
       yield {
         familyName: family.name.replace(VARIABLE_SUFFIX_RE, ''),
         config: family.fallback,
+        fontsourceCSS: root
+          ? { specifier: fontsourceImports({ families: [family] })[0], root }
+          : undefined,
       }
     }
   }
@@ -115,14 +123,19 @@ function findRepresentativeFontFile(
   return regularFace.files[0]?.src
 }
 
-async function generateFallbackForFamily(params: {
-  familyName: string
-  config: FontFallbackConfig
-  fontFilePath?: string
-}): Promise<string> {
-  const { familyName, config, fontFilePath } = params
+async function generateFallbackForFamily(params: FallbackEntry): Promise<string> {
+  const { familyName, config, fontFilePath, fontsourceCSS } = params
 
   let metrics = await getMetricsForFamily(familyName)
+  if (!metrics && fontsourceCSS) {
+    const require = createRequire(resolve(fontsourceCSS.root, 'package.json'))
+    const cssPath = require.resolve(fontsourceCSS.specifier)
+    const css = await readFile(cssPath, 'utf8')
+    const source = find(parse(css), node => node.type === 'Url')
+    if (source?.type === 'Url') {
+      metrics = await readMetrics(new URL(source.value, pathToFileURL(cssPath)))
+    }
+  }
   if (!metrics && fontFilePath) {
     metrics = await readMetrics(pathToFileURL(fontFilePath)).catch(() => null)
   }
