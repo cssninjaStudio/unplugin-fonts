@@ -37,7 +37,7 @@ export default defineConfig({
 })
 ```
 
-Example: [`examples/vite`](./examples/vite)
+Example: [`examples/vite-8`](./examples/vite-8)
 
 <br></details>
 
@@ -179,7 +179,7 @@ import Unfont from 'unplugin-fonts/astro/component.astro';
 </html>
 ```
 
-Example: [`examples/astro`](./examples/astro)
+Example: [`examples/astro-5`](./examples/astro-5)
 
 <br></details>
 
