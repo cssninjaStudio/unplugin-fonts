@@ -75,7 +75,7 @@ export function googleLoader({
       href += `&display=${display}`
 
     if (typeof text === 'string' && text.length > 0)
-      href += `&text=${text}`
+      href += `&text=${encodeURIComponent(text)}`
 
     tags.push({
       tag: 'link',
@@ -97,7 +97,7 @@ export function googleLoader({
       href += `&display=${display}`
 
     if (typeof text === 'string' && text.length > 0)
-      href += `&text=${text}`
+      href += `&text=${encodeURIComponent(text)}`
 
     tags.push({
       tag: 'link',
