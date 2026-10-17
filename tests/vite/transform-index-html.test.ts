@@ -1,9 +1,9 @@
 import type { HtmlTagDescriptor } from 'vite'
-import fg from 'fast-glob'
+import { globSync } from 'tinyglobby'
 import { describe, expect, it, vi } from 'vitest'
 import plugin from '../../src/index'
 
-vi.mock('fast-glob', () => import('../mocks/fast-glob'))
+vi.mock('tinyglobby', () => import('../mocks/tinyglobby'))
 vi.mock('fontaine', () => import('../mocks/fontaine'))
 
 function createBundle(entries: Record<string, { type: string, source?: string, fileName: string, originalFileNames?: string[], name?: string }>) {
@@ -11,7 +11,7 @@ function createBundle(entries: Record<string, { type: string, source?: string, f
 }
 
 function getVitePlugin(options: Parameters<typeof plugin.raw>[0]) {
-  const p = plugin.raw(options, { framework: 'vite' }) as any
+  const p = plugin.raw(options, { framework: 'vite', versions: {} }) as any
   // simulate configResolved
   p.vite.configResolved({ root: '/root', base: '/' })
   return p
@@ -24,7 +24,7 @@ function callTransformIndexHtml(p: any, bundle: any) {
 describe('transformIndexHtml', () => {
   describe('preload scoping', () => {
     it('only preloads custom font files, not fontsource fonts', () => {
-      vi.mocked(fg.sync).mockReturnValue(['/root/public/fonts/MyFont-Bold.woff2'])
+      vi.mocked(globSync).mockReturnValue(['/root/public/fonts/MyFont-Bold.woff2'])
 
       const p = getVitePlugin({
         fontsource: {
@@ -80,7 +80,7 @@ describe('transformIndexHtml', () => {
     })
 
     it('respects custom.preload = false', () => {
-      vi.mocked(fg.sync).mockReturnValue(['/root/public/fonts/MyFont-Bold.woff2'])
+      vi.mocked(globSync).mockReturnValue(['/root/public/fonts/MyFont-Bold.woff2'])
 
       const p = getVitePlugin({
         custom: {
@@ -106,7 +106,7 @@ describe('transformIndexHtml', () => {
     })
 
     it('preloads multiple custom font files', () => {
-      vi.mocked(fg.sync).mockReturnValue([
+      vi.mocked(globSync).mockReturnValue([
         '/root/public/fonts/MyFont-Regular.woff2',
         '/root/public/fonts/MyFont-Bold.woff2',
       ])

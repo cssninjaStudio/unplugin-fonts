@@ -2,7 +2,7 @@
   "name": "unplugin-fonts",
   "type": "module",
   "version": "2.0.0",
-  "packageManager": "pnpm@10.33.0+sha512.10568bb4a6afb58c9eb3630da90cc9516417abebd3fabbe6739f0ae795728da1491e9db5a544c76ad8eb7570f5c4bb3d6c637b2cb41bfdcdb47fa823c8649319",
+  "packageManager": "pnpm@12.14.0+sha512.c18ba6d87993d3d164cb5e8948f32b2c06ee854487e06cd8d86781342fb3e5bb4634367034711e86802baa9c37bea906ce1929ad08d70884c97d801df13389a6",
   "description": "Universal Webfont loader",
   "author": {
     "name": "cssninjaStudio <hello@cssninja.io> (https://cssninja.io)"
@@ -105,34 +105,33 @@
   },
   "dependencies": {
     "css-tree": "^3.2.1",
-    "fast-glob": "^3.3.3",
-    "fontaine": "^0.8.0",
-    "magic-string": "^0.30.21",
+    "fontaine": "^1.0.0",
+    "magic-string": "^1.4.2",
     "pathe": "^2.0.3",
-    "unplugin": "^3.0.0"
+    "tinyglobby": "^0.2.17",
+    "unplugin": "^3.4.0"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^8.0.0",
+    "@antfu/eslint-config": "^9.5.1",
     "@fontsource/iosevka": "5.3.0",
     "@fontsource/iosevka-aile": "5.3.0",
-    "@nuxt/kit": "^4.4.2",
-    "@nuxt/schema": "^4.4.2",
-    "@types/css-tree": "^2.3.11",
-    "@types/node": "^22.19.17",
+    "@nuxt/kit": "^4.6.1",
+    "@nuxt/schema": "^4.6.1",
+    "@types/css-tree": "^3.2.0",
+    "@types/node": "^26.6.5",
     "@typescript/native-preview": "7.0.0-dev.20260406.1",
-    "astro": "^4.16.19",
-    "chalk": "^5.6.2",
-    "defu": "^6.1.6",
-    "eslint": "^10.2.0",
-    "magic-string": "^0.30.21",
+    "astro": "^7.4.0",
+    "chalk": "^6.0.1",
+    "defu": "^6.1.7",
+    "eslint": "^10.12.0",
+    "magic-string": "^1.4.2",
     "pathe": "^2.0.3",
-    "rollup": "^4.60.1",
+    "rollup": "^4.64.7",
     "standard-version": "^9.5.0",
-    "tsdown": "^0.21.7",
-    "tsup": "^8.5.1",
+    "tsdown": "^0.23.1",
     "typescript": "catalog:shared",
-    "vite": "^8.0.4",
-    "vitest": "^4.1.2",
-    "webpack": "^5.105.4"
+    "vite": "^8.3.4",
+    "vitest": "^5.0.5",
+    "webpack": "^5.112.0"
   }
 }

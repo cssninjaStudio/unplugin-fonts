@@ -1,14 +1,14 @@
-import fg from 'fast-glob'
+import { globSync } from 'tinyglobby'
 
 import { describe, expect, it, vi } from 'vitest'
 import { customLoader, customVirtualModule } from '../../src/loaders/custom'
 
-vi.mock('fast-glob', () => import('../mocks/fast-glob'))
+vi.mock('tinyglobby', () => import('../mocks/tinyglobby'))
 
 describe('custom fonts loader', () => {
   describe('cSS generation', () => {
     it('generates valid @font-face CSS from font files', () => {
-      vi.mocked(fg.sync).mockReturnValue(['/root/public/fonts/Roboto-Regular.woff2'])
+      vi.mocked(globSync).mockReturnValue(['/root/public/fonts/Roboto-Regular.woff2'])
 
       const css = customVirtualModule(
         { families: [{ name: 'Roboto', src: 'public/fonts/Roboto-Regular.*' }] },
@@ -37,7 +37,7 @@ describe('custom fonts loader', () => {
       ['Black', 900],
       ['Heavy', 900],
     ])('infers weight %d from filename keyword "%s"', (keyword, weight) => {
-      vi.mocked(fg.sync).mockReturnValue([`/root/public/fonts/Font-${keyword}.woff2`])
+      vi.mocked(globSync).mockReturnValue([`/root/public/fonts/Font-${keyword}.woff2`])
 
       const css = customVirtualModule(
         { families: [{ name: 'Test', src: `public/fonts/Font-${keyword}.*` }] },
@@ -48,7 +48,7 @@ describe('custom fonts loader', () => {
     })
 
     it('defaults to weight 400 when no keyword matches', () => {
-      vi.mocked(fg.sync).mockReturnValue(['/root/public/fonts/MyFont.woff2'])
+      vi.mocked(globSync).mockReturnValue(['/root/public/fonts/MyFont.woff2'])
 
       const css = customVirtualModule(
         { families: [{ name: 'Test', src: 'public/fonts/MyFont.*' }] },
@@ -64,7 +64,7 @@ describe('custom fonts loader', () => {
       ['Normal', 'normal'],
       ['Regular', 'normal'],
     ])('infers style "%s" from filename keyword "%s"', (keyword, style) => {
-      vi.mocked(fg.sync).mockReturnValue([`/root/public/fonts/Font-${keyword}.woff2`])
+      vi.mocked(globSync).mockReturnValue([`/root/public/fonts/Font-${keyword}.woff2`])
 
       const css = customVirtualModule(
         { families: [{ name: 'Test', src: `public/fonts/Font-${keyword}.*` }] },
@@ -75,7 +75,7 @@ describe('custom fonts loader', () => {
     })
 
     it('groups multiple file formats into a single @font-face block', () => {
-      vi.mocked(fg.sync).mockReturnValue([
+      vi.mocked(globSync).mockReturnValue([
         '/root/public/fonts/Roboto-Bold.woff',
         '/root/public/fonts/Roboto-Bold.woff2',
       ])
@@ -94,7 +94,7 @@ describe('custom fonts loader', () => {
 
   describe('link tag generation', () => {
     it('generates preload link tags for font files', () => {
-      vi.mocked(fg.sync).mockReturnValue(['/root/public/fonts/Roboto-Bold.woff2'])
+      vi.mocked(globSync).mockReturnValue(['/root/public/fonts/Roboto-Bold.woff2'])
 
       const tags = customLoader(
         { families: [{ name: 'Roboto', src: 'public/fonts/Roboto-Bold.*' }] },
@@ -108,7 +108,7 @@ describe('custom fonts loader', () => {
     })
 
     it('generates prefetch link tags when prefetch is enabled', () => {
-      vi.mocked(fg.sync).mockReturnValue(['/root/public/fonts/Roboto-Bold.woff2'])
+      vi.mocked(globSync).mockReturnValue(['/root/public/fonts/Roboto-Bold.woff2'])
 
       const tags = customLoader(
         { families: [{ name: 'Roboto', src: 'public/fonts/Roboto-Bold.*' }], preload: false, prefetch: true },
@@ -119,7 +119,7 @@ describe('custom fonts loader', () => {
     })
 
     it('warns when both preload and prefetch are enabled together', () => {
-      vi.mocked(fg.sync).mockReturnValue(['/root/public/fonts/Roboto-Bold.woff2'])
+      vi.mocked(globSync).mockReturnValue(['/root/public/fonts/Roboto-Bold.woff2'])
       const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
 
       customLoader(

@@ -1,7 +1,7 @@
 import type { HtmlTagDescriptor } from 'vite'
 import type { CustomFontFace, CustomFontFamily, CustomFonts } from '../types'
-import fg from 'fast-glob'
 import { basename as _basename, extname, join, relative } from 'pathe'
+import { globSync } from 'tinyglobby'
 
 export type ResolvedCustomFonts = Required<Omit<CustomFonts, 'families' | 'linkFilter'>> & { families: CustomFontFamily[], linkFilter?: CustomFonts['linkFilter'] }
 
@@ -83,7 +83,7 @@ export function resolveFontFiles(family: CustomFontFamily, options: ResolvedCust
   const facesMap: Record<string, CustomFontFace> = {}
 
   for (const source of sources) {
-    const results = fg.sync(join(root, source), { absolute: true, cwd: root, onlyFiles: true })
+    const results = globSync(source, { absolute: true, cwd: root, onlyFiles: true })
 
     for (const file of results) {
       const ext = extname(file)
